@@ -1,14 +1,62 @@
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   readline.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ytarhoua <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/09 14:31:46 by ytarhoua          #+#    #+#             */
+/*   Updated: 2024/05/09 16:14:10 by ytarhoua         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int main(void)
+# include "neoshell.h"
+
+void	get_neoenvp(t_list **lst, t_data *data)
 {
-    char *line;
-	while(1)
+	int i;
+	t_list *tmp;
+
+	i = -1;
+	tmp = (*lst);
+	
+	while (data->envp[++i])
 	{
-    	line = readline("Prompt > ");
-    	printf("%s\n", line);
+		ft_lstadd_back(lst, ft_lstnew(data->envp[i]));
 	}
-    return (0);
+	data->env_size = i;
+}
+
+void	get_init(char **envp, t_data *data)
+{
+	t_list *lst;
+	
+	lst = NULL;
+	data->envp = envp;
+	data->line = NULL;
+	get_neoenvp(&lst, data);
+}
+void neoshell(t_data *data)
+{
+		while(1)
+		{
+			data->line = readline(BL"YANeoShell >>$ "RES);
+			neo_token(data);
+			free(data->line);
+		}
+}
+int main(int ac, char **av, char **envp)
+{
+	
+	t_data data;
+
+	(void)av;
+	if (ac == 1)
+	{
+		get_init(envp, &data);
+		neoshell(&data);
+	}
+	else
+		printf(RED"Warrning :Pls enter ./minishell :(\n"RES);
+	return (0);	
 }
