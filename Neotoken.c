@@ -6,7 +6,7 @@
 /*   By: ytarhoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:12:11 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/09 17:02:05 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/05/11 15:23:50 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,32 +43,91 @@ void	*ft_malloc(unsigned int size)
 
 //ls>out
 //ls 
-void	neo_token(t_data *data)
+
+int is_special(char *str)
 {
 	int i;
-	int j = 0;
 
 	i = 0;
-	data->arry = ft_malloc(sizeof(int) * ft_strlen(data->line, 0));
-	char *str = ft_malloc((sizeof(char) * ft_strlen(data->line, 1)) + 1);
+	printf("{%s}\n\n",str);
+	if (!ft_strncmp(str, ">>", 2))
+		i = 2;
+	else if (!ft_strncmp(str, "<<", 2))
+		i = 3;
+	else if (!ft_strchr(str, '>') || ft_strchr(str, '<'))
+		i = 1;
+	return (i);
+}
+
+int find_index(char c)
+{
+	if (c == '>')
+		return (1);
+	else if (c == '<')
+		return (2);
+	return (0);
+}
+
+void ft_strcpy(char *dst, char *src)
+{
+	int i;
+	int j;
+
+	j = 0;
+	i = 0;
+	while (src[i])
+	{
+		dst[j] = src[i];
+		i++;
+		j++; 
+	}
+}
+
+void edit_redi(t_data *data)
+{
+	int i = 0;
+	int j = 0;
+	data->linev2 = ft_malloc((sizeof(char) * ft_strlen(data->line, 1)) + 1);
 	while (data->line[i])
 	{
-		if (data->line[i] == '>' || data->line[i] == '<')
+		while (data->line[i] == ' ')
+			i++;
+		if (find_index(data->line[i]))
 		{
-			str[j] = ' ';
-			if (data->line[i] == '>')
-				str[++j] = '>';
-			else if (data->line[i] == '<')
-				str[++j] = '<';
-			str[++j] = ' ';
+			data->linev2[j] = ' ';
+			if (is_special(&data->line[i]) == 2)
+			{
+				data->linev2[++j] = '>';
+				data->linev2[++j] = '>';
+				i++;
+			}
+			else if (is_special(&data->line[i]) == 3)
+			{
+				data->linev2[++j] = '<';
+				data->linev2[++j] = '<';
+				i++;
+			}
+			else if (find_index(data->line[i]) == 1)
+				data->linev2[++j] = '>';
+			else if (find_index(data->line[i]) == 2)
+				data->linev2[++j] = '<';
+			data->linev2[++j] = ' ';
 			j++;
 			i++;
 		}
-		str[j] = data->line[i];
+		data->linev2[j] = data->line[i];
 		i++;
 		j++;
 	}
-	str[j] = '\0';
-	printf("%s\n", str);
+	data->linev2[j] = '\0';
+}
+void	edit_line(t_data *data)
+{
+	int i;
+
+	i = 0;
+	data->arry = ft_malloc(sizeof(int) * ft_strlen(data->line, 0));
+	edit_redi(data,"","");
 	
+	printf(".......%s\n", data->linev2);
 }

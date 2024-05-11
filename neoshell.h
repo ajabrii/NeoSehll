@@ -6,7 +6,7 @@
 /*   By: ytarhoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:30:56 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/09 16:59:31 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/05/11 15:17:08 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,21 @@ typedef struct s_global
 	char	**envp;
 	char 	*line;
 	int		*arry;
-	// char	*linev2;
+	char	*linev2;
 	
 } 			t_data;
+
 /* <tools.c> */
 t_list	*ft_lstnew(char *var);
 void	ft_lstadd_back(t_list **lst, t_list *newx);
 t_list	*ft_lstlast(t_list *lst);
+int		ft_strstr(const char *big, const char *little);
+int		ft_strchr(const char *s, int c);
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
 /* </tools.c> */
 
 /* <Neotoken.c> */
-void	neo_token(t_data *data);
+void	edit_line(t_data *data);
 /* </Neotoken.c> */
 
 #endif

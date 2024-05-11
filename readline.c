@@ -6,7 +6,7 @@
 /*   By: ytarhoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:31:46 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/09 16:14:10 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/05/11 13:32:06 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void neoshell(t_data *data)
 		while(1)
 		{
 			data->line = readline(BL"YANeoShell >>$ "RES);
-			neo_token(data);
+			edit_line(data);
 			free(data->line);
 		}
 }
