@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   neoshell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytarhoua <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:30:56 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/11 15:17:08 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:42:59 by ajabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <fcntl.h>
+#include <sys/wait.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-# include "utills/utils.h"
+# include "utils/utils.h"
 
 typedef enum e_token
 {
@@ -48,20 +49,20 @@ typedef struct s_global
 	char 	*line;
 	int		*arry;
 	char	*linev2;
-	
+
 } 			t_data;
 
 /* <tools.c> */
 t_list	*ft_lstnew(char *var);
 void	ft_lstadd_back(t_list **lst, t_list *newx);
 t_list	*ft_lstlast(t_list *lst);
-int		ft_strstr(const char *big, const char *little);
-int		ft_strchr(const char *s, int c);
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
+
+
 /* </tools.c> */
+int ft_strchr(const char *s, int c);
 
 /* <Neotoken.c> */
-void	edit_line(t_data *data);
+void	parseline(t_data *data);
 /* </Neotoken.c> */
 
 #endif

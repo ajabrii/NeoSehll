@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Neotoken.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytarhoua <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:12:11 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/11 15:23:50 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:47:59 by ajabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 // out ====> arry [CMD,SP,RE,SP, WR]
 // CMD WR >> access() > open >> os append PIP
-int ft_strlen(char *str, int flag)
+int ft_strlenv2(char *str, int flag)
 {
 	int i = -1;
 	int size;
-	
+
 	size = 0;
 	while (str[++i])
 	{
@@ -42,14 +42,13 @@ void	*ft_malloc(unsigned int size)
 }
 
 //ls>out
-//ls 
+//ls
 
 int is_special(char *str)
 {
 	int i;
 
 	i = 0;
-	printf("{%s}\n\n",str);
 	if (!ft_strncmp(str, ">>", 2))
 		i = 2;
 	else if (!ft_strncmp(str, "<<", 2))
@@ -79,7 +78,7 @@ void ft_strcpy(char *dst, char *src)
 	{
 		dst[j] = src[i];
 		i++;
-		j++; 
+		j++;
 	}
 }
 
@@ -87,11 +86,9 @@ void edit_redi(t_data *data)
 {
 	int i = 0;
 	int j = 0;
-	data->linev2 = ft_malloc((sizeof(char) * ft_strlen(data->line, 1)) + 1);
+	data->linev2 = ft_malloc((sizeof(char) * ft_strlenv2(data->line, 1)) + 1);
 	while (data->line[i])
 	{
-		while (data->line[i] == ' ')
-			i++;
 		if (find_index(data->line[i]))
 		{
 			data->linev2[j] = ' ';
@@ -121,13 +118,13 @@ void edit_redi(t_data *data)
 	}
 	data->linev2[j] = '\0';
 }
-void	edit_line(t_data *data)
+void	parseline(t_data *data)
 {
 	int i;
-
 	i = 0;
-	data->arry = ft_malloc(sizeof(int) * ft_strlen(data->line, 0));
-	edit_redi(data,"","");
-	
-	printf(".......%s\n", data->linev2);
+	data->arry = ft_malloc(sizeof(int) * ft_strlenv2(data->line, 0));
+	edit_redi(data);
+
+
+	// printf(G "%s\n" RES, data->linev2);
 }
