@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilss.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ytarhoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 11:10:24 by ajabri            #+#    #+#             */
-/*   Updated: 2024/04/22 20:51:22 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/05/12 20:34:06 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,12 @@ int	ft_isdigit(int c)
 		return (1);
 	else
 		return (0);
+}
+
+int	ft_isalpha(int c)
+{
+	if ((c < 65 || c > 90) && (c < 97 || c > 122))
+		return (0);
+	else
+		return (1);
 }

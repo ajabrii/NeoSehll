@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   neoshell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ytarhoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:30:56 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/12 18:42:59 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/05/12 21:58:47 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 
 typedef enum e_token
 {
+	WR,
 	SP,
 	RE, // >
 	ER,	// <
@@ -51,6 +52,13 @@ typedef struct s_global
 	char	*linev2;
 
 } 			t_data;
+
+typedef struct s_type
+{
+	t_token type;
+	char *value;
+	struct s_type *next;
+}	t_type;
 
 /* <tools.c> */
 t_list	*ft_lstnew(char *var);
