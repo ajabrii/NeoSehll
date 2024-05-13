@@ -6,7 +6,7 @@
 /*   By: ytarhoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:12:11 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/13 17:48:12 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/05/13 18:22:07 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void ft_get(t_data *data, t_type **tokenslist, int start, int i)
     token->next = NULL;
 
 	//this is add_back function :
-    ft_lstadd_back(tokenslist, token);
+    ft_lstadd_backv2(tokenslist, token);
 }
 
 
@@ -147,17 +147,18 @@ void ft_edit(t_data *data)
 		}
 		i++;
 	}
-		printf("i == {%i}\n", i);
+	if (i != 0 && ft_isalpha(data->line[i-1]))
 		ft_get(data, &tokenslist ,start, i - start);
+	printf("i == {%i}\n", i);
 
 	printf("\\\\\\\\\\\\\\\\\\\\\n");
 	// print linked list;
-	// head = tokenslist;
-    // while (head)
-    // {
-    //     printf("{%s}\n", head->value);
-    //     head = head->next;
-    // }
+	// printf("%i\n", ft_lstsize(tokenslist));
+    while (tokenslist)
+    {
+        printf("{%s}\n", tokenslist->value);
+        tokenslist = tokenslist->next;
+    }
 }
 void	parseline(t_data *data)
 {

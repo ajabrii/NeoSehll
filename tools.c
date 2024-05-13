@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ytarhoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 15:17:51 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/12 18:16:11 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/05/13 18:06:36 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,19 @@ void	ft_lstadd_back(t_list **lst, t_list *newx)
 	if (!lst || !newx)
 		return ;
 	node = ft_lstlast(*lst);
+	if (*lst)
+		node->next = newx;
+	else
+		*lst = newx;
+}
+
+void	ft_lstadd_backv2(t_type **lst, t_type *newx)
+{
+	t_type	*node;
+
+	if (!lst || !newx)
+		return ;
+	node = ft_lstlastv2(*lst);
 	if (*lst)
 		node->next = newx;
 	else
@@ -51,6 +64,20 @@ t_list	*ft_lstlast(t_list *lst)
 	return (tmp);
 }
 
+t_type	*ft_lstlastv2(t_type *lst)
+{
+	t_type	*tmp;
+
+	if (!lst)
+		return (0);
+	tmp = lst;
+	while (tmp->next != NULL)
+	{
+		tmp = tmp->next;
+	}
+	return (tmp);
+}
+
 int	ft_strchr(const char *s, int c)
 {
 	int	i;
@@ -67,4 +94,21 @@ int	ft_strchr(const char *s, int c)
 		i++;
 	}
 	return (0);
+}
+
+int	ft_lstsize(t_list *lst)
+{
+	int		len;
+	t_list	*tmp;
+
+	tmp = lst;
+	len = 0;
+	if (lst == NULL)
+		return (0);
+	while (tmp != NULL)
+	{
+		len++;
+		tmp = tmp->next;
+	}
+	return (len);
 }

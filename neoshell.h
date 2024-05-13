@@ -6,7 +6,7 @@
 /*   By: ytarhoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:30:56 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/13 16:56:04 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/05/13 18:06:28 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,17 @@ typedef struct s_type
 {
 	t_token type;
 	char *value;
-	struct s_list *next;
+	struct s_type *next;
 }	t_type;
 
 /* <tools.c> */
 t_list	*ft_lstnew(char *var);
 void	ft_lstadd_back(t_list **lst, t_list *newx);
+void	ft_lstadd_backv2(t_type **lst, t_type *newx);
 t_list	*ft_lstlast(t_list *lst);
+t_type	*ft_lstlastv2(t_type *lst);
+int	ft_lstsize(t_list *lst);
+
 
 
 /* </tools.c> */
