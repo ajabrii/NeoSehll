@@ -6,7 +6,7 @@
 /*   By: ytarhoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:12:11 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/12 22:20:07 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:48:12 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,14 +106,17 @@ void	*ft_malloc(unsigned int size)
 
 void ft_get(t_data *data, t_type **tokenslist, int start, int i)
 {
+	// this is lst_new function :
     t_type *token = malloc(sizeof(t_type));
     if (token == NULL)
         return;
 
     token->value = ft_substr(data->line, start, i);
+	printf("[\" %s \"]\n", token->value);
     token->type = WR;
     token->next = NULL;
 
+	//this is add_back function :
     ft_lstadd_back(tokenslist, token);
 }
 
@@ -124,26 +127,37 @@ void ft_edit(t_data *data)
 	int start = 0;
 	t_type *tokenslist;
 	tokenslist = NULL;
-	t_type *tmp;
+	t_type *head = NULL;
 
 	while (data->line[i])
 	{
 		if (!ft_isalpha(data->line[i]))
 		{
-			ft_get(data, &tokenslist ,start, i);
+			// create node to store type and value of token(just WD word);
+			ft_get(data, &tokenslist ,start, i - start);
 			// ft_search(data->line[i]);
 			while (data->line[i] == ' ' && data->line[i])
 				i++;
-			start = i;
+			if (!data->line[i])
+				break;
+			// printf("khrjat\n");
+			i--;
+			// to save where i will start next time;
+			start = i + 1;
 		}
 		i++;
 	}
-	while (tokenslist)
-	{
-		printf("{%s}\n", tokenslist->value);
-		tokenslist = tokenslist->next;
-		printf("here\n");
-	}
+		printf("i == {%i}\n", i);
+		ft_get(data, &tokenslist ,start, i - start);
+
+	printf("\\\\\\\\\\\\\\\\\\\\\n");
+	// print linked list;
+	// head = tokenslist;
+    // while (head)
+    // {
+    //     printf("{%s}\n", head->value);
+    //     head = head->next;
+    // }
 }
 void	parseline(t_data *data)
 {

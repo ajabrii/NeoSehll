@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   substr.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ytarhoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 10:15:47 by ajabri            #+#    #+#             */
-/*   Updated: 2024/03/05 20:49:40 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/05/13 16:49:23 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,3 +48,11 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 	ft_while(str, s, start, len);
 	return (str);
 }
+
+// int main()
+// {
+// 	char *str = "hello youness okay";
+
+// 	char *ss = ft_substr(str, 5, 13 - 5);
+// 	printf("%s\n", ss);
+// }

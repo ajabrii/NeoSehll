@@ -6,7 +6,7 @@
 /*   By: ytarhoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:30:56 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/12 21:58:47 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:56:04 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_type
 {
 	t_token type;
 	char *value;
-	struct s_type *next;
+	struct s_list *next;
 }	t_type;
 
 /* <tools.c> */
