@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Neotoken.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytarhoua <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:12:11 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/13 18:22:07 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/05/13 22:03:12 by ajabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,13 +123,13 @@ void ft_get(t_data *data, t_type **tokenslist, int start, int i)
 
 void ft_edit(t_data *data)
 {
-	int i = 0;
+	int i = -1; // i did pre- incrementation
 	int start = 0;
 	t_type *tokenslist;
 	tokenslist = NULL;
 	t_type *head = NULL;
 
-	while (data->line[i])
+	while (data->line[++i])
 	{
 		if (!ft_isalpha(data->line[i]))
 		{
@@ -141,17 +141,16 @@ void ft_edit(t_data *data)
 			if (!data->line[i])
 				break;
 			// printf("khrjat\n");
-			i--;
+			// --i; ===> i commeted this line 
 			// to save where i will start next time;
-			start = i + 1;
+			start = i;
 		}
-		i++;
 	}
 	if (i != 0 && ft_isalpha(data->line[i-1]))
 		ft_get(data, &tokenslist ,start, i - start);
-	printf("i == {%i}\n", i);
+	// printf("i == {%i}\n", i);
 
-	printf("\\\\\\\\\\\\\\\\\\\\\n");
+	// printf("\\\\\\\\\\\\\\\\\\\\\n");
 	// print linked list;
 	// printf("%i\n", ft_lstsize(tokenslist));
     while (tokenslist)
@@ -160,6 +159,12 @@ void ft_edit(t_data *data)
         tokenslist = tokenslist->next;
     }
 }
+
+// void	ft_get_prompt(t_data *data)
+// {
+// 	int i;
+// 	while
+// }
 void	parseline(t_data *data)
 {
 	int i;

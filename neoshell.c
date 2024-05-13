@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   neoshell.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytarhoua <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:31:46 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/12 21:02:10 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/05/13 21:52:30 by ajabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void neoshell(t_data *data)
 {
 		while(1)
 		{
-			data->line = readline(G "🌟::NeoShell~/[#]\n|~↠$ "RES);
+			data->line = readline(G "🌟::NeoShell~/💎["RES ORG"Prompt"RES G"]🗿>\n|~↠$ "RES);
 			parseline(data);
 			free(data->line);
 		}
