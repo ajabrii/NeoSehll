@@ -6,7 +6,7 @@
 /*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:31:46 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/14 19:10:25 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/05/14 19:51:48 by ajabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,16 @@ void	get_init(char **envp, t_data *data)
 	get_neoenvp(&lst, data);
 }
 
+
+void	ft_errormsg(char *err, char *str, int ex)
+{
+	write(2, err, ft_strlen(err));
+	write(2, str, ft_strlen(str));
+	write(2, "\n", 1);
+	if (ex >= 0)
+		exit(ex);
+}
+
 void ft_exec(t_data *data)
 {
 	char **paths;
@@ -51,6 +61,9 @@ void ft_exec(t_data *data)
 		exit(0);
 	paths = grep_paths(data->envp);
 	cmdpath = get_cmd_path(data, paths, cmd[0]);
+	if (!cmdpath)
+		ft_errormsg("Neoshell: command not found: ", cmd[0], -1);
+
 	pid = fork();
 	if (!pid)
 		execve(cmdpath, cmd, data->envp);
@@ -63,7 +76,9 @@ void neoshell(t_data *data)
 		while(1)
 		{
 			// data->line = readline(G "🌟::NeoShell~/💎["RES ORG"Prompt"RES G"]🗿$\n|~↠$ "RES);
-			data->line = readline(G "neoshell>>>>$ " RES);
+			data->line = readline(G "🌟::NeoShell~/💎[" ORG "Prompt" RES G "]🗿$\n|~↠$ " RES);
+
+			// data->line = readline(G "neoshell>>>>$ " RES);
 			// parseline(data);
 			ft_exec(data);
 			free(data->line);
