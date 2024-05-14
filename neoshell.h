@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   neoshell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytarhoua <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:30:56 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/14 11:47:59 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/05/14 18:45:57 by ajabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,10 @@ typedef struct s_global
 	int		*arry;
 	char	*linev2;
 
+	// draft
+	char *tmp;
+	char *palestine;
+
 } 			t_data;
 
 typedef struct s_type
@@ -77,5 +81,8 @@ int ft_strchr(const char *s, int c);
 void	parseline(t_data *data);
 int		ft_search(char *str);
 /* </Neotoken.c> */
+
+char 	**grep_paths(char **env);
+char *get_cmd_path(t_data *pp, char **paths, char *cmd);
 
 #endif
