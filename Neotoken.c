@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Neotoken.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ytarhoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:12:11 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/13 22:03:12 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/05/14 12:09:06 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,27 @@ void ft_get(t_data *data, t_type **tokenslist, int start, int i)
     ft_lstadd_backv2(tokenslist, token);
 }
 
+// ls>out
+int ft_search(char *str)
+{
+	int i = 0;
+
+	if (str && ft_strncmp(str, ">>", 2) == 0)
+		return (1);
+	if (str && ft_strncmp(str, "<<", 1) == 0)
+		return (1);
+	if (str && ft_strncmp(str, "||", 2) == 0)
+		return (1);
+	if (str && ft_strncmp(str, "&&", 2) == 0)
+		return (1);
+	if (str && ft_strncmp(str, ">", 1) == 0)
+		return (1);
+	if (str && ft_strncmp(str, "<", 1) == 0)
+		return (1);
+	if (str && ft_strncmp(str, "|", 1) == 0)
+		return (1);
+	return (0);
+}
 
 void ft_edit(t_data *data)
 {
@@ -134,14 +155,26 @@ void ft_edit(t_data *data)
 		if (!ft_isalpha(data->line[i]))
 		{
 			// create node to store type and value of token(just WD word);
+			// problem here in that case : ls >> ls enter this twice
 			ft_get(data, &tokenslist ,start, i - start);
-			// ft_search(data->line[i]);
+			// printf("here\n");
+			start = i;
+			while (ft_search(&data->line[i]) == 1)
+			{
+				i++;
+				printf("%i\n", i);
+				if ((ft_search(&data->line[i])) == 0 && data->line[i])
+				{
+					printf("here\n");
+					ft_get(data, &tokenslist ,start, i - start);
+				}
+			}
 			while (data->line[i] == ' ' && data->line[i])
 				i++;
 			if (!data->line[i])
 				break;
 			// printf("khrjat\n");
-			// --i; ===> i commeted this line 
+			// --i; ===> i commeted this line
 			// to save where i will start next time;
 			start = i;
 		}

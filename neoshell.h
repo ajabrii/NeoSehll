@@ -6,7 +6,7 @@
 /*   By: ytarhoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:30:56 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/13 18:06:28 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/05/14 11:47:59 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int ft_strchr(const char *s, int c);
 
 /* <Neotoken.c> */
 void	parseline(t_data *data);
+int		ft_search(char *str);
 /* </Neotoken.c> */
 
 #endif
