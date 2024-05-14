@@ -6,7 +6,7 @@
 /*   By: ytarhoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:12:11 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/14 12:09:06 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/05/14 13:11:56 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ void ft_edit(t_data *data)
 		if (!ft_isalpha(data->line[i]))
 		{
 			// create node to store type and value of token(just WD word);
-			// problem here in that case : ls >> ls enter this twice
+			// problem here in that case : ls >> ls enter '>' this twice !!!
 			ft_get(data, &tokenslist ,start, i - start);
 			// printf("here\n");
 			start = i;
