@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Neotoken.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytarhoua <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:12:11 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/14 13:11:56 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/05/15 15:24:02 by ajabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void ft_get(t_data *data, t_type **tokenslist, int start, int i)
 // ls>out
 int ft_search(char *str)
 {
-	int i = 0;
+	// int i = 0;
 
 	if (str && ft_strncmp(str, ">>", 2) == 0)
 		return (1);
@@ -148,7 +148,7 @@ void ft_edit(t_data *data)
 	int start = 0;
 	t_type *tokenslist;
 	tokenslist = NULL;
-	t_type *head = NULL;
+	// t_type *head = NULL;
 
 	while (data->line[++i])
 	{

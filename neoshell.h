@@ -6,7 +6,7 @@
 /*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:30:56 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/14 18:45:57 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/05/14 21:29:33 by ajabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,6 @@ int		ft_search(char *str);
 
 char 	**grep_paths(char **env);
 char *get_cmd_path(t_data *pp, char **paths, char *cmd);
+void ft_exit(int exx);
 
 #endif

@@ -6,18 +6,18 @@
 /*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 17:36:21 by ajabri            #+#    #+#             */
-/*   Updated: 2024/05/14 18:44:38 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/05/15 15:24:28 by ajabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "neoshell.h"
 
-static void	ft_msg(char *av, char *err)
-{
-	write(2, err, ft_strlen(err));
-	write(2, av, ft_strlen(av));
-	write(2, "\n", 1);
-}
+// static void	ft_msg(char *av, char *err)
+// {
+// 	write(2, err, ft_strlen(err));
+// 	write(2, av, ft_strlen(av));
+// 	write(2, "\n", 1);
+// }
 
 char	**grep_paths(char **env)
 {
