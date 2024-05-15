@@ -6,7 +6,7 @@
 /*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:31:46 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/15 15:11:59 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/05/15 15:39:12 by ajabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,12 @@ int main(int ac, char **av, char **envp)
 		neoshell(&data);
 	}
 	else
-		printf(RED"Warrning :Pls enter ./minishell :(\n"RES);
+	{
+		printf(ORG "Warrning :Please run it like this\n" RES);
+		printf(CY"++++++++++++++++++++++$\n\v"RES);
+		printf(G "bash-3.2$ ./minishell\n\v" RES);
+		printf(CY"++++++++++++++++++++++$\n"RES);
+	}
+
 	return (0);
 }
