@@ -10,17 +10,17 @@ SRC += utils/split.c utils/ft_strcnmp.c utils/substr.c utils/utilss.c utils/tool
 OBJ = $(SRC:.c=.o)
 B_OBJ = $(B_SRC:.c=.o)
 
-all: $(NAME)
+all: $(NAME) clean
 
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -lreadline
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -lreadline
 clean:
-	@rm -rf $(OBJ)
+	rm -rf $(OBJ)
 
 fclean: clean
-	@rm -rf $(NAME)
+	rm -rf $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: clean
 .SECONDARY: $(OBJ)
