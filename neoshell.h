@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   neoshell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ytarhoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:30:56 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/20 14:41:00 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/05/20 15:41:35 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	ft_lstadd_backv2(t_type **lst, t_type *newx);
 t_list	*ft_lstlast(t_list *lst);
 t_type	*ft_lstlastv2(t_type *lst);
 int	ft_lstsize(t_list *lst);
+size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 
 
 
