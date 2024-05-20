@@ -6,7 +6,7 @@
 /*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 15:16:25 by ajabri            #+#    #+#             */
-/*   Updated: 2024/05/20 16:47:30 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/05/20 18:08:09 by ajabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	*ft_malloc(unsigned int size)
 bool check_spcial(char c)
 {
     if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+        return (false);
+    if (c == 45)
         return (false);
     return (true);
 }
@@ -60,7 +62,8 @@ void ft_lexical(t_data *data)
     int i;
 
     i = 0;
-    // int start = 0;
+    int start = 0;
+    int ntoken = 0;
     char **sub;
 
     sub = ft_malloc(sizeof(char *) * ft_strlen(data->line));
@@ -70,22 +73,28 @@ void ft_lexical(t_data *data)
         {
             if (check_red_or_and(data->line, i))
             {
-                sub[i] = ft_substr(data->line, i, 2);
+                sub[ntoken] = ft_substr(data->line, i, 2);
                 printf("[%s]", sub[i]);
                 i += 2;
             }
             else
             {
-                sub[i] = ft_substr(data->line, i, 1);
-                printf("[%s]", sub[i]);
+                sub[ntoken] = ft_substr(data->line, i, 1);
+                printf("[%s]", sub[ntoken]);
                 i++;
             }
+            ntoken++;
         }
         else
-            i++;
+        {
+            start = i;
+            while (!check_spcial(data->line[ntoken]))
+                i++;
+            // i--;
+            sub[ntoken] = ft_substr(data->line, start, i);
+            printf("[%s]", sub[start]);
+            ntoken++;
+        }
     }
-    // int len = ft_count(sub);
-    // for (i = 0; i < 3; i++)
-    //     printf("[%s]\n",sub[i]);
 }
 
