@@ -1,9 +1,9 @@
 CC = cc
 NAME = minishell
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
 #------------------
-SRC = neoshell.c ft_exit.c Neotoken.c pipex_tools.c tools.c
+SRC = neoshell.c ft_exit.c Neotoken.c pipex_tools.c tools.c lixical.c
 SRC += utils/split.c utils/ft_strcnmp.c utils/substr.c utils/utilss.c utils/tools.c
 #------------------
 

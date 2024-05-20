@@ -6,7 +6,7 @@
 /*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:31:46 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/20 14:47:37 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/05/20 15:47:14 by ajabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,9 @@ void neoshell(t_data *data)
 			data->line = readline(G "🌟::NeoShell~/💎[" ORG "Prompt" RES G "]🗿$\n|~↠$ " RES);
 			if (data->line)
 				add_history(data->line);
-			ft_coutquotes(data);
-			parseline(data);
+			ft_lexical(data);
+			// ft_coutquotes(data);
+			// parseline(data);
 			// ft_exec(data);
 			free(data->line);
 		}

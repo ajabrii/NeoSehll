@@ -6,7 +6,7 @@
 /*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:12:11 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/20 14:47:53 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/05/20 15:32:43 by ajabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,7 @@
 // 	return (i + size);
 // }
 
-void	*ft_malloc(unsigned int size)
-{
-	void *res;
 
-	res = malloc(size);
-	if (!res)
-		return (NULL);
-	return (res);
-}
 
 // //ls>out
 // //ls
