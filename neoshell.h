@@ -6,7 +6,7 @@
 /*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:30:56 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/14 21:29:33 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/05/20 14:41:00 by ajabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ typedef struct s_global
 	char 	*line;
 	int		*arry;
 	char	*linev2;
-
+	int		sq; // single qoutes
+	int		dq; // double qoutes
 	// draft
 	char *tmp;
 	char *palestine;
@@ -80,10 +81,13 @@ int ft_strchr(const char *s, int c);
 /* <Neotoken.c> */
 void	parseline(t_data *data);
 int		ft_search(char *str);
+void ft_coutquotes(t_data *data);
 /* </Neotoken.c> */
 
 char 	**grep_paths(char **env);
 char *get_cmd_path(t_data *pp, char **paths, char *cmd);
 void ft_exit(int exx);
+
+void ft_errormsg(char *err, char *str, int ex);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:31:46 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/15 15:39:12 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/05/20 14:47:37 by ajabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,37 @@ void ft_exec(t_data *data)
 	}
 }
 
+void ft_coutquotes(t_data *data)
+{
+	int i;
+
+	i = 0;
+	data->dq = 0;
+	data->sq = 0;
+	while (data->line[i])
+	{
+		if (data->line[i] == 34)
+			data->dq += 1;
+		else if(data->line[i] == 39)
+			data->sq += 1;
+		i++;
+	}
+	if (data->sq % 2 != 0)
+		ft_errormsg("neoshell :single qoute fiha mochkill", NULL, -1);
+	if (data->dq % 2 != 0)
+		ft_errormsg("neoshell :double qoute fiha mochkill", NULL, -1);
+}
+
 void neoshell(t_data *data)
 {
 		while(1)
 		{
 			data->line = readline(G "🌟::NeoShell~/💎[" ORG "Prompt" RES G "]🗿$\n|~↠$ " RES);
-			// parseline(data);
-			ft_exec(data);
+			if (data->line)
+				add_history(data->line);
+			ft_coutquotes(data);
+			parseline(data);
+			// ft_exec(data);
 			free(data->line);
 		}
 }
