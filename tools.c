@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytarhoua <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 15:17:51 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/13 18:06:36 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/05/21 20:11:19 by ajabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,20 @@ t_list	*ft_lstnew(char *var)
 	if (!lst)
 		return (NULL);
 	lst->env_var = ft_strdup(var);
+	lst->next = NULL;
+	return (lst);
+}
+
+t_type	*ft_lstnewv2(char *var, t_token token, bool flag)
+{
+	t_type	*lst;
+
+	lst = (t_type *)malloc(sizeof(t_type));
+	if (!lst)
+		return (NULL);
+	lst->value = ft_strdup(var);
+	lst->type = token;
+	lst->flag = flag;
 	lst->next = NULL;
 	return (lst);
 }

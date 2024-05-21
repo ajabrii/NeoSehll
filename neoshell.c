@@ -6,7 +6,7 @@
 /*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:31:46 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/21 13:32:28 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/05/21 18:55:34 by ajabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,10 @@ void neoshell(t_data *data)
 		if (data->line)
 			add_history(data->line);
 		ft_lexical(data);
+		give_token(data);
 		// ft_coutquotes(data);
 		// parseline(data);
-		ft_exec(data);
+		// ft_exec(data);
 		free(data->line);
 	}
 }
