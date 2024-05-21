@@ -6,7 +6,7 @@
 /*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:31:46 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/20 21:41:32 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/05/21 13:32:28 by ajabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,14 +100,13 @@ void neoshell(t_data *data)
 {
 	while(1)
 	{
-		// data->line = readline(G "🌟::NeoShell~/💎[" ORG "Prompt" RES G "]🗿$\n|~↠$ " RES);
-		// if (data->line)
-		// 	add_history(data->line);
-		data->line = readline("bash-3.2$ ");
+		data->line = readline(G "🌟::NeoShell~/💎[" ORG "Prompt" RES G "]🗿$\n|~↠$ " RES);
+		if (data->line)
+			add_history(data->line);
 		ft_lexical(data);
 		// ft_coutquotes(data);
 		// parseline(data);
-		// ft_exec(data);
+		ft_exec(data);
 		free(data->line);
 	}
 }
@@ -124,7 +123,7 @@ int main(int ac, char **av, char **envp)
 	}
 	else
 	{
-		printf(ORG "Warrning :Please run it like this\n" RES);
+		printf(ORG "Warrning :Please run it like this:\n" RES);
 		printf(CY"++++++++++++++++++++++$\n\v"RES);
 		printf(G "bash-3.2$ ./minishell\n\v" RES);
 		printf(CY"++++++++++++++++++++++$\n"RES);
