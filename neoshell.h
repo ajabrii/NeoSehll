@@ -6,7 +6,7 @@
 /*   By: ytarhoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:30:56 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/20 15:41:35 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/05/21 10:39:29 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 # define NEOSHELL_H
 #include <stdio.h>
 #include <unistd.h>
+#include <signal.h>
 #include <stdlib.h>
 #include <fcntl.h>
+# include <stdbool.h>
 #include <sys/wait.h>
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -72,7 +74,6 @@ void	ft_lstadd_backv2(t_type **lst, t_type *newx);
 t_list	*ft_lstlast(t_list *lst);
 t_type	*ft_lstlastv2(t_type *lst);
 int	ft_lstsize(t_list *lst);
-size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 
 
 
@@ -91,4 +92,5 @@ void ft_exit(int exx);
 
 void ft_errormsg(char *err, char *str, int ex);
 
+void ft_lexical(t_data *data);
 #endif

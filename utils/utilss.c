@@ -6,7 +6,7 @@
 /*   By: ytarhoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 11:10:24 by ajabri            #+#    #+#             */
-/*   Updated: 2024/05/20 15:36:39 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/05/21 11:23:12 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,23 +97,3 @@ int	ft_isalpha(int c)
 // 	}
 // 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 // }
-
-size_t	ft_strlcpy(char *dest, const char *src, size_t size)
-{
-	size_t	i;
-	size_t	len;
-
-	i = 0;
-	len = 0;
-	while (src[len])
-		len++;
-	while (src && i < size - 1)
-	{
-		dest = src;
-		dest++;
-		src++;
-		i++;
-	}
-	dest[i] = '\0';
-	return (len);
-}
