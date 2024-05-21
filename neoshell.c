@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   neoshell.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ytarhoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:31:46 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/20 14:47:37 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/05/21 16:56:54 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ void ft_coutquotes(t_data *data)
 	if (data->dq % 2 != 0)
 		ft_errormsg("neoshell :double qoute fiha mochkill", NULL, -1);
 }
+
+
 
 void neoshell(t_data *data)
 {

@@ -6,7 +6,7 @@
 /*   By: ytarhoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:30:56 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/21 10:39:29 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:48:39 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ typedef enum e_token
 	DQ, // ""
 	AND,
 	CMD, //command
-	OR
+	OR,
+	OT
 }          t_token;
 
 typedef struct s_list
@@ -63,6 +64,7 @@ typedef struct s_global
 typedef struct s_type
 {
 	t_token type;
+	bool flag;
 	char *value;
 	struct s_type *next;
 }	t_type;
