@@ -6,7 +6,7 @@
 /*   By: ytarhoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 15:17:51 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/13 18:06:36 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/05/24 20:41:57 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,4 +111,13 @@ int	ft_lstsize(t_list *lst)
 		tmp = tmp->next;
 	}
 	return (len);
+}
+void	*ft_malloc(unsigned int size)
+{
+	void *res;
+
+	res = malloc(size);
+	if (!res)
+		return (NULL);
+	return (res);
 }

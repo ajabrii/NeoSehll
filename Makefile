@@ -3,7 +3,7 @@ NAME = minishell
 
 CFLAGS = -Wall -Wextra -Werror
 #------------------
-SRC = neoshell.c ft_exit.c Neotoken.c pipex_tools.c tools.c
+SRC = neoshell.c ft_exit.c pipex_tools.c tools.c tokenization/tokenization.c tokenization/tokenization_tools.c
 SRC += utils/split.c utils/ft_strcnmp.c utils/substr.c utils/utilss.c utils/tools.c
 #------------------
 

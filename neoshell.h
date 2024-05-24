@@ -6,7 +6,7 @@
 /*   By: ytarhoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:30:56 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/21 16:48:39 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/05/24 20:58:24 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct s_global
 typedef struct s_type
 {
 	t_token type;
-	bool flag;
+	// bool flag;
 	char *value;
 	struct s_type *next;
 }	t_type;
@@ -77,10 +77,9 @@ t_list	*ft_lstlast(t_list *lst);
 t_type	*ft_lstlastv2(t_type *lst);
 int	ft_lstsize(t_list *lst);
 
-
-
 /* </tools.c> */
 int ft_strchr(const char *s, int c);
+void	*ft_malloc(unsigned int size);
 
 /* <Neotoken.c> */
 void	parseline(t_data *data);

@@ -1,69 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Neotoken.c                                         :+:      :+:    :+:   */
+/*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ytarhoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:12:11 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/05/21 17:01:46 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/05/24 20:53:00 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "neoshell.h"
+#include "tokens.h"
 
-bool is_whitespace(char line)
+void	parseline(t_data *data)
 {
-    if (line == ' ' || line == '\t' || line == '\v')
-        return (true);
-    return (false);
+	ft_lexical(data);
+
 }
 
-void	*ft_malloc(unsigned int size)
-{
-	void *res;
-
-	res = malloc(size);
-	if (!res)
-		return (NULL);
-	return (res);
-}
-bool ft_clean(char *line, int start, int end)
-{
-    while (start <= end)
-    {
-       if (is_whitespace(line[start]))
-            return (false);
-        start++;
-    }
-    return (true);
-}
 
 int ft_get(t_data *data, t_type **tokenslist, int i, int len ,t_token type)
 {
 	// this is lst_new function :
-    static int qt;
-    int start = 0;
     t_type *token = malloc(sizeof(t_type));
     if (token == NULL)
         return (0);
-	if (type == APP || type == PPA || type == DQ
+	if (type == APP || type == PPA
 	 || type == OR || type == AND)
     	token->value = ft_substr(data->line, i, 2);
 	else if (type == RE || type == ER || type == PIP
-        || type == OT)
+        || type == OT || type == SQ || type == DQ)
 		token->value =	ft_substr(data->line, i, 1);
     else
         token->value =	ft_substr(data->line, i, len);
-    if (type == DQ)
-    {
-        qt++;
-        if (qt % 2)
-            token->flag = ft_clean(data->line, start, i);
-        start = i;
-    }
-    else 
-        token->flag = true;
+
 	// printf("[\" %s \"]\n", token->value);
     token->type = type;
     token->next = NULL;
@@ -73,37 +43,7 @@ int ft_get(t_data *data, t_type **tokenslist, int i, int len ,t_token type)
 	return (1);
 }
 
-void	parseline(t_data *data)
-{
-	int i;
-	i = 0;
-	data->arry = ft_malloc(sizeof(int) * ft_strlen(data->line));
-	// ft_coutquotes(data);
-	ft_lexical(data);
 
-	// edit_redi(data);
-}
-
-bool check_spcial(char c)
-{
-    if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
-        return (false);
-    if (c >= '0' &&  c <= '9')
-        return (false);
-    if (c == 45)
-        return (false);
-    return (true);
-}
-
-int ft_count(char **str)
-{
-    int i = 0;
-    if(!str)
-        return (0);
-    while (str[i])
-        i++;
-    return (i);
-}
 
 int check_red(t_data *data, t_type *tokenslist, int i)
 {
@@ -129,48 +69,6 @@ int check_red(t_data *data, t_type *tokenslist, int i)
         return (ft_get(data, &tokenslist, i, 0, OT));
     return (0);
 }
-
-int check_first(char *line, int i)
-{
-    if (line[i] == '>' && line[i + 1] == '>')
-        return (2);
-    else if (line[i] == '<' && line[i + 1] == '<')
-        return (2);
-    else if (line[i] == '&' && line[i + 1] == '&')
-        return (2);
-    else if (line[i] == '|' && line[i + 1] == '|')
-    	return (2);
-    else if (line[i] == '>')
-        return (1);
-    else if (line[i] == '<')
-        return (1);
-    else if (line[i] == '|')
-        return (1);
-    else if (line[i] == '\"')
-        return (1);
-    else if (line[i] == '\'')
-        return (1);
-    else
-        return (0);
-}
-
-// if_space() -> append_space()
-// ifis -> > < >> << | || && ) ( append_spcials()
-// ifis ->word or any thing $" '
-
-int count_whitespaces(char *line, int i)
-{
-    int count;
-
-    count = 0;
-    while (line[i] && (line[i] == ' ' || line[i] == '\t' || line[i] == '\v'))
-    {
-        i++;
-        count += 1;
-    }
-    return (count);
-}
-
 
 void ft_lexical(t_data *data)
 {
@@ -214,7 +112,6 @@ void ft_lexical(t_data *data)
 	while (tokenslist)
     {
         printf("{%s}\n", tokenslist->value);
-        printf("{%d}\n", tokenslist->flag);
         tokenslist = tokenslist->next;
     }
     // sub[ntoken] = NULL;
