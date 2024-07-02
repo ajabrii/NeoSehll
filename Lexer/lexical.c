@@ -6,7 +6,7 @@
 /*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 15:16:25 by ajabri            #+#    #+#             */
-/*   Updated: 2024/07/02 13:27:52 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/07/02 14:15:43 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,27 @@ void ft_coutquotes()
 {
 	int i;
 
-	i = 0;
-	int dq = 0;
+    bool ignoredq = false;
+    bool ignoresq = false;
+    i = 0;
+    int dq = 0;
 	int sq = 0;
-	while (neobash.line[i])
-	{
-		if (neobash.line[i] == 34)
-			dq += 1;
-		else if(neobash.line[i] == 39)
-			sq += 1;
+    while (neobash.line[i])
+    {
+		if (neobash.line[i] == 34 && ignoresq == false)
+        {
+            ignoredq = true;
+            dq += 1;
+        }
+		else if(neobash.line[i] == 39 && ignoredq == false)
+        {
+            ignoresq = true;
+            sq += 1;
+        }
 		i++;
 	}
 	if (sq % 2 != 0)
-        ft_err("neobash: syntax error near unexpected token `''", 1); //fix here "'"
+        ft_err("neobash: syntax error near unexpected token `''", 1); //fix here "'" '"'
     if (dq % 2 != 0)
         ft_err("neobash: syntax error near unexpected token `\"'", 1);
 
