@@ -6,7 +6,7 @@
 /*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:35:31 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/07/02 12:35:38 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/07/03 18:41:01 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void ft_unset(char *s)
     t_env *tmp = envl;
     t_env *prev = NULL;
 
-    // if there is spaces skip them here;
+    // skip spaces here;
     if (!ft_strncmp(s, "unset", 5))
     {
         s += 5;
@@ -62,6 +62,7 @@ void ft_unset(char *s)
                 tmp = tmp->next;
             }
         }
+        printf("neoshell: bt_unset: '%s': not a valid identifier", s);
     }
 }
 

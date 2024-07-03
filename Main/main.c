@@ -6,7 +6,7 @@
 /*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:41:10 by kali              #+#    #+#             */
-/*   Updated: 2024/07/02 13:07:28 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/07/03 18:15:34 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,8 +181,15 @@ void neoshell()
         ft_lexer();
         if (!neobash.tokens)
             continue;
+        if (!ft_strncmp(neobash.line, "cd", 2))
+        {
+            printf("here\n");
+            bt_cd("cd ~");
+        }
+        if (!ft_strncmp(neobash.line, "env", 2))
+            ft_env(neobash.envl);
         neobash.tree = ft_parser();
-        // print_ast(neobash.tree);
+        print_ast(neobash.tree);
         // printast(neobash.tree);
         if (neobash.prs_state)
         {

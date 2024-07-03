@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   headers.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:41:39 by kali              #+#    #+#             */
-/*   Updated: 2024/07/02 05:52:25 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/07/03 18:07:05 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,16 +201,18 @@ bool    create_iol(t_io **io, t_io_t io_t);
 t_io    *create_io_node(char *val, t_io_t type);
 t_io_t  get_type(t_token_t tk);
 void    ft_addback_io_node(t_io **iop, t_io *new);
+int     ft_strncmp(const char *s1, const char *s2, size_t n);
 /* </Parsing/putils.c> */
 
 /* <Builtins> */
 void    ft_env(t_env *env);
 void ft_exit(int ex);
+void bt_cd(char *s);
+int skip(char *s);
 /* </Builtins> */
 
 /* <Executer/ft_executer.c> */
 void ft_executer();
 /* </Executer/ft_executer.c> */
-
 
 #endif

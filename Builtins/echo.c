@@ -6,29 +6,30 @@
 /*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:36:11 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/07/02 19:37:15 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/07/03 18:50:14 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../Header/headers.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	size_t	i;
+// int	ft_strncmp(const char *s1, const char *s2, size_t n)
+// {
+// 	size_t	i;
 
-	i = 0;
-	if (n == 0)
-		return (0);
-	while (s1[i] && s2[i] && s1[i] == s2[i] && i < n - 1)
-	{
-		i++;
-	}
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-}
+// 	i = 0;
+// 	if (n == 0)
+// 		return (0);
+// 	while (s1[i] && s2[i] && s1[i] == s2[i] && i < n - 1)
+// 	{
+// 		i++;
+// 	}
+// 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+// }
+
 int param(char *s)
 {
     int i = 4;
-    while (s[i] && (s[i] == ' '))
+    while (s[i] && s[i] == ' ')
         i++;
     if (s[i] == '-')
         i++;
@@ -44,7 +45,6 @@ int param(char *s)
 
 void ft_echo(char *s)
 {
-    g_shell *data;
     bool nl = false;
     bool sq = false;
     bool dq = false;
@@ -54,33 +54,24 @@ void ft_echo(char *s)
     i = param(s);
     if (i == 0)
         return;
-
     while (s[i])
     {
         if (s[i] == '\"' && !sq)
-        {
             dq = !dq;
-            count++;
-        }
         else if (s[i] == '\'' && !dq)
-        {
             sq = !sq;
-            count++;
-        }
         else
-        {
             printf("%c", s[i]);
-        }
         i++;
     }
     if (!nl)
         printf("\n");
 }
 
-int main()
-{
-    ft_echo("echo     -n \'\"hello\"\'");
-}
+// int main()
+// {
+//     ft_echo("echo  \'b\'\"o\"nj\"o\"\'u\'r");
+// }
 // int skip_spaces(char *str)
 // {
 //     int i = 0;

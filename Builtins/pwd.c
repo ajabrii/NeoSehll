@@ -6,7 +6,7 @@
 /*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 20:31:18 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/07/02 11:59:24 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/07/03 18:44:21 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,14 @@ t_env *search_env(char *s)
 
 void ft_pwd(char *s)
 {
-    g_shell *data;
-    t_env *value = search_env(s);
-    if (value)
-        printf("%s\n", value);
+    t_env *v = search_env(s);
+    if (v == NULL)
+    {
+        printf("bash: pwd: '%s': invalid option", s);
+        return;
+    }
+    if (v->value)
+        printf("%s\n", v->value);
+
 }
 

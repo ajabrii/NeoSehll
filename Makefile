@@ -71,7 +71,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 # Source files
 SRC = Main/main.c
-SRC += Builtins/env.c Builtins/exit.c
+SRC += Builtins/env.c Builtins/exit.c Builtins/cd.c
 SRC += Lexer/lexical.c Lexer/lextools.c Lexer/token.c Lexer/lex_utils.c
 SRC += Leaks/free_all.c Leaks/garbedge.c
 SRC += Parser/ft_parser.c Parser/putils.c Parser/tools.c
