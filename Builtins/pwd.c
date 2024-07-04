@@ -37,7 +37,7 @@ void ft_pwd(char *s)
         return;
     }
     if (v->value)
-        printf("%s\n", v->value);
-
+        ft_putstr_fd(v->value, 1);
+	ft_putstr_fd("\n", 1);
 }
 

@@ -62,7 +62,9 @@ void ft_unset(char *s)
                 tmp = tmp->next;
             }
         }
-        printf("neoshell: bt_unset: '%s': not a valid identifier", s);
+        	ft_putstr_fd("minishell: unset: `", 2);
+			ft_putstr_fd(s, 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
     }
 }
 

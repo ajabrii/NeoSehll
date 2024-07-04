@@ -96,6 +96,8 @@ void bt_cd(char *s)
     if (i == 0)
     {
         chdir("/home");
+        update_env("OLDPWD", get_env_val("PWD"));
+        update_env("PWD", "/home");
         return;
     }
     s += i;
@@ -104,6 +106,8 @@ void bt_cd(char *s)
         s++;
         str = ft_strjoin("/home", s);
         chdir(str);
+        update_env("OLDPWD", get_env_val("PWD"));
+        update_env("PWD", str);
         free(str);
         return;
     }
@@ -112,6 +116,8 @@ void bt_cd(char *s)
         perror("cd");
         return;
     }
+    update_env("OLDPWD", get_env_val("PWD"));
+    update_env("PWD", s);
     // printf("%s\n", s);
 }
 
