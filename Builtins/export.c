@@ -136,7 +136,7 @@ int	ft_export(char *s)
 			{
                 ss = sub_value(&s[i]);
 				// printf("ss is =%s\n", ss);
-				ft_env_lstadd_back(&neobash.envl, ft_env_lstnew(ss));
+				exp_back(exp_new(key, ss));
 			}
 		}
 		i += neobash.count;

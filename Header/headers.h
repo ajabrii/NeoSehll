@@ -206,8 +206,8 @@ int     ft_strncmp(const char *s1, const char *s2, size_t n);
 /* </Parsing/putils.c> */
 
 /* <Builtins> */
-void ft_env_lstadd_back(t_env **lst, t_env *newx);
-t_env *ft_env_lstnew(char *var);
+void	exp_back(t_env *new);
+t_env	*exp_new(char *key, char *value);
 char *get_env_val(char *key);
 void	update_env(char *key, char *value);
 void    ft_env(t_env *env);

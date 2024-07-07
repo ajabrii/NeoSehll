@@ -53,21 +53,18 @@ t_env	*ft_env_lstnew(char *var)
 	return (lst);
 }
 
-t_env	*ft_env_lstnew(char *key, char *var)
+t_env	*ft_envlst_new(char *key, char *value)
 {
-	t_env	*lst;
-	int		len;
+	t_env	*new;
 
-	lst = (t_env*)malloc(sizeof(t_env));
-	if (!lst)
+	new = (t_env*)malloc(sizeof(t_env));
+	if (!new)
 		return (NULL);
-	lst->key = ft_malloc(ft_strlenc(key, '='));
-	ft_strcpy(lst->key, key, '=');
-	len = ft_strlen(lst->key);
-	lst->value = ft_malloc(ft_strlenc((var + len), '\0'));
-	ft_strcpy(lst->value, var + len + 1, '\0');
-	lst->next = NULL;
-	return (lst);
+	new->key = ft_strdup(key);
+	if (value)
+		new->value = ft_strdup(value);
+	new->next = NULL;
+	return (new);
 }
 
 t_env	*ft_env_lstlast(t_env *lst)
@@ -111,7 +108,7 @@ void    get_env_list(char **env)
         i++;
     }
     // shell.size = i;
-    // ft_env();
+    ft_env(neobash.envl);
 }
 
 void    ft_env(t_env *env)
@@ -125,4 +122,33 @@ void    ft_env(t_env *env)
         env = env->next;
     }
     env = tmp;
+}
+
+t_env	*exp_new(char *key, char *value)
+{
+	t_env	*new;
+
+	new = (t_env*)malloc(sizeof(t_env));
+	if (!new)
+		return (NULL);
+	new->key = ft_strdup(key);
+	if (value)
+		new->value = ft_strdup(value);
+	new->next = NULL;
+	return (new);
+}
+
+void	exp_back(t_env *new)
+{
+	t_env	*curr;
+
+	if (!neobash.envl)
+	{
+		neobash.envl = new;
+		return ;
+	}
+	curr = neobash.envl;
+	while (curr && curr->next)
+		curr = curr->next;
+	curr->next = new;
 }
