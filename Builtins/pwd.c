@@ -14,8 +14,7 @@
 
 t_env *search_env(char *s)
 {
-    g_shell *data;
-    t_env *env = data->envl;
+    t_env *env = neobash.envl;
     t_env *tmp = env;
 
     while (tmp)
@@ -28,16 +27,39 @@ t_env *search_env(char *s)
     return (NULL);
 }
 
-void ft_pwd(char *s)
+//to check option like pwd -h -> error
+
+int option(char *str)
 {
-    t_env *v = search_env(s);
-    if (v == NULL)
+    int i;
+
+    i = 0;
+    while (str[i])
     {
-        printf("bash: pwd: '%s': invalid option", s);
-        return;
+        if (str[i] == '-'){
+            i++;
+            printf("bash: pwd: '%s': invalid option", str[i]);
+            return (1);
+        }
+        i++;
     }
-    if (v->value)
-        ft_putstr_fd(v->value, 1);
-	ft_putstr_fd("\n", 1);
+    if (i > 3)
+        return (1);
+    return (0);
 }
 
+void ft_pwd(char *s)
+{
+    option(s);
+    t_env *v = search_env(s);
+    if (v->value)
+        ft_putstr_fd(v->value, 1);
+    if (v == NULL)
+    {
+	    v->value = getcwd(v->value, 0);
+	    if (!v->value)
+		    return;
+	    ft_putstr_fd(v->value, 1);
+    }
+	ft_putstr_fd("\n", 1);
+}

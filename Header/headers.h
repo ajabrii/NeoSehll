@@ -211,6 +211,7 @@ void    ft_env(t_env *env);
 void ft_exit(int ex);
 void bt_cd(char *s);
 int skip(char *s);
+int	ft_export(char *s);
 /* </Builtins> */
 
 /* <Executer/ft_executer.c> */

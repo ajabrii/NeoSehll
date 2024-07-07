@@ -181,13 +181,13 @@ void neoshell()
         ft_lexer();
         if (!neobash.tokens)
             continue;
-        if (!ft_strncmp(neobash.line, "cd", 2))
-        {
-            printf("here\n");
-            bt_cd("cd ~");
-        }
-        if (!ft_strncmp(neobash.line, "env", 2))
-            ft_env(neobash.envl);
+        // if (!ft_strncmp(neobash.line, "cd", 2))
+        // {
+        //     printf("here\n");
+        //     bt_cd("cd ~");
+        // }
+        // if (!ft_strncmp(neobash.line, "env", 2))
+        //     ft_env(neobash.envl);
         neobash.tree = ft_parser();
         print_ast(neobash.tree);
         // printast(neobash.tree);
@@ -205,7 +205,9 @@ int main(int ac, char **av, char **env)
 {
     (void)ac;
     (void)av;
+    // (void)env;
     ft_init_neobash(env);
     neoshell();
+    // ft_export("export hello = ali");
     return (0);
 }
