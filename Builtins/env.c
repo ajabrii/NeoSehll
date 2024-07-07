@@ -6,7 +6,7 @@
 /*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:36:18 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/07/02 12:36:20 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/07/07 12:24:15 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,23 @@ t_env	*ft_env_lstnew(char *var)
 		return (NULL);
 	lst->key = ft_malloc(ft_strlenc(var, '='));
 	ft_strcpy(lst->key, var, '=');
+	len = ft_strlen(lst->key);
+	lst->value = ft_malloc(ft_strlenc((var + len), '\0'));
+	ft_strcpy(lst->value, var + len + 1, '\0');
+	lst->next = NULL;
+	return (lst);
+}
+
+t_env	*ft_env_lstnew(char *key, char *var)
+{
+	t_env	*lst;
+	int		len;
+
+	lst = (t_env*)malloc(sizeof(t_env));
+	if (!lst)
+		return (NULL);
+	lst->key = ft_malloc(ft_strlenc(key, '='));
+	ft_strcpy(lst->key, key, '=');
 	len = ft_strlen(lst->key);
 	lst->value = ft_malloc(ft_strlenc((var + len), '\0'));
 	ft_strcpy(lst->value, var + len + 1, '\0');

@@ -6,7 +6,7 @@
 /*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:41:39 by kali              #+#    #+#             */
-/*   Updated: 2024/07/03 18:07:05 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/07/07 12:08:28 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ typedef struct s_shell
     // char            *prompt;
     t_env           *envl;
     t_leak          *leaks;
+    int             count;
 } g_shell;
 
 extern g_shell neobash;
@@ -205,7 +206,9 @@ int     ft_strncmp(const char *s1, const char *s2, size_t n);
 /* </Parsing/putils.c> */
 
 /* <Builtins> */
-char	*get_env_val(char *key);
+void ft_env_lstadd_back(t_env **lst, t_env *newx);
+t_env *ft_env_lstnew(char *var);
+char *get_env_val(char *key);
 void	update_env(char *key, char *value);
 void    ft_env(t_env *env);
 void ft_exit(int ex);

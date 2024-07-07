@@ -42,13 +42,17 @@ int	parse_key(char *str)
 
 char	*get_key(char *str)
 {
-	size_t	i;
+	int	i;
+	int s;
 
+	s = 0;
 	i = 0;
+	if (str[i] == ' ')
+		s = 1;
 	while (str[i])
 	{
 		if (str[i] == '=')
-			return (ft_substr(str, 0, i - 1)); // for space before the key == hello( this )= ali
+			return (ft_substr(str, s, i - 1)); // for space before the key == hello( this )= ali
 		i++;
 	}
 	return (ft_strdup(str));
@@ -63,7 +67,7 @@ bool search_env(char *s)
     {
         if (!ft_strncmp(s, tmp->key, ft_strlen(s)))
             return (true);
-        tmp->next;
+        tmp = tmp->next;
     }
     return (false);
 }
@@ -71,17 +75,28 @@ bool search_env(char *s)
 char	*sub_value(char *str)
 {
 	int	i = 0;
+	int s = 0;
+	neobash.count = 0;
 
 	while (str[i])
 	{
 		if (str[i] == '=')
 		{
-			i++;
-			return (ft_substr(str, i + 1, ft_strlen(str) - i)); // + 1 for space after '=' 
-        // error here i have to get unit the space not to the end;
+			s = i + 1;
+			while (str[s])
+			{
+				// printf("str[%i] = %c\n", s, str[s]);
+				s++;
+				if (!str[s] || str[s] == ' ')
+				{
+					neobash.count = s;
+					return (ft_substr(str, i + 2, s - i - 1)); // + 1 for space after '='
+				}
+			}
 		}
 		i++;
 	}
+	printf("%i && %d\n", i, s);
 	return (NULL);
 }
 
@@ -91,13 +106,14 @@ int	ft_export(char *s)
     // char    **cmd;
 	int		exit;
 	char	*key;
+	char	*ss;
 
 	exit = 0;
 	i = 0;
     // cmd = ft_split(s, ' ');
 
     // while (cmd[i])
-    // {  
+    // {
     //     printf("cmd[%i] == %s\n", i, cmd[i]);
     //     i++;
     // }
@@ -112,15 +128,24 @@ int	ft_export(char *s)
 		{
 			key = get_key(&s[i]);
 			if (search_env(key))
+			{
+				// printf("kay is =%s\n", key);
 				update_env(key, sub_value(&s[i]));
+			}
 			else
-            {
-                char *ss = sub_value(&s[i]);
-				ft_env_lstadd_back(ft_env_lstnew(ss));
-            }
+			{
+                ss = sub_value(&s[i]);
+				// printf("ss is =%s\n", ss);
+				ft_env_lstadd_back(&neobash.envl, ft_env_lstnew(ss));
+			}
 		}
-        i += ft_strlen(sub_value(&s[i]));
-		i++;// i have to incremenet here to get the new statmenet
+		i += neobash.count;
+		// printf("ends in : %i \n", i);
+		// free kay and ss here;
+		printf("///////////////////////////////\n");
+		if (!s[i] || !s[i + 1])
+			return (exit);
+		// i have to incremenet here to get the new statmenet
 	}
 	return (exit);
     return(0);
