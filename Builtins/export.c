@@ -52,7 +52,7 @@ char	*get_key(char *str)
 	while (str[i])
 	{
 		if (str[i] == '=')
-			return (ft_substr(str, s, i - 1)); // for space before the key == hello( this )= ali
+			return (ft_substr(str, s, i - 2)); // for space before the key == hello( this )= ali
 		i++;
 	}
 	return (ft_strdup(str));

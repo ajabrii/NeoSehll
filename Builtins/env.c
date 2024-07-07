@@ -6,7 +6,7 @@
 /*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:36:18 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/07/07 12:24:15 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/07/07 13:40:33 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,6 @@ void ft_env_lstadd_back(t_env **lst, t_env *newx)
 		*lst = newx;
 }
 
-
-
 void    get_env_list(char **env)
 {
     int i;
@@ -108,7 +106,7 @@ void    get_env_list(char **env)
         i++;
     }
     // shell.size = i;
-    ft_env(neobash.envl);
+    // ft_env(neobash.envl);
 }
 
 void    ft_env(t_env *env)
@@ -123,6 +121,8 @@ void    ft_env(t_env *env)
     }
     env = tmp;
 }
+
+//export functions to add and create
 
 t_env	*exp_new(char *key, char *value)
 {

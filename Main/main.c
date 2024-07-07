@@ -6,7 +6,7 @@
 /*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:41:10 by kali              #+#    #+#             */
-/*   Updated: 2024/07/07 12:05:36 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/07/07 13:41:42 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,7 @@ void neoshell()
         neobash.tree = ft_parser();
         print_ast(neobash.tree);
         ft_export("export hello = ali youness = test last = ok");
+        ft_env(neobash.envl);
         // printast(neobash.tree);
         if (neobash.prs_state)
         {
