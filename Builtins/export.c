@@ -28,6 +28,7 @@ int	parse_key(char *str)
 	int	i;
 
 	i = 0;
+	// printf("str is ::%s::\n", str);
 	if (!ft_isalpha(str[i]))
 		return (1);
     i++;
@@ -36,6 +37,8 @@ int	parse_key(char *str)
 		if (!ft_isalnum(str[i]))
 			return (1);
 		i++;
+		if (!str[i])
+			return (1);
 	}
 	return (0);
 }
@@ -45,15 +48,28 @@ char	*get_key(char *str)
 	int	i;
 	int s;
 
+	neobash.one = false;
 	s = 0;
 	i = 0;
 	if (str[i] == ' ')
+	{
 		s = 1;
+	}
+	i++;
+	// printf("string is ::%s\n", str);
 	while (str[i])
 	{
+		if (!str[i + 1] || (str[i] == ' ' && str[i + 1] != '='))
+		{
+			neobash.one = true;
+			neobash.count = i + 1;
+			printf("%i\n", i);
+			return (ft_substr(str, s, i));
+		} // this if condition for this case : ali  youness = hello; 
 		if (str[i] == '=')
 			return (ft_substr(str, s, i - 2)); // for space before the key == hello( this )= ali
 		i++;
+		// printf ("here\n");
 	}
 	return (ft_strdup(str));
 }
@@ -76,12 +92,17 @@ char	*sub_value(char *str)
 {
 	int	i = 0;
 	int s = 0;
-	neobash.count = 0;
+	// neobash.count = 0;
 
 	while (str[i])
 	{
+		if (neobash.one)
+			return (ft_strdup(""));
 		if (str[i] == '=')
 		{
+			neobash.count = 0;
+			if (!str[i + 1])
+				return (ft_strdup(""));
 			s = i + 1;
 			while (str[s])
 			{
@@ -96,7 +117,7 @@ char	*sub_value(char *str)
 		}
 		i++;
 	}
-	printf("%i && %d\n", i, s);
+	// printf("%i && %d\n", i, s);
 	return (NULL);
 }
 
@@ -139,10 +160,11 @@ int	ft_export(char *s)
 				exp_back(exp_new(key, ss));
 			}
 		}
+		// printf("key is ::%s |||| value is ::%s\n", key, ss);
 		i += neobash.count;
 		// printf("ends in : %i \n", i);
 		// free kay and ss here;
-		printf("///////////////////////////////\n");
+		// printf("///////////////////////////////\n");
 		if (!s[i] || !s[i + 1])
 			return (exit);
 		// i have to incremenet here to get the new statmenet
@@ -150,3 +172,5 @@ int	ft_export(char *s)
 	return (exit);
     return(0);
 }
+
+// "hello = ok oki =" --> hello=ok oki == and that's error!!!

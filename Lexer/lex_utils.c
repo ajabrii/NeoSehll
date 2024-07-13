@@ -74,7 +74,7 @@ bool check_spcial(char c)
     if (c >= '0' &&  c <= '9')
         return (false);
     if (c == 45 || c == '.' || c == '/'
-		 || c == '$' || c == '_' || c == '*')// this _ is for expand
+		 || c == '$' || c == '_' || c == '*' || c == '=')// this _ is for expand
         return (false);
     return (true);
 }

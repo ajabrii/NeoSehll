@@ -121,34 +121,3 @@ void    ft_env(t_env *env)
     }
     env = tmp;
 }
-
-//export functions to add and create
-
-t_env	*exp_new(char *key, char *value)
-{
-	t_env	*new;
-
-	new = (t_env*)malloc(sizeof(t_env));
-	if (!new)
-		return (NULL);
-	new->key = ft_strdup(key);
-	if (value)
-		new->value = ft_strdup(value);
-	new->next = NULL;
-	return (new);
-}
-
-void	exp_back(t_env *new)
-{
-	t_env	*curr;
-
-	if (!neobash.envl)
-	{
-		neobash.envl = new;
-		return ;
-	}
-	curr = neobash.envl;
-	while (curr && curr->next)
-		curr = curr->next;
-	curr->next = new;
-}

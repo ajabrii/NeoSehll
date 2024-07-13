@@ -9,7 +9,7 @@ SOURCE += ft_isprint.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memse
 SOURCE += ft_strdup.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strncmp.c ft_strnstr.c ft_strrchr.c
 # Source File PART 2
 SOURCE += ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c
-SOURCE += ft_putnbr_fd.c ft_strmapi.c ft_striteri.c
+SOURCE += ft_putnbr_fd.c ft_strmapi.c ft_striteri.c ft_strcmp.c
 # Object files
 OBJ = $(SOURCE:.c=.o)
 # Target library

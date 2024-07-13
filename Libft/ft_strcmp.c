@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: venom <venom@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/02 13:09:37 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/07/02 13:10:23 by ytarhoua         ###   ########.fr       */
+/*   Created: 2024/07/12 14:20:09 by venom             #+#    #+#             */
+/*   Updated: 2024/07/12 14:21:12 by venom            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdio.h>
+#include "libft.h"
 
-int main()
+int	ft_strcmp(const char *s1, const char *s2)
 {
-    printf("Hello\n");
-    return (0);
+	int	i;
+
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexical.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: venom <venom@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 15:16:25 by ajabri            #+#    #+#             */
-/*   Updated: 2024/07/02 14:15:43 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/07/12 15:00:32 by venom            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void ft_coutquotes()
         ft_err("neobash: syntax error near unexpected token `''", 1); //fix here "'" '"'
     if (dq % 2 != 0)
         ft_err("neobash: syntax error near unexpected token `\"'", 1);
-
 }
 
 void    give_token()

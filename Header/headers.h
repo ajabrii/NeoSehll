@@ -119,6 +119,7 @@ typedef struct s_shell
 {
     char            *line;
     int             np;
+    bool            one;
     t_token         *tokens;
     t_token			*cur_tok;
 	t_node			*tree;
@@ -216,6 +217,17 @@ void bt_cd(char *s);
 int skip(char *s);
 int	ft_export(char *s);
 /* </Builtins> */
+
+/*  Expander  */
+char	*ft_expand(char *str);
+char *normal_str(char *str, int *i);
+char *handle_squotes(char *str, int *i);
+char *handle_dquotes(char *str, int *i);
+char	*dquote_str(char *str, int *i);
+char	*handle_dollar(char *str, int *i);
+bool	valid_char(char c);
+
+/*  Expander  */
 
 /* <Executer/ft_executer.c> */
 void ft_executer();

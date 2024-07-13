@@ -41,6 +41,7 @@ void print_ast_node(t_node *node, int indent) {
 
     // Print arguments if they exist
     if (node->args != NULL) {
+        node->args = ft_expand(node->args);
         printf("%*sArguments: %s\n", indent + 2, "", node->args);
     }
 
@@ -149,6 +150,7 @@ void    ft_init_neobash(char **env)
 {
     (void)env;
     get_env_list(env);
+    update_env("_", "]");
     neobash.prs_state = 0;
     // neobash.prompt = NULL;
 }
@@ -190,8 +192,8 @@ void neoshell()
         //     ft_env(neobash.envl);
         neobash.tree = ft_parser();
         print_ast(neobash.tree);
-        ft_export("export hello = ali youness = test last = ok");
-        ft_env(neobash.envl);
+        // ft_export("export hello = jhad = iko");
+        // ft_env(neobash.envl);
         // printast(neobash.tree);
         if (neobash.prs_state)
         {
@@ -207,7 +209,7 @@ int main(int ac, char **av, char **env)
 {
     (void)ac;
     (void)av;
-    (void)env;
+    // (void)env;
     ft_init_neobash(env);
     neoshell();
     // ft_export("export hello = ali youness = test last = ok");
