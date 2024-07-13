@@ -39,7 +39,9 @@ t_env	*exp_new(char *key, char *value)
 	if (!new)
 		return (NULL);
 	new->key = ft_strdup(key);
-	if (value)
+	if (!value)
+		new->value = ft_strdup("");
+	else
 		new->value = ft_strdup(value);
 	new->next = NULL;
 	return (new);
