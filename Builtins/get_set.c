@@ -7,7 +7,7 @@ char	*get_env_val(char *key)
 	envlst = neobash.envl;
 	while (envlst)
 	{
-		if (!ft_strncmp(key, envlst->key, ft_strlen(envlst->key)))
+		if (!ft_strcmp(key, envlst->key))
 			return (envlst->value);
 		envlst = envlst->next;
 	}
@@ -21,7 +21,7 @@ void	update_env(char *key, char *value)
 	envlst = neobash.envl;
 	while (envlst)
 	{
-		if (!ft_strncmp(key, envlst->key, ft_strlen(key)))
+		if (!ft_strcmp(key, envlst->key))
 		{
 			if (value)
 				envlst->value = ft_strdup(value);

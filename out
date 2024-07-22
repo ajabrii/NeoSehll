@@ -1,38 +1,19 @@
-Builtins
-BuiltinsV1
-Error
-Executer
-Header
-Leaks
-Lexer
-Libft
-Main
-Makefile
-minishell
-out
-Parser
-README.md
-run.sh
-t.c
-tldr.tldr
-total 376
-drwxrwxr-x 13 venom venom   4096 Jul 17 11:28 .
-drwxr-xr-x 15 venom venom   4096 Jul 17 09:52 ..
-drwxrwxr-x  2 venom venom   4096 Jul 17 11:24 Builtins
-drwxrwxr-x  2 venom venom   4096 Jul 17 09:52 BuiltinsV1
-drwxrwxr-x  2 venom venom   4096 Jul 17 09:52 Error
-drwxrwxr-x  2 venom venom   4096 Jul 17 11:24 Executer
-drwxrwxr-x  8 venom venom   4096 Jul 17 11:23 .git
-drwxrwxr-x  2 venom venom   4096 Jul 17 11:23 Header
-drwxrwxr-x  2 venom venom   4096 Jul 17 11:24 Leaks
-drwxrwxr-x  2 venom venom   4096 Jul 17 11:24 Lexer
-drwxrwxr-x  2 venom venom   4096 Jul 17 11:24 Libft
-drwxrwxr-x  2 venom venom   4096 Jul 17 11:24 Main
--rw-rw-r--  1 venom venom   5564 Jul 17 11:23 Makefile
--rwxrwxr-x  1 venom venom 249440 Jul 17 11:24 minishell
--rw-r--r--  1 venom venom    126 Jul 17 11:28 out
-drwxrwxr-x  2 venom venom   4096 Jul 17 11:24 Parser
--rw-rw-r--  1 venom venom     24 Jul 17 09:52 README.md
--rwxrwxr-x  1 venom venom     38 Jul 17 11:23 run.sh
--rw-rw-r--  1 venom venom   7098 Jul 17 09:52 t.c
--rw-rw-r--  1 venom venom  53223 Jul 17 09:52 tldr.tldr
+total 168
+drwxrwxr-x 2 venom venom  4096 Jul 18 14:17 Builtins
+drwxrwxr-x 2 venom venom  4096 Jul 18 11:27 Error
+drwxrwxr-x 2 venom venom  4096 Jul 18 14:17 Executer
+drwxrwxr-x 2 venom venom  4096 Jul 18 14:17 Expand
+drwxrwxr-x 2 venom venom  4096 Jul 18 11:27 Header
+drwxrwxr-x 2 venom venom  4096 Jul 18 14:17 Leaks
+drwxrwxr-x 2 venom venom  4096 Jul 18 14:17 Lexer
+drwxrwxr-x 2 venom venom  4096 Jul 18 14:17 Libft
+drwxrwxr-x 2 venom venom  4096 Jul 18 14:17 Main
+-rw-rw-r-- 1 venom venom  5632 Jul 18 13:26 Makefile
+-rwxrwxr-x 1 venom venom 47032 Jul 18 14:17 minishell
+-rw-r--r-- 1 venom venom     0 Jul 18 14:19 out
+drwxrwxr-x 2 venom venom  4096 Jul 18 14:17 Parser
+-rw-rw-r-- 1 venom venom    24 Jul 18 11:27 README.md
+-rwxrwxr-x 1 venom venom    38 Jul 18 11:27 run.sh
+drwxrwxr-x 2 venom venom  4096 Jul 18 14:17 signals
+-rw-rw-r-- 1 venom venom  7098 Jul 18 11:27 t.c
+-rw-rw-r-- 1 venom venom 53223 Jul 18 11:27 tldr.tldr

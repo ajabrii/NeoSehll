@@ -6,7 +6,7 @@
 /*   By: venom <venom@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:35:31 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/07/17 11:42:58 by venom            ###   ########.fr       */
+/*   Updated: 2024/07/21 16:01:44 by venom            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ void ft_unset(char *s)
         printf ("str is ::%s\n", s);
         while (tmp)
         {
-            if (!ft_strncmp(s, tmp->key, ft_strlen(s)))
+            if (!ft_strcmp(s, tmp->key))
             {
+                printf("Here tmp->tmp ::%s \n", tmp->key);
                 if (prev)
                     prev->next = tmp->next;
                 else

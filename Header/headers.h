@@ -6,7 +6,7 @@
 /*   By: venom <venom@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:41:39 by kali              #+#    #+#             */
-/*   Updated: 2024/07/17 17:34:47 by venom            ###   ########.fr       */
+/*   Updated: 2024/07/18 14:21:43 by venom            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define CY "\033[96m"
 # define RES "\033[0m"
 
-#define PROMPT G "🌟::NeoShell~/💎[" ORG "Prompt" RES G "]🗿$\n|~↠$ " RES
+#define PROMPT G "🌟::NeoShell~/💎[" ORG "Prompt" RES G "]🗿$ |~↠$ " RES
 /*env list*/
 typedef struct s_env
 {
@@ -236,6 +236,21 @@ void execution();
 int ft_executer(t_node *root);
 
 /* </Executer/ft_executer.c> */
+
+/* <Expand> */
+
+char *normal_str(char *str, int *i);
+char *handle_squotes(char *str, int *i);
+char *handle_dquotes(char *str, int *i);
+char *dquote_str(char *str, int *i);
+char *handle_dollar(char *str, int *i);
+bool valid_char(char c);
+char *ft_expand(char *str);
+/* </Expand> */
+
+/*<signals>*/
+void	ft_init_signals(void);
+/*</signals>*/
 
 /* <Main> */
 char    **grep_paths(char **env);

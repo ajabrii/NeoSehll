@@ -1,6 +1,6 @@
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3
 
 # Project name
 NAME = minishell
@@ -11,12 +11,14 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 # Source files
 SRC = Main/main.c Main/mtools.c
+SRC += Expand/expander.c Expand/exputils.c
 SRC += Builtins/env.c Builtins/exit.c Builtins/echo.c Builtins/export.c
 SRC += Builtins/pwd.c Builtins/unset.c Builtins/get_set.c Builtins/cd.c
 SRC += Lexer/lexical.c Lexer/lextools.c Lexer/token.c Lexer/lex_utils.c
 SRC += Leaks/free_all.c Leaks/garbedge.c
 SRC += Parser/ft_parser.c Parser/putils.c Parser/tools.c
 SRC += Executer/ft_execute.c
+SRC += signals/signal.c
 
 # Object files
 OBJ = $(SRC:.c=.o)
