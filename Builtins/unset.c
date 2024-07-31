@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: venom <venom@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:35:31 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/07/03 18:41:01 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/07/21 16:01:44 by venom            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void ft_delone(t_env *lst, void (*del)(void*))
 
 void ft_unset(char *s)
 {
-    g_shell *data;
-    t_env *envl = data->envl;
+    // g_shell *neobash;
+    t_env *envl = neobash.envl;
     t_env *tmp = envl;
     t_env *prev = NULL;
 
@@ -45,14 +45,18 @@ void ft_unset(char *s)
     if (!ft_strncmp(s, "unset", 5))
     {
         s += 5;
+        while (*(s) == ' ' && *(s))
+            s++;
+        printf ("str is ::%s\n", s);
         while (tmp)
         {
-            if (!ft_strncmp(s, tmp->key, ft_strlen(s)))
+            if (!ft_strcmp(s, tmp->key))
             {
+                printf("Here tmp->tmp ::%s \n", tmp->key);
                 if (prev)
                     prev->next = tmp->next;
                 else
-                    data->envl = tmp->next;
+                    neobash.envl = tmp->next;
                 ft_delone(tmp, del);
                 return;
             }

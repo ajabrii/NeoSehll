@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   headers.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:41:39 by kali              #+#    #+#             */
-/*   Updated: 2024/07/07 12:08:28 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:16:43 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <signal.h>
 # include <limits.h>
 # include "../Libft/libft.h"
+# include <limits.h>
+
 
 /*colors*/
 # define RED "\033[30;31m"
@@ -31,7 +33,8 @@
 # define CY "\033[96m"
 # define RES "\033[0m"
 
-#define PROMPT G "🌟::NeoShell~/💎[" ORG "Prompt" RES G "]🗿$\n|~↠$ " RES
+// #define PROMPT G "🌟::NeoShell~/💎[" ORG "Prompt" RES G "]🗿$ |~↠$ " RES
+#define PROMPT G "neoshell->$ " RES
 /*env list*/
 typedef struct s_env
 {
@@ -80,7 +83,7 @@ typedef struct s_io
     t_io_t type;
     int here_doc;
     char *value;
-    char **exp_val;
+    char *exp_val;
     struct s_io *next;
 } t_io;
 /*************************** */
@@ -112,14 +115,12 @@ typedef  struct s_leak
     struct s_leak   *next;
 }               t_leak;
 
-
 /*the global struct*/
 
 typedef struct s_shell
 {
     char            *line;
     int             np;
-    bool            one;
     t_token         *tokens;
     t_token			*cur_tok;
 	t_node			*tree;
@@ -127,10 +128,20 @@ typedef struct s_shell
     int             prs_state;
     char            **envp;
     char            **sub;
+    char            **paths;
+    int hdoc;
     // char            *prompt;
-    t_env           *envl;
-    t_leak          *leaks;
-    int             count;
+    char *tmp;// get_cmd_path
+    char *palestine; // get_cmd_path
+    t_env *envl;
+    int flag;
+    t_leak *leaks;
+    int             fd[2];
+    int in;
+    int out;
+    int count;
+    int level;
+
 } g_shell;
 
 extern g_shell neobash;
@@ -203,34 +214,47 @@ bool    create_iol(t_io **io, t_io_t io_t);
 t_io    *create_io_node(char *val, t_io_t type);
 t_io_t  get_type(t_token_t tk);
 void    ft_addback_io_node(t_io **iop, t_io *new);
-int     ft_strncmp(const char *s1, const char *s2, size_t n);
 /* </Parsing/putils.c> */
 
 /* <Builtins> */
-void	exp_back(t_env *new);
-t_env	*exp_new(char *key, char *value);
-char *get_env_val(char *key);
-void	update_env(char *key, char *value);
-void    ft_env(t_env *env);
+int bt_cd(char *s);
+void ft_echo(char *s);
+void ft_env(t_env *env);
 void ft_exit(int ex);
-void bt_cd(char *s);
-int skip(char *s);
-int	ft_export(char *s);
+int ft_export(char *s);
+void ft_pwd(char *s);
+void ft_unset(char *s);
+void update_env(char *key, char *value);
+void exp_back(t_env *new);
+t_env *exp_new(char *key, char *value);
+void update_env(char *key, char *value);
+char *get_env_val(char *key);
 /* </Builtins> */
 
-/*  Expander  */
-char	*ft_expand(char *str);
+/* <Executer/ft_executer.c> */
+// unsigned int execute_ast(t_node *root);
+void execution();
+int ft_executer(t_node *root);
+
+/* </Executer/ft_executer.c> */
+
+/* <Expand> */
+
 char *normal_str(char *str, int *i);
 char *handle_squotes(char *str, int *i);
 char *handle_dquotes(char *str, int *i);
-char	*dquote_str(char *str, int *i);
-char	*handle_dollar(char *str, int *i);
-bool	valid_char(char c);
+char *dquote_str(char *str, int *i);
+char *handle_dollar(char *str, int *i);
+bool valid_char(char c);
+char *ft_expand(char *str);
+/* </Expand> */
 
-/*  Expander  */
+/*<signals>*/
+void	ft_init_signals(void);
+/*</signals>*/
 
-/* <Executer/ft_executer.c> */
-void ft_executer();
-/* </Executer/ft_executer.c> */
+/* <Main> */
+char    **grep_paths(char **env);
+/* </Main> */
 
 #endif

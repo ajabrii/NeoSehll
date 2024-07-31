@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexical.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: venom <venom@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 15:16:25 by ajabri            #+#    #+#             */
-/*   Updated: 2024/07/12 15:00:32 by venom            ###   ########.fr       */
+/*   Updated: 2024/07/11 15:45:33 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,29 +23,22 @@ void ft_coutquotes()
 {
 	int i;
 
-    bool ignoredq = false;
-    bool ignoresq = false;
-    i = 0;
-    int dq = 0;
+	i = 0;
+	int dq = 0;
 	int sq = 0;
-    while (neobash.line[i])
-    {
-		if (neobash.line[i] == 34 && ignoresq == false)
-        {
-            ignoredq = true;
-            dq += 1;
-        }
-		else if(neobash.line[i] == 39 && ignoredq == false)
-        {
-            ignoresq = true;
-            sq += 1;
-        }
+	while (neobash.line[i])
+	{
+		if (neobash.line[i] == 34)
+			dq += 1;
+		else if(neobash.line[i] == 39)
+			sq += 1;
 		i++;
 	}
 	if (sq % 2 != 0)
-        ft_err("neobash: syntax error near unexpected token `''", 1); //fix here "'" '"'
+        ft_err("neobash: syntax error near unexpected token `''", 1);
     if (dq % 2 != 0)
         ft_err("neobash: syntax error near unexpected token `\"'", 1);
+
 }
 
 void    give_token()
@@ -67,14 +60,13 @@ void    give_token()
         i++;
     }
     neobash.tokens = head;
-//     // expander();
-    while (head)
-    {
-        // printf("node[%s][%d]\n", head->value, head->token);
-        printf("[%s]-[%d]\n", head->value, head->type);
+    // while (head)
+    // {
+    //     // printf("node[%s][%d]\n", head->value, head->token);
+    //     printf("[%s]-[%d]\n", head->value, head->type);
 
-        head = head->next;
-    }
+    //     head = head->next;
+    // }
 }
 
 void ft_lexer()

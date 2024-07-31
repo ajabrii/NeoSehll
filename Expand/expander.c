@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expander.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/18 06:19:27 by ajabri            #+#    #+#             */
+/*   Updated: 2024/07/18 06:31:21 by ajabri           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 # include "../Header/headers.h"
 
 char	*ft_expand(char *str)
@@ -8,7 +20,7 @@ char	*ft_expand(char *str)
 	res = ft_strdup("");
 	while (str[i])
 	{
-		printf("here\n");
+		// printf("here\n");
 		if (str[i] == '\'')
 			res = ft_strjoin(res, handle_squotes(str, &i));
 		else if (str[i] == '"' || str[i] == '`')

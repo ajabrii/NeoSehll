@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: venom <venom@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 10:16:34 by ajabri            #+#    #+#             */
-/*   Updated: 2024/07/12 15:01:47 by venom            ###   ########.fr       */
+/*   Updated: 2024/07/09 16:00:04 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ bool is_whitespaces(char line)
 }
 bool is_badchar(char *c)
 {
-    if (c[0] == ';' || c[0] == '\\' || c[0] == '{' || c[0] == '}')
+    if (c[0] == ';' || c[0] == '`' || c[0] == '\\' || c[0] == '{' || c[0] == '}')
         return (true);
     if (c[0] == '[' || c[0] == ']' || c[0] == '@' || c[0] == '#' || c[0] == '%')
         return (true);
@@ -81,25 +81,25 @@ bool is_badchar(char *c)
 }
 t_token_t set_token(int i)
 {
-    if (!ft_strncmp(neobash.sub[i], ">",1))
-        return (REDIRECT);
-    else if (!ft_strncmp(neobash.sub[i], "<", 1))
-        return (INPUT);
-    else if (!ft_strncmp(neobash.sub[i], ">>", 2))
-        return (APPEND);
-    else if (!ft_strncmp(neobash.sub[i], "<<", 2))
-        return (HEREDOC);
     // else if (!ft_strncmp(neobash.sub[i], "*", ft_strlen(neobash.sub[i])))
     //     return (STAR);
-    else if (!ft_strncmp(neobash.sub[i], "&&", 2))
+    if (!ft_strcmp(neobash.sub[i], ">"))
+        return (REDIRECT);
+    else if (!ft_strcmp(neobash.sub[i], "<"))
+        return (INPUT);
+    else if (!ft_strcmp(neobash.sub[i], ">>"))
+        return (APPEND);
+    else if (!ft_strcmp(neobash.sub[i], "<<"))
+        return (HEREDOC);
+    else if (!ft_strcmp(neobash.sub[i], "&&"))
         return (AND);
-    else if (!ft_strncmp(neobash.sub[i], "||", 2))
+    else if (!ft_strcmp(neobash.sub[i], "||"))
         return (OR);
-    else if (!ft_strncmp(neobash.sub[i], "|", 1))
+    else if (!ft_strcmp(neobash.sub[i], "|"))
         return (PIPE);
-    else if (!ft_strncmp(neobash.sub[i], "(", 1))
+    else if (!ft_strcmp(neobash.sub[i], "("))
         return (L_PARENT);
-    else if (!ft_strncmp(neobash.sub[i], ")", 1))
+    else if (!ft_strcmp(neobash.sub[i], ")"))
         return (R_PARENT);
     else if (is_badchar(neobash.sub[i]))
         return (SYNTAX);

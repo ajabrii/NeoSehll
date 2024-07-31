@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: venom <venom@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 20:31:18 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/07/13 13:50:28 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/07/17 11:12:40 by venom            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../Header/headers.h"
 
-t_env *search_env(char *s)
+t_env *search_envl(char *s)
 {
     t_env *env = neobash.envl;
     t_env *tmp = env;
@@ -20,8 +20,8 @@ t_env *search_env(char *s)
     while (tmp)
     {
         if (!ft_strncmp(s, tmp->key, ft_strlen(s)))
-            return (tmp->value);
-        tmp->next;
+            return (tmp);
+        tmp = tmp->next;
     }
     tmp = env;
     return (NULL);
@@ -36,9 +36,10 @@ int option(char *str)
     i = 0;
     while (str[i])
     {
-        if (str[i] == '-'){
+        if (str[i] == '-')
+        {
             i++;
-            printf("bash: pwd: '%s': invalid option", str[i]);
+            // printf("bash: pwd: '%s': invalid option", str[i]);
             return (1);
         }
         i++;
@@ -50,16 +51,20 @@ int option(char *str)
 
 void ft_pwd(char *s)
 {
-    option(s);
-    t_env *v = search_env(s);
-    if (v->value)
-        ft_putstr_fd(v->value, 1);
-    if (v == NULL)
+    if (option(s))
+        return;
+    char *path;
+    path = get_env_val("PWD");
+    // printf ("str is ::%s\n", s);
+    // printf("v->value is ::%s\n", path);
+    if (path)
+        ft_putstr_fd(path, 1);
+    if (path == NULL)
     {
-	    v->value = getcwd(v->value, 0);
-	    if (!v->value)
+	    path = getcwd(path, 0);
+	    if (!path)
 		    return;
-	    ft_putstr_fd(v->value, 1);
+	    ft_putstr_fd(path, 1);
     }
 	ft_putstr_fd("\n", 1);
 }

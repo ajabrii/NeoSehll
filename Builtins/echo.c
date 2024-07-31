@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: venom <venom@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:36:11 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/07/06 18:00:39 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/07/17 13:10:50 by venom            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,30 +28,33 @@
 
 int param(char *s)
 {
-    int i = 4;
+    int i = 0;
     while (s[i] && s[i] == ' ')
         i++;
     if (s[i] == '-')
         i++;
     if(!s[i])
         return (0);
-    while (s[i] && s[i] == 'n')
+    while (s[i] && (s[i] == 'n' || s[i] == '-'))
+    {
+        if (s[i] == '-')
+            return (0);
         i++;
+    }
     while (s[i] && (s[i] == ' '))
         i++;
     return (i);
 }
-
 
 void ft_echo(char *s)
 {
     bool nl = false;
     bool sq = false;
     bool dq = false;
-    int count = 0;
-    int i = 0;
+    // int count = 0;
+    int i = 4;
 
-    i = param(s);
+    i += param(&s[i]);
     if (i == 0)
         return;
     while (s[i])
@@ -67,17 +70,3 @@ void ft_echo(char *s)
     if (!nl)
         printf("\n");
 }
-
-// int main()
-// {
-//     ft_echo("echo  \'b\'\"o\"nj\"o\"\'u\'r");
-// }
-// int skip_spaces(char *str)
-// {
-//     int i = 0;
-//     while (str[i] && (str[i] == ' '))
-//         i++;
-//     if (!str[i])
-//         return (0);
-//     return (i);
-// }

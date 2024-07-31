@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:41:10 by kali              #+#    #+#             */
-/*   Updated: 2024/07/13 15:22:40 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:26:25 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void print_ast_node(t_node *node, int indent) {
 
     // Print arguments if they exist
     if (node->args != NULL) {
-        node->args = ft_expand(node->args);
         printf("%*sArguments: %s\n", indent + 2, "", node->args);
     }
 
@@ -97,121 +96,86 @@ void print_ast(t_node *root) {
 }
 
 /*88888888888888*/
-
-void printast(t_node *root)
-{
-    t_io *tmp;
-
-    if (!root)
-        return;
-    if (root->type == CMD_N)
-        printf("CMD_N\n");
-    else if (root->type == PIPE_N)
-        printf("PIPE_N\n");
-    else if (root->type == OR_N)
-        printf("OR_N\n");
-    else if (root->type == AND_N)
-        printf("AND_N\n");
-    else
-        printf("???\n");
-    if (root->args)
-        printf("\tnode argument %s\n", root->args);
-    if (root->iol)
-        printf("\tio node\n");
-    tmp = root->iol;
-    while (root->iol)
-    {
-        printf("\tio Type\n");
-        if (root->iol->type == APP)
-            printf("\tAPP >>\n");
-        else if (root->iol->type == IN)
-            printf("\tIN <\n");
-        else if (root->iol->type == OUT)
-            printf("\tOUT >\n");
-        else if (root->iol->type == HERE_DOC)
-            printf("\tHERE_DOC <<\n");
-        printf("\t%s\n", root->iol->value);
-        root->iol = root->iol->next;
-    }
-    root->iol = tmp;
-    if (root->left)
-    {
-        printf("Left Child:\n");
-        printast(root->left);
-    }
-    if (root->right)
-    {
-        printf("Right Child:\n");
-        printast(root->left);
-    }
-}
-/*/***************************** */
 void    ft_init_neobash(char **env)
 {
-    (void)env;
+    // (void)env;
+    neobash.envp = env;
     get_env_list(env);
-    update_env("_", "]");
     neobash.prs_state = 0;
+    neobash.hdoc = 1;
+    neobash.flag = 0;
+    neobash.in = dup(0);
+	neobash.out = dup(1);
+    neobash.paths = grep_paths(env);
+    neobash.level = 1;
     // neobash.prompt = NULL;
 }
 /*lldld*/
 void    ft_syntax_after()
 {
+    int flag;
+
+    flag = 0;
     if (neobash.prs_state == 1)
     {
         if (!neobash.cur_tok)
         {
-        printf("neobash: syntax error near unexpected token `%s'\n", "newline");
-        // free_tree();
-        return ;
+            printf("neobash: syntax error near unexpected token `%s'\n", "newline");
+            // free_tree();
+            return ;
         }
-        printf("neobash: syntax error near unexpected token `%s'\n", neobash.cur_tok->value);
-        // free_tree();
+        if (neobash.flag == 1 && is_io(neobash.cur_tok->next->type))
+        {
+            neobash.prs_state = 0;
+            flag = 1;
+        }
+        if (!flag)
+        {
+            // printf(RED "[%s]-[%d]--[%d]\n" RES, neobash.cur_tok->value, neobash.cur_tok->type, neobash.flag);
+            printf("neobash: syntax error near unexpected token `%s'\n", neobash.cur_tok->value);
+            // free_tree();
+        }
     }
     return;
 }
-
-/*ldkdd*/
 
 void neoshell()
 {
     while (true)
     {
+        ft_init_signals();
         neobash.line = readline(PROMPT);
+        if (neobash.line == NULL)
+        {
+            printf("exit\n");
+            break;
+        }
         if (neobash.line)
             add_history(neobash.line);
         ft_lexer();
         if (!neobash.tokens)
             continue;
-        // if (!ft_strncmp(neobash.line, "cd", 2))
-        // {
-        //     printf("here\n");
-        //     bt_cd("cd ~");
-        // }
-        // if (!ft_strncmp(neobash.line, "env", 2))
-        //     ft_env(neobash.envl);
         neobash.tree = ft_parser();
-        print_ast(neobash.tree);
-        ft_export("export f==helo");
-        ft_env(neobash.envl);
-        // printast(neobash.tree);
+        // print_ast(neobash.tree);
+        // printf(RED "[%s]-[%d]\n" RES, neobash.cur_tok->value, neobash.cur_tok->type);
         if (neobash.prs_state)
         {
             ft_syntax_after();
+            // printf("HEre\n");
             neobash.prs_state = 0;
             continue;
         }
-        // ft_executer();
+        // neobash.status = execute_ast(neobash.tree);
+        execution();
+        printf("Execution result: %d\n", neobash.status);
     }
-    ft_free_all();
+    // ft_free_all();
 }
 int main(int ac, char **av, char **env)
 {
     (void)ac;
     (void)av;
-    // (void)env;
     ft_init_neobash(env);
     neoshell();
-    // ft_export("export hello = ali youness = test last = ok");
     return (0);
 }
