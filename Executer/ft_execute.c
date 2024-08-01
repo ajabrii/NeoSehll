@@ -6,7 +6,7 @@
 /*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 10:08:37 by ajabri            #+#    #+#             */
-/*   Updated: 2024/08/01 12:11:33 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/01 13:01:27 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,8 @@ void ft_init_io(t_node *root)
         {
             printf("hello else\n");
             io->exp_val = ft_expand(io->value);
+            // printf("hello else1\n");
+
         }
         io = io->next;
     }
@@ -161,15 +163,21 @@ int	ft_out(t_io *io)
     // 	return (*status);
     // }
     fd = open(io->exp_val, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-    // printf(ORG"{``%d''}\n"RES, fd);
+    printf(ORG"{``%d''}\n"RES, fd);
     if (fd == -1)
     {
 		printf("neobash: %s: Permission denied\n",io->value);
         ex = 1;
         return (ex);
 	}
-	dup2(fd, STDOUT_FILENO);
-	// close(fd);
+	if (dup2(fd, STDOUT_FILENO) == -1)
+    {
+        printf("neobash dup2\n");
+        close(fd);
+        return (1);
+    }
+    printf("Here\n");
+	close(fd);
 	ex = 0;
 	return (ex);
 }
@@ -315,8 +323,6 @@ int     ex_builtins(t_node *root)
         return (ft_echo(root->args), 0);
     if (!ft_strncmp(root->args,"export", 6))
         return (ft_export(root->args), 0);
-    // if (!ft_strncmp(root->args,"./minishell", 11))
-    //     return (update_env("SHLVL", ft_itoa(++neobash.level)), 0);
     else
         return (1);
 }
@@ -339,6 +345,7 @@ unsigned int ex_cmd(t_node *root)
     // }
     if (root->args)
     {
+
     // ex = 0;
         // if (!args)
             // printf("segfault\n");
@@ -358,31 +365,31 @@ unsigned int ex_cmd(t_node *root)
                 printf(RED "`%s'\n" RES, args[0]);
                 update_env("SHLVL", ft_itoa(++neobash.level));
                 printf("[%s]\n",get_env_val("SHLVL"));
-                // ft_env(neobash.envl);
-            }
-            cmdpath = get_cmd_path(neobash.paths, args[0]);
-            if (!cmdpath)
-            {
-                printf("neobash: command not found: %s\n", args[0]);
-                return (127);
             }
             else
             {
                 pid = fork();
                 if (!pid)
                 {
-                    ex =ft_io(root);
+                    ex = ft_io(root);
                     if (ex)
                     {
                         printf("exit\n");
                         exit(ex);
                     }
+                    cmdpath = get_cmd_path(neobash.paths, args[0]);
+                    if (!cmdpath)
+                    {
+                        printf("neobash: command not found: %s\n", args[0]);
+                        return (exit(127), 127);
+                    }
                     else
                     {
-                        my_envp = get_my_envp();
-                        // for (int i = 0; i < 47; i++)
-                        //     printf("[%s]\n", my_envp[i]);
-                        execve(cmdpath, args, my_envp);
+                            my_envp = get_my_envp();
+                            // for (int i = 0; i < 47; i++)
+                            //     printf("[%s]\n", my_envp[i]);
+                            execve(cmdpath, args, my_envp);
+                            exit(1);
                     }
                 }
                 else
@@ -392,7 +399,6 @@ unsigned int ex_cmd(t_node *root)
                 }
             }
         }
-
     }
     return (0);
 }
@@ -451,7 +457,6 @@ int ex_pipes(t_node *root)
 int ft_executer(t_node *root)
 {
     int exit;
-
     exit = 1337;
     if (root->type == PIPE_N)
         return (ex_pipes(root));
