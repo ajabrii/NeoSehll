@@ -6,7 +6,7 @@
 /*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 10:08:37 by ajabri            #+#    #+#             */
-/*   Updated: 2024/08/01 11:51:09 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/01 12:11:33 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -325,6 +325,7 @@ unsigned int ex_cmd(t_node *root)
 {
     char **args;
     char *cmdpath;
+    char **my_envp;
     pid_t pid;
     // int fd;
     int ex;
@@ -354,9 +355,9 @@ unsigned int ex_cmd(t_node *root)
             cmdpath = get_cmd_path(neobash.paths, args[0]);
             if (!ft_strncmp(args[0], "./minishell", 12))
             {
-                // printf(RED "`%s'\n" RES, args[0]);
+                printf(RED "`%s'\n" RES, args[0]);
                 update_env("SHLVL", ft_itoa(++neobash.level));
-                // printf("[%s]\n",get_env_val("SHLVL"));
+                printf("[%s]\n",get_env_val("SHLVL"));
                 // ft_env(neobash.envl);
             }
             cmdpath = get_cmd_path(neobash.paths, args[0]);
@@ -377,7 +378,12 @@ unsigned int ex_cmd(t_node *root)
                         exit(ex);
                     }
                     else
-                        execve(cmdpath, args, neobash.envp);
+                    {
+                        my_envp = get_my_envp();
+                        // for (int i = 0; i < 47; i++)
+                        //     printf("[%s]\n", my_envp[i]);
+                        execve(cmdpath, args, my_envp);
+                    }
                 }
                 else
                 {

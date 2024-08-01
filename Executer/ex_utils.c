@@ -6,7 +6,7 @@
 /*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 18:58:23 by kali              #+#    #+#             */
-/*   Updated: 2024/08/01 11:46:27 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/01 12:00:07 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,35 @@ char **get_cmdagrs(char *line)
     }
     res[nargs] = NULL;
     return res;
+}
+
+int ft_count_size()
+{
+	int i;
+
+	i = 0;
+	while (neobash.envp[i])
+		i++;
+	return (i);
+}
+
+char **get_my_envp()
+{
+	int i;
+	char **res;
+	t_env *tmpl;
+	int lsize;
+
+	lsize = ft_count_size(neobash.envp) + 1; // change the count_size withe the list_size !!!
+	res = ft_malloc(sizeof(char *) * lsize);
+	i = 0;
+	tmpl = neobash.envl;
+	while (tmpl)
+	{
+		res[i] = ft_strjoinc(tmpl->key, tmpl->value, '=');
+		i++;
+		tmpl = tmpl->next;
+	}
+	res[i] = NULL;
+	return (res);
 }

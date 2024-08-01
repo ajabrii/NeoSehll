@@ -6,7 +6,7 @@
 /*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:41:10 by kali              #+#    #+#             */
-/*   Updated: 2024/07/31 18:26:25 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/01 12:12:08 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void    ft_init_neobash(char **env)
     neobash.in = dup(0);
 	neobash.out = dup(1);
     neobash.paths = grep_paths(env);
-    neobash.level = 1;
+    neobash.level = ft_atoi(get_env_val("SHLVL"));
     // neobash.prompt = NULL;
 }
 /*lldld*/
