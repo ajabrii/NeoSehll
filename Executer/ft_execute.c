@@ -6,7 +6,7 @@
 /*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 10:08:37 by ajabri            #+#    #+#             */
-/*   Updated: 2024/07/31 18:44:30 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/01 11:51:09 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*get_cmd_path(char **paths, char *cmd)
 {
-    printf("`%s'\n", cmd);
-    if (!cmd)
+    // printf("`%s'\n", cmd);
+    if (!cmd || !cmd[0])
         return (NULL);
     if (cmd[0] == '.')
     {
@@ -350,7 +350,7 @@ unsigned int ex_cmd(t_node *root)
         }
         else
         {
-            args = ft_split(root->args, ' ');
+            args = get_cmdagrs(root->args);
             cmdpath = get_cmd_path(neobash.paths, args[0]);
             if (!ft_strncmp(args[0], "./minishell", 12))
             {
@@ -365,22 +365,25 @@ unsigned int ex_cmd(t_node *root)
                 printf("neobash: command not found: %s\n", args[0]);
                 return (127);
             }
-            pid = fork();
-            if (!pid)
-            {
-                ex =ft_io(root);
-                if (ex)
-                {
-                    printf("exit\n");
-                    exit(ex);
-                }
-                else
-                    execve(cmdpath, args, neobash.envp);
-            }
             else
             {
-                wait(NULL);
-                return (0);
+                pid = fork();
+                if (!pid)
+                {
+                    ex =ft_io(root);
+                    if (ex)
+                    {
+                        printf("exit\n");
+                        exit(ex);
+                    }
+                    else
+                        execve(cmdpath, args, neobash.envp);
+                }
+                else
+                {
+                    wait(NULL);
+                    return (0);
+                }
             }
         }
 
