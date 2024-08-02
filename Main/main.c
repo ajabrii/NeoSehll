@@ -6,7 +6,7 @@
 /*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:41:10 by kali              #+#    #+#             */
-/*   Updated: 2024/08/02 18:23:54 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/02 19:49:48 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void    ft_syntax_after()
             // free_tree();
             return ;
         }
-        if (neobash.flag == 1 && is_io(neobash.cur_tok->next->type))
+        if (neobash.cur_tok->next && neobash.flag == 1 && is_io(neobash.cur_tok->next->type))
         {
             neobash.prs_state = 0;
             flag = 1;
