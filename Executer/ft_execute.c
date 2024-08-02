@@ -6,7 +6,7 @@
 /*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 10:08:37 by ajabri            #+#    #+#             */
-/*   Updated: 2024/08/01 13:01:27 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/02 19:46:24 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,21 @@ void	heredoc_f(t_io *io)
 	// leaks
 	// exit(0);
 }
+
+//remove this
+// bool check_input(t_io *iol)
+// {
+//         if (iol->type == IN)
+//         {
+//             if (!access(iol->exp_val, F_OK))
+//             printf(ORG"Hello\n"RES);
+//             {
+//                 printf("neobash: %s: No such file or directory\n",iol->exp_val);
+//                 return (true);
+//             }
+//         }
+//     return (false);
+// }
 //_____________________________________________________________________
 
 void ft_init_io(t_node *root)
@@ -99,6 +114,8 @@ void ft_init_io(t_node *root)
     if (!root)
         return;
     root->args = ft_expand(root->args);
+        //    printf(RED"Hello\n"RES);
+
     io = root->iol;
     while (io)
     {
@@ -123,7 +140,7 @@ void ft_init_io(t_node *root)
         }
         else
         {
-            printf("hello else\n");
+            // printf("hello else\n");
             io->exp_val = ft_expand(io->value);
             // printf("hello else1\n");
 
@@ -150,12 +167,13 @@ void ft_before_exec(t_node *root)
 }
 
 
-int	ft_out(t_io *io)
+int	ft_out(t_io *io, int flag)
 {
 	int		fd;
     int     ex;
 
     ex = 0;
+    // printf(RED"Hello\n"RES);
     // if (!io->expanded_value || io->expanded_value[1])
     // {
     // 	ex = ft_err_msg(
@@ -170,19 +188,15 @@ int	ft_out(t_io *io)
         ex = 1;
         return (ex);
 	}
-	if (dup2(fd, STDOUT_FILENO) == -1)
-    {
-        printf("neobash dup2\n");
-        close(fd);
-        return (1);
-    }
+    if (!flag)
+        dup2(fd, STDOUT_FILENO);
     printf("Here\n");
 	close(fd);
 	ex = 0;
 	return (ex);
 }
 
-int	ft_in(t_io *io)
+int	ft_in(t_io *io, int flag)
 {
 	int		fd;
     int     ex;
@@ -201,13 +215,14 @@ int	ft_in(t_io *io)
         ex = 1;
         return (ex);
     }
-	dup2(fd, STDIN_FILENO);
+    if (!flag)
+	    dup2(fd, STDIN_FILENO);
 	close(fd);
 	ex = 0;
 	return (ex);
 }
 
-int	ft_app(t_io *io)
+int	ft_app(t_io *io, int flag)
 {
 	int		fd;
     int     ex;
@@ -223,40 +238,42 @@ int	ft_app(t_io *io)
 	if (fd == -1)
 	{
         // ex = ft_err_msg(ft_check_write(io->value)); msg
-        printf("neobash: %s: Permission denied\n",io->value);
+        printf("neobash: %s: Permission denied\n",io->value); // exp_val
         ex = 1;
         return (ex);
     }
-	dup2(fd, STDOUT_FILENO);
+    if (!flag)
+	    dup2(fd, STDOUT_FILENO);
 	close(fd);
 	ex = 0;
 	return (ex);
 }
 
-int ft_io(t_node *root)
+int ft_io(t_node *root, int flag)
 {
     t_io *tmp_io;
     int ex;
 
     tmp_io = root->iol;
     ex = 0;
+
     while (tmp_io)
     {
         if (tmp_io->type == OUT)
         {
-            ex = ft_out(tmp_io);
+            ex = ft_out(tmp_io, flag);
             if (ex)
                 return (ex);
         }
         else if (tmp_io->type == IN)
         {
-            ex = ft_in(tmp_io);
+            ex = ft_in(tmp_io, flag);
             if (ex)
                 return (ex);
         }
         else if (tmp_io->type == APP)
         {
-            ex = ft_app(tmp_io);
+            ex = ft_app(tmp_io, flag);
             if (ex)
                 return (ex);
         }
@@ -343,8 +360,11 @@ unsigned int ex_cmd(t_node *root)
     //     ex = ft_io(root);
     //     return (ft_reset_stds(), ex);
     // }
+        // printf(RED"Hello\n"RES);
+
     if (root->args)
     {
+        // printf(ORG"Hello\n"RES);
 
     // ex = 0;
         // if (!args)
@@ -371,7 +391,7 @@ unsigned int ex_cmd(t_node *root)
                 pid = fork();
                 if (!pid)
                 {
-                    ex = ft_io(root);
+                    ex = ft_io(root, 0);
                     if (ex)
                     {
                         printf("exit\n");
@@ -398,6 +418,15 @@ unsigned int ex_cmd(t_node *root)
                     return (0);
                 }
             }
+        }
+    }
+    else
+    {
+         ex = ft_io(root, 1);
+        if (ex)
+        {
+            printf("exit\n");
+            return (ex);
         }
     }
     return (0);
@@ -458,6 +487,7 @@ int ft_executer(t_node *root)
 {
     int exit;
     exit = 1337;
+
     if (root->type == PIPE_N)
         return (ex_pipes(root));
     else if (root->type == AND_N)

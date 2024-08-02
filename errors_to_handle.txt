@@ -1,0 +1,74 @@
+************************exit status**********************::
+
+cat Makefile | grep pr | head -n 5 | cd file_not_exit ->> file_not_exist: no such file...(done)  exit status:: 1 (not yet);
+cat Makefile | grep pr | head -n 5 | hello --------->>> hello: cmd not found...(done)  exit status: 127(not yet);
+
+
+ ************************RED ERRORS**********************::
+
+>a ls <machin >>c >d
+>file ------>>> Segmentation fault (fixed)
+cat -e > test1 < test2
+cat < test ---->>>> test: Permission denied; error message --> test: No such file or directory;
+echo 2 > out1 >> out2;
+echo test > file test1
+echo hola > a
+(< pwd)
+
+(ls && pwd | wc) > hola
+(ls && pwd | wc) >> hola
+file creation
+
+************************HEREDOC errors**********************::
+echo hola <<<<< bonjour -----> syntax error (fixed)
+echo hola <<<< bonjour  -----> syntax error (fixed)
+echo hola <<< bonjour (fixed)
+<< $"$hola"$$"b" ----> $hola$$b
+<< $"hola"$"b"  ----->  holab
+cat << hola > bonjour
+cat << $HOME
+cat << ho"la"
+cat << hola
+< a > b cat > hey >> d
+
+
+ ************************PIPE ERRORS**********************::
+
+ls | hola | ls
+ ls | ls | hola | rev
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+$> /
+$> /				OK	OK	bash: /: Is a directory
+$> //				OK	OK	bash: //: Is a directory
+$> /.				OK	OK	bash: /.: Is a directory
+$> /./../../../../..				bash: /./../../../../..: Is a directory
+$> ///////
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+ ************************BONUS PART**********************::
+
+( ( ls ) )
+( ( ls&&pwd ) ) (same as first one)
+(ls && ( ( pwd ) ) )
+(ls && pwd) > hola (red problem here!!)
+( ( ( ( ( pwd) ) ) ) )
+(lss||pwd)&&(lss||pwd) (need to fix the exit status only)
+(lss&&pwd)&&(lss&&pwd) (machi darouri)
+(ls && pwd) > hola
+(ls -z || pwd && ls)
+ls -z && (ls) && (pwd) ----->  l3kss m3a li test li 9bl
+( ( ls ) &&pwd ) wtf it works hahahhahah
+
+
+
+************************THIS IS MINE**********************::
+export errors::
+
+export "";
+export hole="not working"
+export hola='not working'
+
+wslt f -> 610.
