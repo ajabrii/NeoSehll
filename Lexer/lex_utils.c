@@ -6,7 +6,7 @@
 /*   By: venom <venom@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 06:26:32 by ajabri            #+#    #+#             */
-/*   Updated: 2024/07/18 11:51:02 by venom            ###   ########.fr       */
+/*   Updated: 2024/08/02 12:16:17 by venom            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ bool check_spcial(char c)
     if (c >= '0' &&  c <= '9')
         return (false);
     if (c == 45 || c == '.' || c == '/'
-		 || c == '$' || c == '_' || c == '?' || c == '=' || c == '*')// this _ is for expand
+		 || c == '$' || c == '_' || c == '?' || c == '=' || c == '*'
+		 || c == '+' ||c == '\'' || c == '"')// this _ is for expand
         return (false);
     return (true);
 }

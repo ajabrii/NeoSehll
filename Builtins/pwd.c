@@ -6,7 +6,7 @@
 /*   By: venom <venom@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 20:31:18 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/07/17 11:12:40 by venom            ###   ########.fr       */
+/*   Updated: 2024/08/04 19:39:12 by venom            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,13 @@ int option(char *str)
     {
         if (str[i] == '-')
         {
-            i++;
-            // printf("bash: pwd: '%s': invalid option", str[i]);
+            printf("bash: pwd: '%s': invalid option\n", &str[i]);
             return (1);
         }
         i++;
     }
-    if (i > 3)
-        return (1);
+    // if (i > 3)
+    //     return (1);
     return (0);
 }
 

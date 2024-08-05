@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: venom <venom@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:36:18 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/07/18 06:31:44 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/08/05 15:42:58 by venom            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,16 @@ void    ft_env(t_env *env)
     tmp = env;
     while (tmp)
     {
-        printf("%s=%s\n",tmp->key, tmp->value);
-        tmp = tmp->next;
+		if (!ft_strcmp(tmp->value, ""))
+		{
+			tmp = tmp->next;
+			// printf("maaaaaat\n");
+		}
+		else
+		{
+        	printf("%s=%s\n", tmp->key, tmp->value);
+        	tmp = tmp->next;
+		}
     }
 	// printf("END HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 }

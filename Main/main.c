@@ -6,7 +6,7 @@
 /*   By: venom <venom@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:41:10 by kali              #+#    #+#             */
-/*   Updated: 2024/07/18 18:01:52 by venom            ###   ########.fr       */
+/*   Updated: 2024/07/31 15:17:32 by venom            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void print_ast_node(t_node *node, int indent) {
     if (node->args != NULL) {
         printf("%*sArguments: %s\n", indent + 2, "", node->args);
     }
+    // node->args = asterisk();
 
     // Print IO redirection list if it exists
     if (node->iol != NULL) {
@@ -90,7 +91,7 @@ void print_ast(t_node *root) {
         printf("Syntax Tree is empty.\n");
         return;
     }
-
+    
     printf("Printing Abstract Syntax Tree:\n");
     print_ast_node(root, 0);
 }
@@ -108,6 +109,7 @@ void    ft_init_neobash(char **env)
 	neobash.out = dup(1);
     neobash.paths = grep_paths(env);
     neobash.level = 1;
+    neobash.app = false;
     // neobash.prompt = NULL;
 }
 /*lldld*/
@@ -156,7 +158,7 @@ void neoshell()
         if (!neobash.tokens)
             continue;
         neobash.tree = ft_parser();
-        // print_ast(neobash.tree);
+        print_ast(neobash.tree);
         // printf(RED "[%s]-[%d]\n" RES, neobash.cur_tok->value, neobash.cur_tok->type);
         if (neobash.prs_state)
         {

@@ -6,7 +6,7 @@
 /*   By: venom <venom@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 20:58:07 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/07/17 11:13:02 by venom            ###   ########.fr       */
+/*   Updated: 2024/07/29 17:20:47 by venom            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,6 @@ int skip(char *s)
 {
     int i = 0;
 
-    if (!ft_strncmp(s, "cd", 2))
-        i += 2;
     while (s[i] && s[i] == ' ')
         i++;
     if (!s[i])
@@ -101,7 +99,6 @@ int bt_cd(char *s)
     int i;
     char *str;
 
-    i = 0;
     i = skip(s);
     if (i == 0)
     {

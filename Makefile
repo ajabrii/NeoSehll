@@ -1,6 +1,6 @@
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
 
 # Project name
 NAME = minishell
@@ -18,7 +18,7 @@ SRC += Lexer/lexical.c Lexer/lextools.c Lexer/token.c Lexer/lex_utils.c
 SRC += Leaks/free_all.c Leaks/garbedge.c
 SRC += Parser/ft_parser.c Parser/putils.c Parser/tools.c
 SRC += Executer/ft_execute.c
-SRC += signals/signal.c
+SRC += signals/signal.c wildcard/asterisk.c
 
 # Object files
 OBJ = $(SRC:.c=.o)

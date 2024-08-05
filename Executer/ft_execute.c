@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: venom <venom@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 10:08:37 by ajabri            #+#    #+#             */
-/*   Updated: 2024/07/18 06:28:14 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/07/31 18:32:30 by venom            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,7 +292,7 @@ int     ex_builtins(t_node *root)
 {
     if (!ft_strncmp(root->args,"cd", 2))
     {
-        bt_cd(root->args);
+        bt_cd(root->args + 2);
         return (0);
     }
     if (!ft_strncmp(root->args,"env", 3))
@@ -300,7 +300,7 @@ int     ex_builtins(t_node *root)
     if (!ft_strncmp(root->args,"exit", 4))
     {
         // printf("here [%s]\n", root->args);
-        ft_exit(0);
+        ft_exit(root->args + 4);
         return (0);
     }
     if (!ft_strncmp(root->args,"pwd", 3))
@@ -310,11 +310,11 @@ int     ex_builtins(t_node *root)
         return (0);
     }
     if (!ft_strncmp(root->args,"unset", 5))
-        return (ft_unset(root->args), 0);
+        return (ft_unset(root->args + 5), 0);
     if (!ft_strncmp(root->args,"echo", 4))
-        return (ft_echo(root->args), 0);
+        return (ft_echo(root->args + 4), 0);
     if (!ft_strncmp(root->args,"export", 6))
-        return (ft_export(root->args), 0);
+        return (ft_export(root->args + 6), 0);
     if (!ft_strncmp(root->args,"./minishell", 11))
         return (update_env("SHLVL", ft_itoa(++neobash.level)), 0);
     else

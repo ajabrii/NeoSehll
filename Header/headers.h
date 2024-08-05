@@ -6,7 +6,7 @@
 /*   By: venom <venom@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:41:39 by kali              #+#    #+#             */
-/*   Updated: 2024/07/18 14:21:43 by venom            ###   ########.fr       */
+/*   Updated: 2024/08/03 14:53:42 by venom            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <limits.h>
 # include "../Libft/libft.h"
 # include <limits.h>
+# include <sys/types.h>
+# include <dirent.h>
 
 
 /*colors*/
@@ -140,6 +142,7 @@ typedef struct s_shell
     int out;
     int count;
     int level;
+    bool app;
 
 } g_shell;
 
@@ -217,9 +220,10 @@ void    ft_addback_io_node(t_io **iop, t_io *new);
 
 /* <Builtins> */
 int bt_cd(char *s);
+int skip(char *s);
 void ft_echo(char *s);
 void ft_env(t_env *env);
-void ft_exit(int ex);
+void    ft_exit(char *str);
 int ft_export(char *s);
 void ft_pwd(char *s);
 void ft_unset(char *s);
@@ -250,6 +254,7 @@ char *ft_expand(char *str);
 
 /*<signals>*/
 void	ft_init_signals(void);
+char	*asterisk(char *s);////
 /*</signals>*/
 
 /* <Main> */

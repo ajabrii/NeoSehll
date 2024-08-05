@@ -6,7 +6,7 @@
 /*   By: venom <venom@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:35:31 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/07/21 16:01:44 by venom            ###   ########.fr       */
+/*   Updated: 2024/08/05 11:42:12 by venom            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,35 +40,41 @@ void ft_unset(char *s)
     t_env *envl = neobash.envl;
     t_env *tmp = envl;
     t_env *prev = NULL;
+    char **var;
+    int i = 0;
+    bool flag = false;
 
-    // skip spaces here;
-    if (!ft_strncmp(s, "unset", 5))
-    {
-        s += 5;
-        while (*(s) == ' ' && *(s))
-            s++;
-        printf ("str is ::%s\n", s);
+        s += skip(s);
+        var = ft_split(s, ' ');
+        printf ("str is ::%s||\n", s);
+        if (!(*s))
+            return;
         while (tmp)
         {
-            if (!ft_strcmp(s, tmp->key))
+            i = 0;
+            while (var[i])
             {
-                printf("Here tmp->tmp ::%s \n", tmp->key);
-                if (prev)
-                    prev->next = tmp->next;
-                else
-                    neobash.envl = tmp->next;
-                ft_delone(tmp, del);
-                return;
+                if (!ft_strcmp(var[i], tmp->key))
+                {
+                    printf("Here tmp->tmp ::%s \n", tmp->key);
+                    if (prev)
+                        prev->next = tmp->next;
+                    else
+                        neobash.envl = tmp->next;
+                    ft_delone(tmp, del);
+                    flag = true;
+                    tmp = prev;
+                    break;
+                }
+                i++;
             }
-            else
-            {
-                prev = tmp;
-                tmp = tmp->next;
-            }
+            prev = tmp;
+            tmp = tmp->next;
         }
+        if (flag == false)
+        {
         	ft_putstr_fd("minishell: unset: `", 2);
-			ft_putstr_fd(s, 2);
 			ft_putstr_fd("': not a valid identifier\n", 2);
-    }
+			ft_putstr_fd(s, 2);
+        }
 }
-
