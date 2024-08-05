@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 10:08:37 by ajabri            #+#    #+#             */
-/*   Updated: 2024/08/02 19:46:24 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/05 07:02:28 by ajabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -372,9 +372,16 @@ unsigned int ex_cmd(t_node *root)
         if (is_builtin(root)) // TO DO
         {
             // printf("here1\n");
+            ex = ft_io(root, 0);
+            if (ex)
+            {
+                printf("exit\n");
+                exit(ex);
+            }
             ex = ex_builtins(root); // TO DO
             if (ex)
                 exit(ex);
+            ft_reset_stds();
         }
         else
         {
@@ -386,43 +393,40 @@ unsigned int ex_cmd(t_node *root)
                 update_env("SHLVL", ft_itoa(++neobash.level));
                 printf("[%s]\n",get_env_val("SHLVL"));
             }
-            else
+            pid = fork();
+            if (!pid)
             {
-                pid = fork();
-                if (!pid)
+                ex = ft_io(root, 0);
+                if (ex)
                 {
-                    ex = ft_io(root, 0);
-                    if (ex)
-                    {
-                        printf("exit\n");
-                        exit(ex);
-                    }
-                    cmdpath = get_cmd_path(neobash.paths, args[0]);
-                    if (!cmdpath)
-                    {
-                        printf("neobash: command not found: %s\n", args[0]);
-                        return (exit(127), 127);
-                    }
-                    else
-                    {
-                            my_envp = get_my_envp();
-                            // for (int i = 0; i < 47; i++)
-                            //     printf("[%s]\n", my_envp[i]);
-                            execve(cmdpath, args, my_envp);
-                            exit(1);
-                    }
+                    printf("exit\n");
+                    exit(ex);
+                }
+                cmdpath = get_cmd_path(neobash.paths, args[0]);
+                if (!cmdpath)
+                {
+                    printf("neobash: command not found: %s\n", args[0]);
+                    return (exit(127), 127);
                 }
                 else
                 {
-                    wait(NULL);
-                    return (0);
+                        my_envp = get_my_envp();
+                        // for (int i = 0; i < 47; i++)
+                        //     printf("[%s]\n", my_envp[i]);
+                        execve(cmdpath, args, my_envp);
+                        exit(1);
                 }
+            }
+            else
+            {
+                wait(NULL);
+                return (0);
             }
         }
     }
     else
     {
-         ex = ft_io(root, 1);
+        ex = ft_io(root, 1);
         if (ex)
         {
             printf("exit\n");
@@ -487,21 +491,55 @@ int ft_executer(t_node *root)
 {
     int exit;
     exit = 1337;
-
+    if (root->iol)
+    {
+        printf("hello\n");
+        ft_init_io(root);
+        exit = ft_io(root, 0);
+        if (exit)
+        {
+            printf("exit\n");
+            return (exit);
+        }
+        ft_reset_stds();
+    }
     if (root->type == PIPE_N)
         return (ex_pipes(root));
     else if (root->type == AND_N)
     {
+        if (root->iol)
+        {
+            ft_init_io(root);
+            exit = ft_io(root, 0);
+            if (exit)
+            {
+                printf("exit\n");
+                return (exit);
+            }
+        }
         exit = ft_executer(root->left);
         if (exit == 0)
             return (ft_executer(root->right));
+        ft_reset_stds();
         return (exit);
     }
     else if (root->type == OR_N)
     {
+        if (root->iol)
+        {
+            printf("hello\n");
+            ft_init_io(root);
+            exit = ft_io(root, 0);
+            if (exit)
+            {
+                printf("exit\n");
+                return (exit);
+            }
+        }
         exit = ft_executer(root->left);
         if (exit != 0)
             return (ft_executer(root->right));
+        ft_reset_stds();
         return (exit);
     }
     else

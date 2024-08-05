@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ex_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 18:58:23 by kali              #+#    #+#             */
-/*   Updated: 2024/08/01 12:00:07 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/05 06:44:13 by ajabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char **get_my_envp()
 	t_env *tmpl;
 	int lsize;
 
-	lsize = ft_count_size(neobash.envp) + 1; // change the count_size withe the list_size !!!
+	lsize = ft_count_size() + 1; // change the count_size withe the list_size !!!
 	res = ft_malloc(sizeof(char *) * lsize);
 	i = 0;
 	tmpl = neobash.envl;
