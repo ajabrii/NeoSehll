@@ -53,8 +53,7 @@ char *handle_q(char *line, int start)
             	if (line[i] == q)
                 	i++;
             	res = ft_strjoin(res, ft_substr(line, start, i - start - 1));
-				printf("CHOOOOF::%s\n", res);
-				printf("here-----------------\n");
+				// printf("here-----------------\n");
 				start = i;
 				if (!line[i]) //this for (export test="");
 					break;
