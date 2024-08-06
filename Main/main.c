@@ -6,7 +6,7 @@
 /*   By: venom <venom@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:41:10 by kali              #+#    #+#             */
-/*   Updated: 2024/07/31 15:17:32 by venom            ###   ########.fr       */
+/*   Updated: 2024/08/06 19:11:31 by venom            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ void neoshell()
             printf("exit\n");
             break;
         }
+        signal(SIGQUIT, SIG_IGN);
         if (neobash.line)
             add_history(neobash.line);
         ft_lexer();

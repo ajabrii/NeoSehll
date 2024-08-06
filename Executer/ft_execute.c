@@ -6,7 +6,7 @@
 /*   By: venom <venom@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 10:08:37 by ajabri            #+#    #+#             */
-/*   Updated: 2024/07/31 18:32:30 by venom            ###   ########.fr       */
+/*   Updated: 2024/08/06 19:23:35 by venom            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,22 @@ bool	ft_is_delimiter(char *delimiter, char *str)
 	return (!*delimiter);
 }
 
+void heredoc_handler(int sig)
+{
+    if(sig == SIGINT)
+    {
+        neobash.status = 130;
+        printf("\n");
+        exit(130);
+    }
+}
+
 void	heredoc_f(t_io *io)
 {
 	char	*line;
 	char	*quotes;
 
+    signal(SIGINT, heredoc_handler);
 	quotes = io->value;
 	while (*quotes && *quotes != '"' && *quotes != '\'')
 		quotes++;
@@ -116,7 +127,10 @@ void ft_init_io(t_node *root)
             }
             else
             {
-                waitpid(pid, NULL, 0);
+                int state ;   
+                waitpid(pid, &state, 0);
+                if (WEXITSTATUS(state) == 130)
+                    break ;
                 close(neobash.fd[1]);
                 close(neobash.fd[0]);
             }
@@ -353,6 +367,7 @@ unsigned int ex_cmd(t_node *root)
             pid = fork();
             if (!pid)
             {
+                signal(SIGQUIT, SIG_DFL);
                 args = ft_split(root->args, ' ');
                 cmdpath = get_cmd_path(neobash.paths, args[0]);
                 ex =ft_io(root);
@@ -370,7 +385,13 @@ unsigned int ex_cmd(t_node *root)
             }
             else
             {
-                wait(NULL);
+                int state;
+                waitpid(-1, &state, 0);
+                if (state == 2)
+                    printf("\n");
+                if (state == 131)
+                    printf("Quit (core dumped)\n");
+                // printf("stat = %d\n\n\n", state);
                 return (0);
             }
         }
@@ -429,11 +450,16 @@ int ex_pipes(t_node *root)
     return (42);
 }
 
+void handlre(int sig)
+{
+    if (sig == SIGINT)
+        neobash.status = 130;
+}
 
 int ft_executer(t_node *root)
 {
     int exit;
-
+    signal(SIGINT, handlre);
     exit = 1337;
     if (root->type == PIPE_N)
         return (ex_pipes(root));

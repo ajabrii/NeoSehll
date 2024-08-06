@@ -6,7 +6,7 @@
 /*   By: venom <venom@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:41:39 by kali              #+#    #+#             */
-/*   Updated: 2024/08/03 14:53:42 by venom            ###   ########.fr       */
+/*   Updated: 2024/08/06 12:59:17 by venom            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ typedef struct s_shell
     char *tmp;// get_cmd_path
     char *palestine; // get_cmd_path
     t_env *envl;
+    t_env *envl_dup;
     int flag;
     t_leak *leaks;
     int             fd[2];
@@ -225,6 +226,11 @@ void ft_echo(char *s);
 void ft_env(t_env *env);
 void    ft_exit(char *str);
 int ft_export(char *s);
+void ft_swap(t_env *a, t_env *b, int *swapped);
+void	sort_env(t_env *env);
+t_env *env_list_dup(t_env *env);
+void print_ex(t_env *env);
+void	ft_export_err_msg(char *identifier);
 void ft_pwd(char *s);
 void ft_unset(char *s);
 void update_env(char *key, char *value);

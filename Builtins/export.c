@@ -1,26 +1,16 @@
-#include "../Header/headers.h"
-
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelayad <abelayad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: venom <venom@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/21 09:16:20 by abelayad          #+#    #+#             */
-/*   Updated: 2023/06/18 15:57:27 by abelayad         ###   ########.fr       */
+/*   Created: 2024/08/06 12:44:17 by venom             #+#    #+#             */
+/*   Updated: 2024/08/06 12:58:09 by venom            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Header/headers.h"
-
-void	ft_export_err_msg(char *identifier)
-{
-	ft_putstr_fd("minishell: export: `", 2);
-	ft_putstr_fd(identifier, 2);
-	ft_putstr_fd("': not a valid identifier\n", 2);
-}
 
 char *handle_q(char *line, int start)
 {
@@ -53,7 +43,8 @@ char *handle_q(char *line, int start)
             	if (line[i] == q)
                 	i++;
             	res = ft_strjoin(res, ft_substr(line, start, i - start - 1));
-				// printf("here-----------------\n");
+				printf("CHOOOOF::%s\n", res);
+				printf("here-----------------\n");
 				start = i;
 				if (!line[i]) //this for (export test="");
 					break;
@@ -68,20 +59,6 @@ char *handle_q(char *line, int start)
 	printf("LOOK :: %s\n",res);
 	neobash.count = i;
     return res;
-}
-
-void	print_ex(t_env *env)
-{
-	while (env)
-	{
-			printf("declare -x ");
-			printf("%s", env->key);
-			if (env->value)
-				printf("=\"%s\"\n", env->value);
-			else
-				printf("\n");
-		env = env->next;
-	}
 }
 
 
@@ -163,28 +140,16 @@ char	*sub_value(char *str)
 		if (str[i] == '=')
 		{
 			s = i + 1;
-			// while (str[i])
-			// {
-			// 	i++;
-			// 	if (!str[i])
-			// 	{
-			// 		neobash.count = i;
-			// 		return (ft_substr(str, s, i - s)); // + 1 for space after '='
-			// 	}
-			// 	else if (str[i] == ' ')
-			// 	{
-			// 		neobash.count = i + 1;
-			// 		return (ft_substr(str, s, i - s));
-			// 	}
-			// }
+			if (!str[s])
+				return (ft_strdup(""));
 			res = handle_q(str, s);
-			// printf("--------------------------------->>>>>>>>>>>>>>%s\n", res);
 			return (res);
 		}
 		i++;
 	}
 	return (NULL);
 }
+
 
 int	ft_export(char *s)
 {
@@ -196,7 +161,6 @@ int	ft_export(char *s)
 
 	exit = 0;
 	i = 0;
-	// printf("------->>>>> :::%s\n", s);
 	i = skip(s);
 	if (!(s[i]))
 	{
@@ -242,4 +206,3 @@ int	ft_export(char *s)
 	}
     return(exit);
 }
-// "hello = ok oki =" --> hello=ok oki == and that's error!!!
