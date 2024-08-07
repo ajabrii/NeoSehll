@@ -6,7 +6,7 @@
 /*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 10:08:37 by ajabri            #+#    #+#             */
-/*   Updated: 2024/08/06 14:59:10 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/07 20:00:53 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	ft_reset_stds()
 	// printf("{%d}\n",neobash.in);
 	dup2(neobash.in, 0);
 	dup2(neobash.out, 1);
+    dup2(neobash.err, 2);
 }
-
 
 unsigned int ex_cmd(t_node *root)
 {
@@ -130,16 +130,16 @@ int ft_executer(t_node *root)
 {
     int exit_status = 0;
 
-    if (root->iol && root->iol->type != HERE_DOC)
-    {
-        ft_init_io(root);
-        exit_status = ft_io(root, 0);
-        if (exit_status)
-        {
-            ft_reset_stds();
-            return exit_status;
-        }
-    }
+    // if (root->iol && root->iol->type != HERE_DOC)
+    // {
+    //     ft_init_io(root);
+    //     exit_status = ft_io(root, 0);
+    //     if (exit_status)
+    //     {
+    //         ft_reset_stds();
+    //         return exit_status;
+    //     }
+    // }
     if (root->type == PIPE_N)
     {
         exit_status = ex_pipes(root);

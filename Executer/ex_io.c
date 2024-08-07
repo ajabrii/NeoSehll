@@ -6,7 +6,7 @@
 /*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 09:42:59 by kali              #+#    #+#             */
-/*   Updated: 2024/08/06 15:20:27 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/07 20:03:52 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,14 +152,14 @@ int	ft_out(t_io *io, int flag)
     printf(ORG"{``%d''}\n"RES, fd);
     if (fd == -1)
     {
-		printf("neobash: %s: Permission denied\n",io->value);
+		ft_putstr_fd("neobash: value: Permission denied\n", 2);
         ex = 1;
         return (ex);
 	}
    if (!flag)
     {
         dup2(fd, STDOUT_FILENO);
-        dup2(fd, STDERR_FILENO); // Redirect stderr as well
+        // dup2(fd, STDERR_FILENO); // Redirect stderr as well
     }
     printf("Here\n");
 	close(fd);
@@ -182,7 +182,7 @@ int	ft_in(t_io *io, int flag)
     fd = open(io->exp_val, O_RDONLY);
 	if (fd == -1)
 	{
-        printf("neobash: %s: Permission denied\n",io->value);
+        ft_putstr_fd("neobash: value: Permission denied\n", 2);
         ex = 1;
         return (ex);
     }

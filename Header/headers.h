@@ -6,7 +6,7 @@
 /*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:41:39 by kali              #+#    #+#             */
-/*   Updated: 2024/08/06 12:24:11 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/07 18:43:34 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ typedef struct s_shell
     int             fd[2];
     int in;
     int out;
+    int err;
     int count;
     int level;
 

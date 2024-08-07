@@ -6,7 +6,7 @@
 /*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:41:10 by kali              #+#    #+#             */
-/*   Updated: 2024/08/06 14:48:17 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/07 19:09:39 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void    ft_init_neobash(char **env)
     neobash.flag = 0;
     neobash.in = dup(0);
 	neobash.out = dup(1);
+    neobash.err = dup(2);
     neobash.paths = grep_paths(env);
     neobash.level = ft_atoi(get_env_val("SHLVL"));
     // neobash.prompt = NULL;
@@ -113,9 +114,9 @@ void    ft_init_neobash(char **env)
 /*lldld*/
 void    ft_syntax_after()
 {
-    int flag;
+    // int flag;
 
-    flag = 0;
+    // flag = 0;
     if (neobash.prs_state == 1)
     {
         if (!neobash.cur_tok)
@@ -124,17 +125,18 @@ void    ft_syntax_after()
             // free_tree();
             return ;
         }
-        if (neobash.cur_tok->next && neobash.flag == 1 && is_io(neobash.cur_tok->next->type))
+        if (neobash.cur_tok->next)
         {
-            neobash.prs_state = 0;
-            flag = 1;
-        }
-        if (!flag)
-        {
-            // printf(RED "[%s]-[%d]--[%d]\n" RES, neobash.cur_tok->value, neobash.cur_tok->type, neobash.flag);
             printf("neobash: syntax error near unexpected token `%s'\n", neobash.cur_tok->value);
-            // free_tree();
+            neobash.prs_state = 0;
+            // flag = 1;
         }
+        // if (!flag)
+        // {
+        //     // printf(RED "[%s]-[%d]--[%d]\n" RES, neobash.cur_tok->value, neobash.cur_tok->type, neobash.flag);
+        //     printf("neobash: syntax error near unexpected token `%s'\n", neobash.cur_tok->value);
+        //     // free_tree();
+        // }
     }
     return;
 }
