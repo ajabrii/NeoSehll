@@ -6,7 +6,7 @@
 /*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:41:39 by kali              #+#    #+#             */
-/*   Updated: 2024/08/01 12:00:19 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/06 12:24:11 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,6 +237,21 @@ void    execution();
 int     ft_executer(t_node *root);
 char    **get_cmdagrs(char *line);
 char **get_my_envp();
+char *get_cmd_path(char **paths, char *cmd);
+bool ft_is_delimiter(char *delimiter, char *str);
+void heredoc_f(t_io *io, int fd[2]);
+int ft_io(t_node *root, int flag);
+int ft_app(t_io *io, int flag);
+int ft_in(t_io *io, int flag);
+int ft_out(t_io *io, int flag);
+void ft_init_io(t_node *root);
+int ex_builtins(t_node *root);
+bool is_builtin(t_node *root);
+int ex_pipes(t_node *root);
+void ex_rpipe(int fd[2], t_node *root);
+void ex_lpipe(int fd[2], t_node *root);
+
+
 /* </Executer/ft_executer.c> */
 
 /* <Expand> */

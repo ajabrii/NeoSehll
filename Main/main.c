@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:41:10 by kali              #+#    #+#             */
-/*   Updated: 2024/08/05 06:59:24 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/08/06 14:48:17 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ void neoshell()
         if (!neobash.tokens)
             continue;
         neobash.tree = ft_parser();
-        // print_ast(neobash.tree);
+        print_ast(neobash.tree);
         // printf(RED "[%s]-[%d]\n" RES, neobash.cur_tok->value, neobash.cur_tok->type);
         if (neobash.prs_state)
         {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   putils.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:53:42 by kali              #+#    #+#             */
-/*   Updated: 2024/06/30 13:45:29 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/08/07 10:31:13 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ bool    create_iol(t_io **io, t_io_t io_t)
         return (false);
     while (neobash.cur_tok && is_io())
     {
+        io_t = get_type(neobash.cur_tok->type);
         ft_skip_tok();
         if (!neobash.cur_tok || neobash.cur_tok->type != WRD)
             return (set_state(1), false);

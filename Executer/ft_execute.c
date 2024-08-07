@@ -3,151 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 10:08:37 by ajabri            #+#    #+#             */
-/*   Updated: 2024/08/05 07:02:28 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/08/06 14:59:10 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../Header/headers.h"
-
-char	*get_cmd_path(char **paths, char *cmd)
-{
-    // printf("`%s'\n", cmd);
-    if (!cmd || !cmd[0])
-        return (NULL);
-    if (cmd[0] == '.')
-    {
-		if (access(cmd, X_OK) == 0)
-			return (cmd);
-	}
-	if (cmd[0] == '/')
-	{
-		if (access(cmd, X_OK) == 0)
-			return (cmd);
-	}
-	if (!paths)
-		return (NULL);
-	while (*paths)
-	{
-		neobash.tmp = ft_strjoin(*paths, "/");
-		neobash.palestine = ft_strjoin(neobash.tmp, cmd);
-		free(neobash.tmp);
-		if (access(neobash.palestine, X_OK) == 0)
-			return (neobash.palestine);
-		free(neobash.palestine);
-		paths++;
-	}
-	return (NULL);
-}
-
-
-bool	ft_is_delimiter(char *delimiter, char *str)
-{
-	while (*str)
-	{
-		if (*delimiter == '"' || *delimiter == '\'')
-		{
-			delimiter++;
-			continue ;
-		}
-		else if (*str == *delimiter)
-		{
-			str++;
-			delimiter++;
-		}
-		else
-			return (false);
-	}
-	while (*delimiter == '"' || *delimiter == '\'')
-		delimiter++;
-	return (!*delimiter);
-}
-
-void	heredoc_f(t_io *io)
-{
-	char	*line;
-	char	*quotes;
-
-	quotes = io->value;
-	while (*quotes && *quotes != '"' && *quotes != '\'')
-		quotes++;
-	while (1)
-	{
-		line = readline("> ");
-		if (!line)
-			break ;
-		if (ft_is_delimiter(io->value, line))
-			break ;
-		else
-		{
-			ft_putstr_fd(line, neobash.fd[1]);
-			ft_putstr_fd("\n", neobash.fd[1]);
-		}
-	}
-	// leaks
-	// exit(0);
-}
-
-//remove this
-// bool check_input(t_io *iol)
-// {
-//         if (iol->type == IN)
-//         {
-//             if (!access(iol->exp_val, F_OK))
-//             printf(ORG"Hello\n"RES);
-//             {
-//                 printf("neobash: %s: No such file or directory\n",iol->exp_val);
-//                 return (true);
-//             }
-//         }
-//     return (false);
-// }
-//_____________________________________________________________________
-
-void ft_init_io(t_node *root)
-{
-    pid_t pid;
-    t_io *io;
-
-    if (!root)
-        return;
-    root->args = ft_expand(root->args);
-        //    printf(RED"Hello\n"RES);
-
-    io = root->iol;
-    while (io)
-    {
-        // printf("[%s]-[%d]\n", io->value, io->type);
-        if (io->type == HERE_DOC)
-        {
-            // printf("Hello \n");
-            // neobash.hdoc = 0;
-            pipe(neobash.fd);
-            pid = fork();
-            if (!pid)
-            {
-                heredoc_f(io);
-                // exit(0);
-            }
-            else
-            {
-                waitpid(pid, NULL, 0);
-                close(neobash.fd[1]);
-                close(neobash.fd[0]);
-            }
-        }
-        else
-        {
-            // printf("hello else\n");
-            io->exp_val = ft_expand(io->value);
-            // printf("hello else1\n");
-
-        }
-        io = io->next;
-    }
-}
 
 void ft_before_exec(t_node *root)
 {
@@ -166,122 +29,6 @@ void ft_before_exec(t_node *root)
         ft_init_io(root);
 }
 
-
-int	ft_out(t_io *io, int flag)
-{
-	int		fd;
-    int     ex;
-
-    ex = 0;
-    // printf(RED"Hello\n"RES);
-    // if (!io->expanded_value || io->expanded_value[1])
-    // {
-    // 	ex = ft_err_msg(
-    // 			(t_err){ENO_GENERAL, ERRMSG_AMBIGUOUS, io_list->value});
-    // 	return (*status);
-    // }
-    fd = open(io->exp_val, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-    printf(ORG"{``%d''}\n"RES, fd);
-    if (fd == -1)
-    {
-		printf("neobash: %s: Permission denied\n",io->value);
-        ex = 1;
-        return (ex);
-	}
-    if (!flag)
-        dup2(fd, STDOUT_FILENO);
-    printf("Here\n");
-	close(fd);
-	ex = 0;
-	return (ex);
-}
-
-int	ft_in(t_io *io, int flag)
-{
-	int		fd;
-    int     ex;
-
-    ex = 0;
-    // if (!io->expanded_value || io->expanded_value[1])
-    // {
-    // 	ex = ft_err_msg(
-    // 			(t_err){ENO_GENERAL, ERRMSG_AMBIGUOUS, io_list->value});
-    // 	return (*status);
-    // }
-    fd = open(io->exp_val, O_RDONLY);
-	if (fd == -1)
-	{
-        printf("neobash: %s: Permission denied\n",io->value);
-        ex = 1;
-        return (ex);
-    }
-    if (!flag)
-	    dup2(fd, STDIN_FILENO);
-	close(fd);
-	ex = 0;
-	return (ex);
-}
-
-int	ft_app(t_io *io, int flag)
-{
-	int		fd;
-    int     ex;
-
-    ex = 0;
-    // if (!io->expanded_value || io->expanded_value[1])
-    // {
-    // 	ex = ft_err_msg(
-    // 			(t_err){ENO_GENERAL, ERRMSG_AMBIGUOUS, io_list->value});
-    // 	return (*status);
-    // }
-    fd = open(io->exp_val, O_CREAT | O_WRONLY | O_APPEND, 0644);
-	if (fd == -1)
-	{
-        // ex = ft_err_msg(ft_check_write(io->value)); msg
-        printf("neobash: %s: Permission denied\n",io->value); // exp_val
-        ex = 1;
-        return (ex);
-    }
-    if (!flag)
-	    dup2(fd, STDOUT_FILENO);
-	close(fd);
-	ex = 0;
-	return (ex);
-}
-
-int ft_io(t_node *root, int flag)
-{
-    t_io *tmp_io;
-    int ex;
-
-    tmp_io = root->iol;
-    ex = 0;
-
-    while (tmp_io)
-    {
-        if (tmp_io->type == OUT)
-        {
-            ex = ft_out(tmp_io, flag);
-            if (ex)
-                return (ex);
-        }
-        else if (tmp_io->type == IN)
-        {
-            ex = ft_in(tmp_io, flag);
-            if (ex)
-                return (ex);
-        }
-        else if (tmp_io->type == APP)
-        {
-            ex = ft_app(tmp_io, flag);
-            if (ex)
-                return (ex);
-        }
-        tmp_io = tmp_io->next;
-    }
-    return (0);
-}
-
 void	ft_reset_stds()
 {
 	// if (piped)
@@ -291,58 +38,6 @@ void	ft_reset_stds()
 	dup2(neobash.out, 1);
 }
 
-bool is_builtin(t_node *root)
-{
-    if (!ft_strncmp(root->args,"cd", 2))
-        return (true);
-    if (!ft_strncmp(root->args,"env", 3))
-        return (true);
-    if (!ft_strncmp(root->args,"exit", 4))
-        return (true);
-    if (!ft_strncmp(root->args,"pwd", 3))
-        return (true);
-    if (!ft_strncmp(root->args,"unset", 5))
-        return (true);
-    if (!ft_strncmp(root->args,"echo", 4))
-        return (true);
-    if (!ft_strncmp(root->args,"export", 6))
-        return (true);
-    // if (!ft_strncmp(root->args,"./minishell", 11))
-    //     return (true);
-    else
-        return (false);
-}
-
-int     ex_builtins(t_node *root)
-{
-    if (!ft_strncmp(root->args,"cd", 2))
-    {
-        bt_cd(root->args);
-        return (0);
-    }
-    if (!ft_strncmp(root->args,"env", 3))
-        return (ft_env(neobash.envl), 0);
-    if (!ft_strncmp(root->args,"exit", 4))
-    {
-        // printf("here [%s]\n", root->args);
-        ft_exit(0);
-        return (0);
-    }
-    if (!ft_strncmp(root->args,"pwd", 3))
-    {
-        // printf("here [%s]\n", root->args);
-        ft_pwd(root->args);
-        return (0);
-    }
-    if (!ft_strncmp(root->args,"unset", 5))
-        return (ft_unset(root->args), 0);
-    if (!ft_strncmp(root->args,"echo", 4))
-        return (ft_echo(root->args), 0);
-    if (!ft_strncmp(root->args,"export", 6))
-        return (ft_export(root->args), 0);
-    else
-        return (1);
-}
 
 unsigned int ex_cmd(t_node *root)
 {
@@ -350,38 +45,21 @@ unsigned int ex_cmd(t_node *root)
     char *cmdpath;
     char **my_envp;
     pid_t pid;
-    // int fd;
     int ex;
-
-    // fd = 0;
-
-    // if (root->iol)
-    // {
-    //     ex = ft_io(root);
-    //     return (ft_reset_stds(), ex);
-    // }
-        // printf(RED"Hello\n"RES);
 
     if (root->args)
     {
-        // printf(ORG"Hello\n"RES);
-
-    // ex = 0;
-        // if (!args)
-            // printf("segfault\n");
-        if (is_builtin(root)) // TO DO
+        if (is_builtin(root))
         {
-            // printf("here1\n");
             ex = ft_io(root, 0);
             if (ex)
             {
-                printf("exit\n");
-                exit(ex);
+                ft_reset_stds();
+                return ex;
             }
-            ex = ex_builtins(root); // TO DO
-            if (ex)
-                exit(ex);
+            ex = ex_builtins(root);
             ft_reset_stds();
+            return ex;
         }
         else
         {
@@ -391,36 +69,48 @@ unsigned int ex_cmd(t_node *root)
             {
                 printf(RED "`%s'\n" RES, args[0]);
                 update_env("SHLVL", ft_itoa(++neobash.level));
-                printf("[%s]\n",get_env_val("SHLVL"));
+                printf("[%s]\n", get_env_val("SHLVL"));
             }
             pid = fork();
-            if (!pid)
+            if (pid == 0)
             {
                 ex = ft_io(root, 0);
                 if (ex)
                 {
-                    printf("exit\n");
+                    ft_reset_stds();
                     exit(ex);
                 }
-                cmdpath = get_cmd_path(neobash.paths, args[0]);
                 if (!cmdpath)
                 {
                     printf("neobash: command not found: %s\n", args[0]);
-                    return (exit(127), 127);
+                    exit(127);
                 }
                 else
                 {
-                        my_envp = get_my_envp();
-                        // for (int i = 0; i < 47; i++)
-                        //     printf("[%s]\n", my_envp[i]);
-                        execve(cmdpath, args, my_envp);
-                        exit(1);
+                    my_envp = get_my_envp();
+                    execve(cmdpath, args, my_envp);
+                    perror("execve");
+                    exit(1);
                 }
+            }
+            else if (pid > 0)
+            {
+                waitpid(pid, &ex, 0);
+                if (WIFEXITED(ex))
+                {
+                    ex = WEXITSTATUS(ex);
+                }
+                else if (WIFSIGNALED(ex))
+                {
+                    ex = 128 + WTERMSIG(ex);
+                }
+                ft_reset_stds();
+                return ex;
             }
             else
             {
-                wait(NULL);
-                return (0);
+                perror("fork");
+                return 1;
             }
         }
     }
@@ -429,123 +119,79 @@ unsigned int ex_cmd(t_node *root)
         ex = ft_io(root, 1);
         if (ex)
         {
-            printf("exit\n");
-            return (ex);
+            return ex;
         }
     }
-    return (0);
-}
-
-void    ex_lpipe(int fd[2], t_node *root)
-{
-    close(fd[0]);
-    dup2(fd[1], STDOUT_FILENO);
-    close(fd[1]);
-    neobash.status = ft_executer(root);
-    exit(neobash.status);
-}
-
-void    ex_rpipe(int fd[2], t_node *root)
-{
-    close(fd[1]);
-    dup2(fd[0], STDIN_FILENO);
-    close(fd[0]);
-    neobash.status = ft_executer(root);
-    exit(neobash.status);
-}
-
-int ex_pipes(t_node *root)
-{
-    int fd[2];
-    pid_t pid0;
-    pid_t pid1;
-
-    if (pipe(fd))
-        return (1);
-    pid0 = fork();
-    if (pid0 < 0)
-        return (1);
-    if (!pid0)
-        ex_lpipe(fd, root->left);
-    else
-    {
-        pid1 = fork();
-        if (pid1 < 0)
-            return (1);
-        if (!pid1)
-            ex_rpipe(fd, root->right);
-        else
-        {
-            close(fd[0]);
-            close(fd[1]);
-            waitpid(pid0,NULL, 0);
-            waitpid(pid1,NULL, 0);
-            return (neobash.status);
-        }
-    }
-    return (42);
+    return 0;
 }
 
 
 int ft_executer(t_node *root)
 {
-    int exit;
-    exit = 1337;
-    if (root->iol)
+    int exit_status = 0;
+
+    if (root->iol && root->iol->type != HERE_DOC)
     {
-        printf("hello\n");
         ft_init_io(root);
-        exit = ft_io(root, 0);
-        if (exit)
+        exit_status = ft_io(root, 0);
+        if (exit_status)
         {
-            printf("exit\n");
-            return (exit);
+            ft_reset_stds();
+            return exit_status;
         }
-        ft_reset_stds();
     }
     if (root->type == PIPE_N)
-        return (ex_pipes(root));
+    {
+        exit_status = ex_pipes(root);
+    }
     else if (root->type == AND_N)
     {
-        if (root->iol)
+        exit_status = ft_executer(root->left);
+        if (exit_status == 0 && root->right)
         {
-            ft_init_io(root);
-            exit = ft_io(root, 0);
-            if (exit)
+            if (root->iol)
             {
-                printf("exit\n");
-                return (exit);
+                // ft_init_io(root);
+                exit_status = ft_app(root->iol, 0);
+                if (exit_status)
+                {
+                    ft_reset_stds();
+                    return exit_status;
+                }
             }
+            exit_status = ft_executer(root->right);
+            ft_reset_stds();
         }
-        exit = ft_executer(root->left);
-        if (exit == 0)
-            return (ft_executer(root->right));
-        ft_reset_stds();
-        return (exit);
     }
     else if (root->type == OR_N)
     {
-        if (root->iol)
+        exit_status = ft_executer(root->left);
+        if (exit_status != 0 && root->right)
         {
-            printf("hello\n");
-            ft_init_io(root);
-            exit = ft_io(root, 0);
-            if (exit)
+            if (root->iol)
             {
-                printf("exit\n");
-                return (exit);
+                ft_init_io(root);
+                exit_status = ft_app(root->iol, 0);
+                if (exit_status)
+                {
+                    ft_reset_stds();
+                    return exit_status;
+                }
             }
+            exit_status = ft_executer(root->right);
+            ft_reset_stds();
         }
-        exit = ft_executer(root->left);
-        if (exit != 0)
-            return (ft_executer(root->right));
-        ft_reset_stds();
-        return (exit);
     }
     else
-        return (ex_cmd(root));
-    return (exit);
+    {
+        exit_status = ex_cmd(root);
+    }
+    ft_reset_stds();
+    return (exit_status);
 }
+
+
+
 
 void execution()
 {
