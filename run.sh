@@ -1,1 +1,1 @@
-make re && make clean && ./minishell  
+make re && make clean && ./minishell  && clear

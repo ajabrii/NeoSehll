@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   headers.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: venom <venom@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:41:39 by kali              #+#    #+#             */
-/*   Updated: 2024/08/06 12:59:17 by venom            ###   ########.fr       */
+/*   Updated: 2024/08/08 11:37:48 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@
 # include <limits.h>
 # include "../Libft/libft.h"
 # include <limits.h>
-# include <sys/types.h>
-# include <dirent.h>
+#include <dirent.h>
 
 
 /*colors*/
@@ -35,7 +34,8 @@
 # define CY "\033[96m"
 # define RES "\033[0m"
 
-#define PROMPT G "🌟::NeoShell~/💎[" ORG "Prompt" RES G "]🗿$ |~↠$ " RES
+// #define PROMPT G "🌟::NeoShell~/💎[" ORG "Prompt" RES G "]🗿$ |~↠$ " RES
+#define PROMPT G "neoshell->$ " RES
 /*env list*/
 typedef struct s_env
 {
@@ -84,7 +84,7 @@ typedef struct s_io
     t_io_t type;
     int here_doc;
     char *value;
-    char **exp_val;
+    char *exp_val;
     struct s_io *next;
 } t_io;
 /*************************** */
@@ -136,14 +136,15 @@ typedef struct s_shell
     char *palestine; // get_cmd_path
     t_env *envl;
     t_env *envl_dup;
+    bool app;
     int flag;
     t_leak *leaks;
     int             fd[2];
     int in;
     int out;
+    int err;
     int count;
     int level;
-    bool app;
 
 } g_shell;
 
@@ -224,13 +225,13 @@ int bt_cd(char *s);
 int skip(char *s);
 void ft_echo(char *s);
 void ft_env(t_env *env);
-void    ft_exit(char *str);
+void ft_exit(char *str);
 int ft_export(char *s);
-void ft_swap(t_env *a, t_env *b, int *swapped);
-void	sort_env(t_env *env);
-t_env *env_list_dup(t_env *env);
+void ft_export_err_msg(char *identifier);
 void print_ex(t_env *env);
-void	ft_export_err_msg(char *identifier);
+t_env *env_list_dup(t_env *env);
+void ft_swap(t_env *a, t_env *b, int *swapped);
+void sort_env(t_env *env);
 void ft_pwd(char *s);
 void ft_unset(char *s);
 void update_env(char *key, char *value);
@@ -242,8 +243,24 @@ char *get_env_val(char *key);
 
 /* <Executer/ft_executer.c> */
 // unsigned int execute_ast(t_node *root);
-void execution();
-int ft_executer(t_node *root);
+void    execution();
+int     ft_executer(t_node *root);
+char    **get_cmdagrs(char *line);
+char **get_my_envp();
+char *get_cmd_path(char **paths, char *cmd);
+bool ft_is_delimiter(char *delimiter, char *str);
+void heredoc_f(t_io *io, int fd[2]);
+int ft_io(t_node *root, int flag);
+int ft_app(t_io *io, int flag);
+int ft_in(t_io *io, int flag);
+int ft_out(t_io *io, int flag);
+void ft_init_io(t_node *root);
+int ex_builtins(t_node *root);
+bool is_builtin(t_node *root);
+int ex_pipes(t_node *root);
+void ex_rpipe(int fd[2], t_node *root);
+void ex_lpipe(int fd[2], t_node *root);
+
 
 /* </Executer/ft_executer.c> */
 
@@ -260,11 +277,15 @@ char *ft_expand(char *str);
 
 /*<signals>*/
 void	ft_init_signals(void);
-char	*asterisk(char *s);////
 /*</signals>*/
 
+/* <wildcard> */
+int match_pattern(const char *pattern, const char *filename);
+char *asterisk(char *s);
+/* <wildcard> */
+
 /* <Main> */
-char    **grep_paths(char **env);
+char **grep_paths(char **env);
 /* </Main> */
 
 #endif

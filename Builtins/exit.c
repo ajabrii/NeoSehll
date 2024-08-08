@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: venom <venom@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:30:01 by ajabri            #+#    #+#             */
-/*   Updated: 2024/07/31 18:55:12 by venom            ###   ########.fr       */
+/*   Updated: 2024/08/08 10:57:30 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../Header/headers.h"
 
+//still shell level --
 //i have to skip zeros btw, i need a simpel function to loop for zeros.
-
 
 int is_positive(char  *str)
 {
     const char	*limit = "9223372036854775807";
     int len = 0;
-    
+
     if (*str == '+')
         str++;
     len = ft_strlen(str);
@@ -48,7 +48,7 @@ void    ft_exit(char *str)
         if (!ft_isdigit(str[i]))
             i++;
         else
-            break;   
+            break;
     }
     if (!str[i])
         status = ft_atoi(str);

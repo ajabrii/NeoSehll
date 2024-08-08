@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: venom <venom@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:41:10 by kali              #+#    #+#             */
-/*   Updated: 2024/08/06 19:11:31 by venom            ###   ########.fr       */
+/*   Updated: 2024/08/08 10:48:44 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void print_ast_node(t_node *node, int indent) {
     if (node->args != NULL) {
         printf("%*sArguments: %s\n", indent + 2, "", node->args);
     }
-    // node->args = asterisk();
 
     // Print IO redirection list if it exists
     if (node->iol != NULL) {
@@ -91,7 +90,7 @@ void print_ast(t_node *root) {
         printf("Syntax Tree is empty.\n");
         return;
     }
-    
+
     printf("Printing Abstract Syntax Tree:\n");
     print_ast_node(root, 0);
 }
@@ -107,17 +106,17 @@ void    ft_init_neobash(char **env)
     neobash.flag = 0;
     neobash.in = dup(0);
 	neobash.out = dup(1);
+    neobash.err = dup(2);
     neobash.paths = grep_paths(env);
-    neobash.level = 1;
-    neobash.app = false;
+    neobash.level = ft_atoi(get_env_val("SHLVL"));
     // neobash.prompt = NULL;
 }
 /*lldld*/
 void    ft_syntax_after()
 {
-    int flag;
+    // int flag;
 
-    flag = 0;
+    // flag = 0;
     if (neobash.prs_state == 1)
     {
         if (!neobash.cur_tok)
@@ -126,17 +125,18 @@ void    ft_syntax_after()
             // free_tree();
             return ;
         }
-        if (neobash.flag == 1 && is_io(neobash.cur_tok->next->type))
+        if (neobash.cur_tok->next)
         {
-            neobash.prs_state = 0;
-            flag = 1;
-        }
-        if (!flag)
-        {
-            // printf(RED "[%s]-[%d]--[%d]\n" RES, neobash.cur_tok->value, neobash.cur_tok->type, neobash.flag);
             printf("neobash: syntax error near unexpected token `%s'\n", neobash.cur_tok->value);
-            // free_tree();
+            neobash.prs_state = 0;
+            // flag = 1;
         }
+        // if (!flag)
+        // {
+        //     // printf(RED "[%s]-[%d]--[%d]\n" RES, neobash.cur_tok->value, neobash.cur_tok->type, neobash.flag);
+        //     printf("neobash: syntax error near unexpected token `%s'\n", neobash.cur_tok->value);
+        //     // free_tree();
+        // }
     }
     return;
 }
@@ -152,7 +152,6 @@ void neoshell()
             printf("exit\n");
             break;
         }
-        signal(SIGQUIT, SIG_IGN);
         if (neobash.line)
             add_history(neobash.line);
         ft_lexer();
@@ -172,7 +171,7 @@ void neoshell()
         execution();
         printf("Execution result: %d\n", neobash.status);
     }
-    ft_free_all();
+    // ft_free_all();
 }
 int main(int ac, char **av, char **env)
 {

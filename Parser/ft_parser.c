@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 16:58:34 by kali              #+#    #+#             */
-/*   Updated: 2024/07/17 10:57:30 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/08/07 19:06:50 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_node *ft_scmd()
 t_node *ft_left_hand()
 {
     t_node *result;
-    t_node *tmp;
+    // t_node *tmp;
 
     if (neobash.prs_state || !neobash.cur_tok)
         return (NULL);
@@ -83,11 +83,12 @@ t_node *ft_left_hand()
             return (set_state(1), NULL);
         ft_skip_tok();
         // printf(RED "[%s]-[%d]\n" RES, neobash.cur_tok->value, neobash.cur_tok->type);
-        if (neobash.cur_tok && !is_pair())
-        {
-            tmp = ft_rdp(5);
-            result->iol = tmp->iol;
-        }
+        // if (neobash.cur_tok && !is_pair())
+        // {
+        //     tmp = ft_rdp(5);
+        //     // if (result->iol)
+        //         result->iol = tmp->iol;
+        // }
         return (result);
     }
     else

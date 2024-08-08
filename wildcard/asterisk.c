@@ -32,15 +32,33 @@ char	*asterisk(char *s)
 {
 	DIR				*dir;
 	struct dirent	*entry;
-	char			*res;
+	char			*res = NULL;
+    size_t i = 0;
 
-	dir = opendir(".");
-	if (!dir)
+    printf("ss is --->%s\n", s);
+    while (s[i])
+    {
+        if (s[i] == '*')
+        {
+            while (s[i] != ' ' && i > 0)
+                i--;
+            break;
+        }
+        i++;
+    }
+    if (i == ft_strlen(s) || i <= 0)
+        return (s);
+    res = ft_substr(s, 0, i);
+    i++;
+    printf("here\n");
+    printf("ss after is --->%s && i = %zu\n", res, i);
+    dir = opendir(".");
+    if (!dir)
 		return (NULL);
 	entry = readdir(dir);
 	while (entry)
 	{
-		if (entry->d_name[0] != '.' && match_pattern(s, entry->d_name))
+		if (entry->d_name[0] != '.' && match_pattern(&s[i], entry->d_name))
 		{
 			res = ft_strjoin(res, " ");
 			res = ft_strjoin(res, entry->d_name);
@@ -48,5 +66,9 @@ char	*asterisk(char *s)
 		entry = readdir(dir);
 	}
 	closedir(dir);
-	return (res);
+    printf("----%s----\n", res);
+    return (res);
 }
+// i still have to split args if i have like :"ls -l t*.c c*.c";
+// algo fails when i do "touch test*.c";
+// problem in cd folder;

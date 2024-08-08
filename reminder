@@ -1,14 +1,11 @@
 `$USER` this will be work
-~ expand this to /home (done)
+~ expand this to /home
 
 echo.c
 still these errors :: echo -nnnnnnn-n hello; || echo -nnnn -n hello
 
 expand.c
-this :: $? (done)
-
-export.c
-export helo="hello"
+this :: $?
 
 env::
 update this variable to last cmd exe;

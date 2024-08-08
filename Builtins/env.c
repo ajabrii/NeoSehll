@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: venom <venom@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:36:18 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/08/06 11:29:16 by venom            ###   ########.fr       */
+/*   Updated: 2024/08/08 10:55:52 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,6 @@ t_env	*ft_env_lstnew(char *var)
 	lst->next = NULL;
 	return (lst);
 }
-
-// t_env	*ft_envlst_new(char *key, char *value)
-// {
-// 	t_env	*new;
-
-// 	new = (t_env*)malloc(sizeof(t_env));
-// 	if (!new)
-// 		return (NULL);
-// 	new->key = ft_strdup(key);
-// 	if (value)
-// 		new->value = ft_strdup(value);
-// 	new->next = NULL;
-// 	return (new);
-// }
 
 t_env	*ft_env_lstlast(t_env *lst)
 {
@@ -127,5 +113,4 @@ void    ft_env(t_env *env)
         	tmp = tmp->next;
 		}
     }
-	// printf("END HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 }

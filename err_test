@@ -1,0 +1,82 @@
+************************exit status**********************::
+
+cat Makefile | grep pr | head -n 5 | cd file_not_exit ->> file_not_exist: no such file...(done)  exit status:: 1 (not yet);
+cat Makefile | grep pr | head -n 5 | hello --------->>> hello: cmd not found...(done)  exit status: 127(not yet);
+
+
+ ************************RED ERRORS**********************::
+
+>a ls <machin >>c >d 
+>file ------>>> Segmentation fault (done)
+cat -e > test1 < test2 (done)
+cat < test ---->>>> test: Permission denied; error message --> test: No such file or directory;
+echo 2 > out1 >> out2;(done)
+echo test > file test1 (done, take a look here)
+echo hola > a (done, take a look here)
+(< pwd) (done)
+
+(ls && pwd | wc) > hola (done, take a look here)
+(ls && pwd | wc) >> hola (done, take a look here)
+file creation
+
+************************HEREDOC errors**********************::
+
+echo hola <<<<< bonjour -----> syntax error (done)
+echo hola <<<< bonjour  -----> syntax error (done)
+echo hola <<< bonjour (done)
+<< $"$hola"$$"b" ----> $hola$$b (still)
+<< $"hola"$"b"  ----->  holab (still)
+cat << hola > bonjour (done)
+cat << $HOME (done)
+cat << ho"la" (still)
+cat << hola (done)
+< a > b cat > hey >> d (still)
+cat << 'hola'
+
+
+ ************************PIPE ERRORS**********************::
+ 
+ls | hola | ls
+ls | ls | hola | rev
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+$> /	
+$> /				OK	OK	bash: /: Is a directory
+$> //				OK	OK	bash: //: Is a directory
+$> /.				OK	OK	bash: /.: Is a directory
+$> /./../../../../..				bash: /./../../../../..: Is a directory
+$> ///////
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+ ************************BONUS PART**********************::
+
+( ( ls ) )(ls && pwd | wc) >> hola
+( ( ls&&pwd ) ) (same as first one)
+(ls && ( ( pwd ) ) )
+(ls && pwd) > hola (done)
+( ( ( ( ( pwd) ) ) ) )
+(lss||pwd)&&(lss||pwd) (done)
+(lss&&pwd)&&(lss&&pwd)	(done)
+(ls && pwd) > hola (done)
+(ls -z || pwd && ls) --------> (error message safi li b9a)
+ls -z && (ls) && (pwd) ----->  (error message safi li b9a, fd)
+>bonjour <prout hello ------> message f stderr machi file;
+( ( ls ) &&pwd ) (done)
+
+
+
+************************THIS IS MINE**********************::
+export errors::
+
+export HOLA=bon@jour
+export "" HOLA=bonjour
+
+UNSET::
+
+still 
+
+cd
+exit
+

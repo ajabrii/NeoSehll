@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: venom <venom@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 06:19:27 by ajabri            #+#    #+#             */
-/*   Updated: 2024/08/06 11:37:01 by venom            ###   ########.fr       */
+/*   Updated: 2024/08/02 18:34:40 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ char	*ft_expand(char *str)
 	char *res;
 	int	i = 0;
 
-	res = ft_strdup("");
 	if (!str)
 		return (NULL);
+	res = ft_strdup("");
 	while (str[i])
 	{
 		// printf("here\n");
