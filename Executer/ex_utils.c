@@ -6,12 +6,19 @@
 /*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 18:58:23 by kali              #+#    #+#             */
-/*   Updated: 2024/08/06 09:37:55 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/08 15:01:13 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ctype.h>
 # include "../Header/headers.h"
+
+int	ft_isspace(char c)
+{
+	if ((c >= 9 && c <= 13) || c == 32)
+		return (1);
+	return (0);
+}
+
 
 char **get_cmdagrs(char *line)
 {
@@ -24,12 +31,12 @@ char **get_cmdagrs(char *line)
 
     i = 0;
     nargs = 0;
-    res = malloc(sizeof(char *) * (ft_strlen(line) + 1));
+    res = ft_malloc(sizeof(char *) * (ft_strlen(line) + 1));
     if (!res)
         return NULL;
     while (line[i])
     {
-        while (line[i] && isspace(line[i])) // don't forget to change this to libft functio ft_isspace !!!
+        while (line[i] && ft_isspace(line[i])) // don't forget to change this to libft functio ft_isspace !!!
             i++;
         if (line[i] == '\0')
             break;
@@ -48,18 +55,21 @@ char **get_cmdagrs(char *line)
         else
         {
             start = i;
-            while (line[i] && !isspace(line[i]))
+            while (line[i] && !ft_isspace(line[i]))
                 i++;
             res[nargs] = ft_substr(line, start, i - start);
         }
         // if (!res[nargs])
         // {
-        //     return NULL;
+        //     while (nargs > 0)
+        //         // free(res[--nargs]);
+        //     free(res);
+        //     return (NULL);
         // }
         nargs++;
     }
     res[nargs] = NULL;
-    return res;
+    return (res);
 }
 
 int ft_count_size()
@@ -114,10 +124,10 @@ char	*get_cmd_path(char **paths, char *cmd)
 	{
 		neobash.tmp = ft_strjoin(*paths, "/");
 		neobash.palestine = ft_strjoin(neobash.tmp, cmd);
-		free(neobash.tmp);
+		// free(neobash.tmp);
 		if (access(neobash.palestine, X_OK) == 0)
 			return (neobash.palestine);
-		free(neobash.palestine);
+		// free(neobash.palestine);
 		paths++;
 	}
 	return (NULL);

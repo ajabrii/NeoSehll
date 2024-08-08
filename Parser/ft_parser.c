@@ -6,7 +6,7 @@
 /*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 16:58:34 by kali              #+#    #+#             */
-/*   Updated: 2024/08/07 19:06:50 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/08 14:59:26 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool ft_argv(char **cmd)
 {
-    char *tmp;
+    // char *tmp;
 
     if (neobash.prs_state)
         return (NULL);
@@ -24,11 +24,11 @@ bool ft_argv(char **cmd)
         return (NULL);
     while (neobash.cur_tok && neobash.cur_tok->type == WRD)
     {
-        tmp = *cmd;
+        // tmp = *cmd;
         *cmd = ft_strjoinc(*cmd, neobash.cur_tok->value, ' ');
         if (!*cmd)
             return (set_state(2), false);
-        free(tmp);
+        // free(tmp);
         ft_skip_tok();
     }
     return (true);

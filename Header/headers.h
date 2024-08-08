@@ -6,7 +6,7 @@
 /*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:41:39 by kali              #+#    #+#             */
-/*   Updated: 2024/08/07 18:43:34 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/08 11:56:43 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,12 @@
 // #define PROMPT G "🌟::NeoShell~/💎[" ORG "Prompt" RES G "]🗿$ |~↠$ " RES
 #define PROMPT G "neoshell->$ " RES
 /*env list*/
+// typedef struct s_freed
+// {
+//     void            *address;
+//     struct s_freed  *next;
+// } t_freed;
+
 typedef struct s_env
 {
 	char			*key;
@@ -142,6 +148,7 @@ typedef struct s_shell
     int err;
     int count;
     int level;
+    // t_freed *freed;
 
 } g_shell;
 
@@ -251,7 +258,7 @@ bool is_builtin(t_node *root);
 int ex_pipes(t_node *root);
 void ex_rpipe(int fd[2], t_node *root);
 void ex_lpipe(int fd[2], t_node *root);
-
+void ft_error(char *str, char *s1);
 
 /* </Executer/ft_executer.c> */
 

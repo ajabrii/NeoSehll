@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_all.c                                         :+:      :+:    :+:   */
+/*   ex_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/25 16:50:28 by kali              #+#    #+#             */
-/*   Updated: 2024/08/08 14:21:29 by kali             ###   ########.fr       */
+/*   Created: 2024/08/08 09:33:47 by kali              #+#    #+#             */
+/*   Updated: 2024/08/08 09:46:02 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../Header/headers.h"
 
-void ft_free_all()
+void ft_error(char *str, char *s1)
 {
-    t_leak *current = neobash.leaks;
-    t_leak *next;
+    int i;
 
-    while (current != NULL)
+    i = 0;
+    while (str[i])
     {
-        // printf("RED[%p]",current->address);
-        next = current->next;
-        free(current->address);
-        free(current);
-        current = next;
+        if (str[i] == '$')
+        {
+            ft_putstr_fd(s1, 2);
+        }
+        else
+            ft_putchar_fd(str[i], 2);
+        i++;
     }
-    neobash.leaks = NULL;
-    rl_clear_history();
+    ft_putchar_fd('\n', 2);
 }
+

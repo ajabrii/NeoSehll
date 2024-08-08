@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: venom <venom@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 11:26:18 by ajabri            #+#    #+#             */
-/*   Updated: 2024/07/21 16:05:54 by venom            ###   ########.fr       */
+/*   Updated: 2024/08/08 10:43:53 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }					t_list;
+
+void *ft_malloc(size_t size);
 // part 1
 int					ft_isspace(char c);
 int 				ft_isalnum(int c);
 int					ft_isalpha(int c);
-int					ft_isascii(int c);
+int 				ft_isspace(char c);
 int					ft_isdigit(int c);
 int					ft_isprint(int c);
 char				*ft_strchr(const char *s, int c);

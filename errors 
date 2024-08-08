@@ -6,9 +6,9 @@ cat Makefile | grep pr | head -n 5 | hello --------->>> hello: cmd not found...(
 
  ************************RED ERRORS**********************::
 
->a ls <machin >>c >d
+>a ls <machin >>c >d (Done)
 
-cat -e > test1 < test2 (done) 90% reset stderr
+cat -e > test1 < test2 (Done)
 cat < test ---->>>> test: Permission denied; error message --> test: No such file or directory;
 
 ************************HEREDOC errors**********************::

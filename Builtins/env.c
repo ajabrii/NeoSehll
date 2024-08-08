@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:36:18 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/07/18 06:31:44 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/08/08 12:10:07 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_env	*ft_env_lstnew(char *var)
 	t_env	*lst;
 	int		len;
 
-	lst = (t_env*)malloc(sizeof(t_env));
+	lst = (t_env*)ft_malloc(sizeof(t_env));
 	if (!lst)
 		return (NULL);
 	lst->key = ft_malloc(ft_strlenc(var, '='));
@@ -57,7 +57,7 @@ t_env	*ft_envlst_new(char *key, char *value)
 {
 	t_env	*new;
 
-	new = (t_env*)malloc(sizeof(t_env));
+	new = (t_env*)ft_malloc(sizeof(t_env));
 	if (!new)
 		return (NULL);
 	new->key = ft_strdup(key);

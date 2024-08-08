@@ -6,7 +6,7 @@
 /*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 19:50:38 by kali              #+#    #+#             */
-/*   Updated: 2024/06/25 16:37:55 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/08 11:37:25 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,44 @@ t_leak	*ft_lstlastv2(t_leak *lst)
 }
 
 
-void	ft_leaks_lstadd_back(t_leak **lst, t_leak *newx)
+void ft_leaks_lstadd_back(t_leak **lst, t_leak *newx)
 {
-	t_leak	*node;
+    t_leak *node;
 
-	if (!lst || !newx)
-		return ;
-	node = ft_lstlastv2(*lst);
-	if (*lst)
-		node->next = newx;
-	else
-		*lst = newx;
+    if (!lst || !newx)
+        return;
+
+    if (*lst)
+    {
+        node = ft_lstlastv2(*lst);
+        node->next = newx;
+    }
+    else
+    {
+        *lst = newx;
+    }
+}
+
+
+static bool ft_is_address_tracked(void *address)
+{
+    t_leak *current = neobash.leaks;
+
+    while (current != NULL)
+    {
+		if (current->address == address)
+			return (true);
+        current = current->next;
+    }
+    return (false);
 }
 
 t_leak	*ft_leaks_lstnew(void *var)
 {
 	t_leak	*lst;
 
+	if (ft_is_address_tracked(var))
+		return (NULL);
 	lst = (t_leak *)malloc(sizeof(t_leak));
 	if (!lst)
 		return (NULL);

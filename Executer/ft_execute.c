@@ -6,7 +6,7 @@
 /*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 10:08:37 by ajabri            #+#    #+#             */
-/*   Updated: 2024/08/07 20:00:53 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/08 14:50:20 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ unsigned int ex_cmd(t_node *root)
             if (ex)
             {
                 ft_reset_stds();
-                return ex;
+                return (ex);
             }
             ex = ex_builtins(root);
             ft_reset_stds();
@@ -78,11 +78,13 @@ unsigned int ex_cmd(t_node *root)
                 if (ex)
                 {
                     ft_reset_stds();
+                    // ft_free_all();
                     exit(ex);
                 }
                 if (!cmdpath)
                 {
-                    printf("neobash: command not found: %s\n", args[0]);
+                    ft_error("neobash: command not found: $", args[0]);
+                    ft_free_all();
                     exit(127);
                 }
                 else
@@ -90,6 +92,7 @@ unsigned int ex_cmd(t_node *root)
                     my_envp = get_my_envp();
                     execve(cmdpath, args, my_envp);
                     perror("execve");
+                    ft_free_all();
                     exit(1);
                 }
             }
@@ -130,16 +133,6 @@ int ft_executer(t_node *root)
 {
     int exit_status = 0;
 
-    // if (root->iol && root->iol->type != HERE_DOC)
-    // {
-    //     ft_init_io(root);
-    //     exit_status = ft_io(root, 0);
-    //     if (exit_status)
-    //     {
-    //         ft_reset_stds();
-    //         return exit_status;
-    //     }
-    // }
     if (root->type == PIPE_N)
     {
         exit_status = ex_pipes(root);

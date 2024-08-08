@@ -6,7 +6,7 @@
 /*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 09:42:59 by kali              #+#    #+#             */
-/*   Updated: 2024/08/07 20:03:52 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/08 10:12:30 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,89 +138,76 @@ void ft_init_io(t_node *root)
 int	ft_out(t_io *io, int flag)
 {
 	int		fd;
-    int     ex;
 
-    ex = 0;
-    // printf(RED"Hello\n"RES);
-    // if (!io->expanded_value || io->expanded_value[1])
-    // {
-    // 	ex = ft_err_msg(
-    // 			(t_err){ENO_GENERAL, ERRMSG_AMBIGUOUS, io_list->value});
-    // 	return (*status);
-    // }
+    if (!io->exp_val[0] || !io->exp_val)
+    {
+
+        ft_error("bash: $ : ambiguous redirect", io->value);
+    	return (1);
+    }
     fd = open(io->exp_val, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-    printf(ORG"{``%d''}\n"RES, fd);
     if (fd == -1)
     {
-		ft_putstr_fd("neobash: value: Permission denied\n", 2);
-        ex = 1;
-        return (ex);
-	}
-   if (!flag)
-    {
-        dup2(fd, STDOUT_FILENO);
-        // dup2(fd, STDERR_FILENO); // Redirect stderr as well
+        ft_error("neobash: $: No such file or directory", io->exp_val);
+        return (1);
     }
-    printf("Here\n");
-	close(fd);
-	ex = 0;
-	return (ex);
+    if (!flag)
+    {
+        if (dup2(fd, STDOUT_FILENO) == -1)
+            return (ft_error("neobash : $ : problem", "dup2"), 1);
+    }
+    close(fd);
+	return (0);
 }
 
 int	ft_in(t_io *io, int flag)
 {
 	int		fd;
-    int     ex;
 
-    ex = 0;
-    // if (!io->expanded_value || io->expanded_value[1])
-    // {
-    // 	ex = ft_err_msg(
-    // 			(t_err){ENO_GENERAL, ERRMSG_AMBIGUOUS, io_list->value});
-    // 	return (*status);
-    // }
+    if (!io->exp_val[0] || !io->exp_val)
+    {
+
+        ft_error("bash: $ : ambiguous redirect", io->value);
+    	return (1);
+    }
     fd = open(io->exp_val, O_RDONLY);
 	if (fd == -1)
-	{
-        ft_putstr_fd("neobash: value: Permission denied\n", 2);
-        ex = 1;
-        return (ex);
+    {
+        ft_error("neobash: $: No such file or directory", io->exp_val);
+        return (1);
     }
     if (!flag)
-	    dup2(fd, STDIN_FILENO);
-	close(fd);
-	ex = 0;
-	return (ex);
+    {
+        if (dup2(fd, STDOUT_FILENO) == -1)
+            return (ft_error("neobash : $ : problem", "dup2"), 1);
+    }
+    close(fd);
+    return (0);
 }
 
 int	ft_app(t_io *io, int flag)
 {
 	int		fd;
-    int     ex;
 
-    ex = 0;
-    // if (!io->expanded_value || io->expanded_value[1])
-    // {
-    // 	ex = ft_err_msg(
-    // 			(t_err){ENO_GENERAL, ERRMSG_AMBIGUOUS, io_list->value});
-    // 	return (*status);
-    // }
+    if (!io->exp_val[0] || !io->exp_val)
+    {
+
+        ft_error("bash: $ : ambiguous redirect", io->value);
+    	return (1);
+    }
     fd = open(io->exp_val, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fd == -1)
-	{
-        // ex = ft_err_msg(ft_check_write(io->value)); msg
-        printf("neobash: %s: Permission denied\n",io->value); // exp_val
-        ex = 1;
-        return (ex);
+    {
+        ft_error("neobash: $: No such file or directory", io->exp_val);
+        return (1);
     }
     if (!flag)
     {
-        dup2(fd, STDOUT_FILENO);
-        dup2(fd, STDERR_FILENO); // Redirect stderr as well
+        if (dup2(fd, STDOUT_FILENO) == -1)
+            return (ft_error("neobash : $ : problem", "dup2"), 1);
     }
 	close(fd);
-	ex = 0;
-	return (ex);
+	return (0);
 }
 
 
@@ -238,110 +225,30 @@ int ft_io(t_node *root, int flag)
         {
             ex = ft_out(tmp_io, flag);
             if (ex)
-                return ex;
+                return (ex);
         }
         else if (tmp_io->type == IN)
         {
             ex = ft_in(tmp_io, flag);
             if (ex)
-                return ex;
+                return (ex);
         }
         else if (tmp_io->type == APP)
         {
             ex = ft_app(tmp_io, flag);
             if (ex)
-                return ex;
+                return (ex);
         }
         else if (tmp_io->type == HERE_DOC)
         {
             if (dup2(tmp_io->here_doc, STDIN_FILENO) == -1)
             {
                 perror("dup2");
-                return 1;
+                return (1);
             }
-            close(tmp_io->here_doc); // Close the read end after redirection
+            close(tmp_io->here_doc);
         }
         tmp_io = tmp_io->next;
     }
-    return 0;
+    return (0);
 }
-
-// int ft_io(t_node *root, int flag)
-// {
-//     t_io *tmp_io;
-//     int ex;
-
-//     tmp_io = root->iol;
-//     ex = 0;
-
-//     while (tmp_io)
-//     {
-//         if (tmp_io->type == OUT)
-//         {
-//             ex = ft_out(tmp_io, flag);
-//             if (ex)
-//                 return ex;
-//         }
-//         else if (tmp_io->type == IN)
-//         {
-//             ex = ft_in(tmp_io, flag);
-//             if (ex)
-//                 return ex;
-//         }
-//         else if (tmp_io->type == APP)
-//         {
-//             ex = ft_app(tmp_io, flag);
-//             if (ex)
-//                 return ex;
-//         }
-//         else if (tmp_io->type == HERE_DOC)
-//         {
-//             printf("hello, %d\n", tmp_io->here_doc);
-//             if (dup2(tmp_io->here_doc, STDIN_FILENO) == -1)
-//             {
-//                 printf(RED"hello\n"RES);
-//                 perror("dup2");
-//                 return 1;
-//             }
-//             close(tmp_io->here_doc); // Close the read end after redirection
-//         }
-//         tmp_io = tmp_io->next;
-//     }
-//     return 0;
-// }
-
-
-// int ft_io(t_node *root, int flag)
-// {
-//     t_io *tmp_io;
-//     int ex;
-
-//     tmp_io = root->iol;
-//     ex = 0;
-
-//     while (tmp_io)
-//     {
-//         if (tmp_io->type == OUT)
-//         {
-//             ex = ft_out(tmp_io, flag);
-//             if (ex)
-//                 return (ex);
-//         }
-//         else if (tmp_io->type == IN)
-//         {
-//             ex = ft_in(tmp_io, flag);
-//             if (ex)
-//                 return (ex);
-//         }
-//         else if (tmp_io->type == APP)
-//         {
-//             ex = ft_app(tmp_io, flag);
-//             if (ex)
-//                 return (ex);
-//         }
-//         else if (tmp_io->type == HERE_DOC)
-// 			(dup2(tmp_io->here_doc, 0), close(tmp_io->here_doc));
-//         tmp_io = tmp_io->next;
-//     }
-//     return (0);
-// }

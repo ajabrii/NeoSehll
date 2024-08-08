@@ -6,7 +6,7 @@
 /*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:41:10 by kali              #+#    #+#             */
-/*   Updated: 2024/08/07 19:09:39 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/08 15:05:09 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ void    ft_init_neobash(char **env)
     neobash.in = dup(0);
 	neobash.out = dup(1);
     neobash.err = dup(2);
+    // neobash.freed = NULL;
     neobash.paths = grep_paths(env);
     neobash.level = ft_atoi(get_env_val("SHLVL"));
     // neobash.prompt = NULL;
@@ -157,8 +158,9 @@ void neoshell()
         ft_lexer();
         if (!neobash.tokens)
             continue;
+        free(neobash.line);
         neobash.tree = ft_parser();
-        print_ast(neobash.tree);
+        // print_ast(neobash.tree);
         // printf(RED "[%s]-[%d]\n" RES, neobash.cur_tok->value, neobash.cur_tok->type);
         if (neobash.prs_state)
         {
@@ -171,7 +173,6 @@ void neoshell()
         execution();
         printf("Execution result: %d\n", neobash.status);
     }
-    // ft_free_all();
 }
 int main(int ac, char **av, char **env)
 {
@@ -179,5 +180,6 @@ int main(int ac, char **av, char **env)
     (void)av;
     ft_init_neobash(env);
     neoshell();
+    // ft_free_all();
     return (0);
 }

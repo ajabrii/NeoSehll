@@ -6,7 +6,7 @@
 /*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 09:54:30 by kali              #+#    #+#             */
-/*   Updated: 2024/08/06 09:54:56 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/08 12:25:21 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void    ex_lpipe(int fd[2], t_node *root)
     dup2(fd[1], STDOUT_FILENO);
     close(fd[1]);
     neobash.status = ft_executer(root);
+    ft_free_all();
     exit(neobash.status);
 }
 
@@ -27,6 +28,7 @@ void    ex_rpipe(int fd[2], t_node *root)
     dup2(fd[0], STDIN_FILENO);
     close(fd[0]);
     neobash.status = ft_executer(root);
+    ft_free_all();
     exit(neobash.status);
 }
 
@@ -56,6 +58,7 @@ int ex_pipes(t_node *root)
             close(fd[1]);
             waitpid(pid0,NULL, 0);
             waitpid(pid1,NULL, 0);
+
             return (neobash.status);
         }
     }
