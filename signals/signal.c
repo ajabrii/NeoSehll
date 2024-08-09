@@ -12,5 +12,5 @@ void	sigint_handler(int num)
 void	ft_init_signals(void)
 {
 	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, SIG_DFL);
+	signal(SIGQUIT, SIG_IGN);
 }

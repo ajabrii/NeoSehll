@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exputils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/18 06:20:30 by ajabri            #+#    #+#             */
-/*   Updated: 2024/08/09 09:29:55 by ajabri           ###   ########.fr       */
+/*   Created: 2024/08/09 16:43:13 by ytarhoua          #+#    #+#             */
+/*   Updated: 2024/08/09 16:43:16 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,12 @@ char *handle_squotes(char *str, int *i)
 char *handle_dquotes(char *str, int *i)
 {
 	char *res;
+	char quote;
 
+	quote = str[*i];
 	res = ft_strdup("\"");
 	(*i)++;
-	while (str[*i] != '\"')
+	while (str[*i] != quote)
 	{
 		if (str[*i] == '$')
 			res = ft_strjoin(res, handle_dollar(str, i));

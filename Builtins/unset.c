@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:35:31 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/08/09 12:02:13 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/08/09 15:57:18 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void ft_unset(char **s)
     t_env *tmp = envl;
     t_env *prev = NULL;
     int i = 1;
-    bool flag = false;
 
         // s += skip(s[1]);
         // printf ("str is ::%s||\n", s);
@@ -60,7 +59,6 @@ void ft_unset(char **s)
                     else
                         neobash.envl = tmp->next;
                     ft_delone(tmp, del);
-                    flag = true;
                     tmp = prev;
                     break;
                 }
@@ -68,12 +66,6 @@ void ft_unset(char **s)
             }
             prev = tmp;
             tmp = tmp->next;
-        }
-        if (flag == false)
-        {
-        	ft_putstr_fd("minishell: unset: `", 2);
-			ft_putstr_fd("': not a valid identifier\n", 2);
-			ft_putstr_fd(s[i], 2);
         }
 }
 

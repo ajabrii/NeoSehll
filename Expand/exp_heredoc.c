@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander.c                                         :+:      :+:    :+:   */
+/*   exp_heredoc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/09 16:43:22 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/08/09 16:43:24 by ytarhoua         ###   ########.fr       */
+/*   Created: 2024/08/09 16:30:48 by ytarhoua          #+#    #+#             */
+/*   Updated: 2024/08/09 16:33:55 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../Header/headers.h"
 
-char	*ft_expand(char *str)
+char	*expand_heredoc(char *str)
 {
 	char *res;
 	int	i = 0;
@@ -22,10 +22,7 @@ char	*ft_expand(char *str)
 	res = ft_strdup("");
 	while (str[i])
 	{
-		// printf("here\n");
-		if (str[i] == '\'')
-			res = ft_strjoin(res, handle_squotes(str, &i));
-		else if (str[i] == '"' || str[i] == '`')
+		if (str[i] == '"' || str[i] == '`' || str[i] == '\'')
 			res = ft_strjoin(res, handle_dquotes(str, &i));
 		else if (str[i] == '$')
 			res = ft_strjoin(res, handle_dollar(str, &i));
@@ -34,6 +31,3 @@ char	*ft_expand(char *str)
 	}
 	return (res);
 }
-
-//i have to put last char** that was executed to update that ('_') var.
-//when i write that cmd on my shell -> $_ so i have to execute last cmd.

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:41:10 by kali              #+#    #+#             */
-/*   Updated: 2024/08/09 11:02:44 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/08/09 16:29:44 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void    ft_init_neobash(char **env)
     neobash.err = dup(2);
     neobash.paths = grep_paths(env);
     neobash.level = ft_atoi(get_env_val("SHLVL"));
+    neobash.exp_here = true;
 }
 /*lldld*/
 void    ft_syntax_after()
@@ -177,7 +178,7 @@ void neoshell()
             continue;
         // printf("hello\n");
         neobash.tree = ft_parser();
-        // print_ast(neobash.tree);
+        print_ast(neobash.tree);
         if (neobash.prs_state)
         {
             // printf("prs_state == 1\n");

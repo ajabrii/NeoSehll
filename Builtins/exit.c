@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:30:01 by ajabri            #+#    #+#             */
-/*   Updated: 2024/08/09 12:29:29 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/08/09 15:47:29 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,19 @@
 //still shell level --
 //i have to skip zeros btw, i need a simpel function to loop for zeros.
 
+void skip_zero(char *str)
+{
+    while (*str == '0')
+        str++;
+    return;
+}
+
 int is_positive(char  *str)
 {
     const char	*limit = "9223372036854775807";
     int len = 0;
 
+    skip_zero(str);
     if (*str == '+')
         str++;
     len = ft_strlen(str);
@@ -32,8 +40,8 @@ int is_positive(char  *str)
 
 int out_of_range(char *str)
 {
-    // if (*str == '-')
-    //     return (is_negative(str + 1));
+
+    // i have to handle negativ input also here !!!
     return (is_positive(str));
 }
 
@@ -60,16 +68,23 @@ void   ft_exit(char **str)
         return;
     }
     // i = skip(str[c]);
-    // printf("str '%s'\n", str);
+    // printf("str '%s'\n", str[c]);
     while (str[c][i])
     {
-        if (!ft_isdigit(str[c][i]))
+        if (ft_isdigit(str[c][i]))
             i++;
         else
+        {
+            ft_error("exit: numeric argument required", NULL);
+            status = 2;
             break;
+        }
     }
     if (!str[c][i])
+    {
         status = ft_atoi(str[c]);
+        // printf("+++%i\n", status);
+    }
     // t_putstr_fd("exit\n", 1);
     if (out_of_range(str[c]))
 	{

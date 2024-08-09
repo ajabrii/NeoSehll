@@ -1,16 +1,8 @@
-`$USER` this will be work
-~ expand this to /home
+expand f heredoc done
+signals done
+exit done
+all builtins done
+still leaks in export
+char **get_my_envp() fixed
 
-echo.c
-still these errors :: echo -nnnnnnn-n hello; || echo -nnnn -n hello
-
-expand.c
-this :: $?
-
-env::
-update this variable to last cmd exe;
-
-asterisk;
-
-signals;
 

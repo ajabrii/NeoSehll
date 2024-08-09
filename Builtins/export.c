@@ -6,7 +6,7 @@
 /*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 10:58:48 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/08/08 10:58:50 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/08/09 16:41:06 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char *handle_q(char *line, int start)
     char q;
 
     i = start;
-    res = malloc(sizeof(char) * (ft_strlen(&line[start]) + 1));
+    res = ft_malloc(sizeof(char) * (ft_strlen(&line[start]) + 1));
 
     if (!res)
         return NULL;
@@ -29,7 +29,7 @@ char *handle_q(char *line, int start)
         return (res);
 	}
 	res = ft_strdup("");
-	while (line[i] && !isspace(line[i]))
+	while (line[i] && !isspace(line[i])) // dont forget to change this !!
 	{
     	if (line[i] == '"' || line[i] == '\'')
         	{
@@ -51,7 +51,7 @@ char *handle_q(char *line, int start)
 				// printf("--------------------------------->>>>>>>>>>>>>>%s\n", res);
         	}
 			i++;
-		if (!line[i] || isspace(line[i]))
+		if (!line[i] || isspace(line[i])) // dont forgetto change this!!
             	res = ft_strjoin(res, ft_substr(line, start, i - start));
 	}
 	if (line[i] == ' ')
@@ -206,3 +206,5 @@ int	ft_export(char *s)
 	}
     return(exit);
 }
+
+// leaks in export;

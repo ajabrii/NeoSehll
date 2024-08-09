@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ex_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 18:58:23 by kali              #+#    #+#             */
-/*   Updated: 2024/08/08 15:01:13 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/09 16:22:21 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,19 @@ int ft_count_size()
 	return (i);
 }
 
+int	ft_lstsizev2(t_env *lst)
+{
+	int	i;
+
+	i = 0;
+	while (lst)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (i);
+}
+
 char **get_my_envp()
 {
 	int i;
@@ -89,9 +102,10 @@ char **get_my_envp()
 	t_env *tmpl;
 	int lsize;
 
-	lsize = ft_count_size() + 1; // change the count_size withe the list_size !!!
-	res = ft_malloc(sizeof(char *) * lsize);
-	i = 0;
+	// lsize = ft_count_size() + 10;
+    lsize = ft_lstsizev2(neobash.envl) + 1;
+    res = ft_malloc(sizeof(char *) * lsize);
+    i = 0;
 	tmpl = neobash.envl;
 	while (tmpl)
 	{
@@ -99,7 +113,7 @@ char **get_my_envp()
 		i++;
 		tmpl = tmpl->next;
 	}
-	res[i] = NULL;
+	res[i] = NULL; //overflow !!
 	return (res);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   headers.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:41:39 by kali              #+#    #+#             */
-/*   Updated: 2024/08/09 12:23:31 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/08/09 16:34:10 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ typedef struct s_shell
     int count;
     int level;
     char **argss;
+    bool exp_here;
 
 } g_shell;
 
@@ -272,6 +273,7 @@ t_env *env_list_dup(t_env *env);
 void print_ex(t_env *env);
 void ft_export_err_msg(char *identifier);
 int skip(char *s);
+char *expand_heredoc(char *str);
 /* </Expand> */
 
 /*<signals>*/

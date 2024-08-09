@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 10:59:15 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/08/09 10:56:07 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/08/09 16:43:42 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_env *env_list_dup(t_env *env)
 
     while (env)
     {
-        new_node = malloc(sizeof(t_env));
+        new_node = ft_malloc(sizeof(t_env));
         if (!new_node)
             return NULL;
         new_node->key = strdup(env->key);

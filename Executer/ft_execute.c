@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 10:08:37 by ajabri            #+#    #+#             */
-/*   Updated: 2024/08/09 12:03:45 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/08/09 15:03:38 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ unsigned int ex_cmd(t_node *root)
             pid = fork();
             if (pid == 0)
             {
+                signal(SIGQUIT, SIG_DFL);
                 ex = ft_io(root, 0);
                 if (ex)
                 {
@@ -128,11 +129,17 @@ unsigned int ex_cmd(t_node *root)
     return 0;
 }
 
+void handler(int sig)
+{
+    if (sig == SIGINT)
+        neobash.status = 130;
+}
 
 int ft_executer(t_node *root)
 {
     int exit_status = 0;
 
+    signal(SIGINT, handler);
     if (root->type == PIPE_N)
     {
         exit_status = ex_pipes(root);
