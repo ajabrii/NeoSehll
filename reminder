@@ -14,3 +14,5 @@ asterisk;
 
 signals;
 
+cd exit status
+exit function;
