@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exputils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: venom <venom@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 06:20:30 by ajabri            #+#    #+#             */
-/*   Updated: 2024/07/22 16:38:21 by venom            ###   ########.fr       */
+/*   Updated: 2024/08/09 09:29:55 by ajabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ char *handle_squotes(char *str, int *i)
 {
 	int start = *i;
 
+	printf("---------------->%s\n", str);
+	if (!str)
+		return (NULL);
 	(*i)++;
 	while (str[*i] != '\'')
 		(*i)++;

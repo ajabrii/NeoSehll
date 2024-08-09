@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_set.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/08 11:05:43 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/08/09 12:22:17 by ajabri           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 # include "../Header/headers.h"
 
 char	*get_env_val(char *key)
@@ -41,7 +29,6 @@ void	update_env(char *key, char *value)
 		}
 		envlst = envlst->next;
 	}
-	// free(value);
 }
 
 t_env	*exp_new(char *key, char *value)

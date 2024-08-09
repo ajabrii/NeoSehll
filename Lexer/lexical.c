@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexical.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 15:16:25 by ajabri            #+#    #+#             */
-/*   Updated: 2024/07/11 15:45:33 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/09 09:35:50 by ajabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ void ft_err(char *err,int flag)
     if (!flag)
         exit(1);
 }
-void ft_coutquotes()
+bool ft_coutquotes()
 {
 	int i;
 
 	i = 0;
 	int dq = 0;
 	int sq = 0;
-	while (neobash.line[i])
-	{
+    while (neobash.line[i])
+    {
 		if (neobash.line[i] == 34)
 			dq += 1;
 		else if(neobash.line[i] == 39)
@@ -35,10 +35,10 @@ void ft_coutquotes()
 		i++;
 	}
 	if (sq % 2 != 0)
-        ft_err("neobash: syntax error near unexpected token `''", 1);
+        return (ft_err("neobash: syntax error near unexpected token `''", 1), false);
     if (dq % 2 != 0)
-        ft_err("neobash: syntax error near unexpected token `\"'", 1);
-
+        return (ft_err("neobash: syntax error near unexpected token `\"'", 1), false);
+    return (true);
 }
 
 void    give_token()
@@ -60,13 +60,13 @@ void    give_token()
         i++;
     }
     neobash.tokens = head;
-    // while (head)
-    // {
-    //     // printf("node[%s][%d]\n", head->value, head->token);
-    //     printf("[%s]-[%d]\n", head->value, head->type);
+    while (head)
+    {
+        // printf("node[%s][%d]\n", head->value, head->token);
+        printf("[%s]-[%d]\n", head->value, head->type);
 
-    //     head = head->next;
-    // }
+        head = head->next;
+    }
 }
 
 void ft_lexer()

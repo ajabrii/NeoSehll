@@ -3,30 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ex_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 09:47:38 by kali              #+#    #+#             */
-/*   Updated: 2024/08/06 09:48:24 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/09 12:05:26 by ajabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../Header/headers.h"
 
-bool is_builtin(t_node *root)
+bool is_builtin()
 {
-    if (!ft_strncmp(root->args,"cd", 2))
+    if (!ft_strcmp(neobash.argss[0],"cd"))
         return (true);
-    if (!ft_strncmp(root->args,"env", 3))
+    if (!ft_strcmp(neobash.argss[0],"env"))
         return (true);
-    if (!ft_strncmp(root->args,"exit", 4))
+    if (!ft_strcmp(neobash.argss[0],"exit"))
         return (true);
-    if (!ft_strncmp(root->args,"pwd", 3))
+    if (!ft_strcmp(neobash.argss[0],"pwd"))
         return (true);
-    if (!ft_strncmp(root->args,"unset", 5))
+    if (!ft_strcmp(neobash.argss[0],"unset"))
         return (true);
-    if (!ft_strncmp(root->args,"echo", 4))
+    if (!ft_strcmp(neobash.argss[0],"echo"))
         return (true);
-    if (!ft_strncmp(root->args,"export", 6))
+    if (!ft_strcmp(neobash.argss[0],"export"))
         return (true);
     // if (!ft_strncmp(root->args,"./minishell", 11))
     //     return (true);
@@ -36,31 +36,28 @@ bool is_builtin(t_node *root)
 
 int     ex_builtins(t_node *root)
 {
-    if (!ft_strncmp(root->args,"cd", 2))
-    {
-        bt_cd(root->args);
-        return (0);
-    }
-    if (!ft_strncmp(root->args,"env", 3))
+    if (!ft_strcmp(neobash.argss[0],"cd"))
+        return (bt_cd(neobash.argss));
+    if (!ft_strcmp(neobash.argss[0],"env"))
         return (ft_env(neobash.envl), 0);
-    if (!ft_strncmp(root->args,"exit", 4))
+    if (!ft_strcmp(neobash.argss[0],"exit"))
     {
         // printf("here [%s]\n", root->args);
-        ft_exit(0);
+        ft_exit(neobash.argss);
         return (0);
     }
-    if (!ft_strncmp(root->args,"pwd", 3))
+    if (!ft_strcmp(neobash.argss[0],"pwd"))
     {
         // printf("here [%s]\n", root->args);
-        ft_pwd(root->args);
+        ft_pwd(neobash.argss);
         return (0);
     }
-    if (!ft_strncmp(root->args,"unset", 5))
-        return (ft_unset(root->args), 0);
-    if (!ft_strncmp(root->args,"echo", 4))
-        return (ft_echo(root->args), 0);
-    if (!ft_strncmp(root->args,"export", 6))
-        return (ft_export(root->args), 0);
+    if (!ft_strcmp(neobash.argss[0],"unset"))
+        return (ft_unset(neobash.argss), 0);
+    if (!ft_strcmp(neobash.argss[0],"echo"))
+        return (ft_echo(root->args + 4), 0);
+    if (!ft_strcmp(neobash.argss[0],"export"))
+        return (ft_export(root->args + 6), 0);
     else
         return (1);
 }

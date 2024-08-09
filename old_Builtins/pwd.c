@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: venom <venom@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 20:31:18 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/08/09 12:07:43 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/07/17 11:12:40 by venom            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,31 +34,26 @@ int option(char *str)
     int i;
 
     i = 0;
-    if (!str)
-        return (1);
     while (str[i])
     {
         if (str[i] == '-')
         {
-            printf("bash: pwd: '%s': invalid option\n", &str[i]);
-            neobash.status = 2;
+            i++;
+            // printf("bash: pwd: '%s': invalid option", str[i]);
             return (1);
         }
         i++;
     }
-    // if (i > 3)
-    //     return (1);
+    if (i > 3)
+        return (1);
     return (0);
 }
 
-void ft_pwd(char **s)
+void ft_pwd(char *s)
 {
-    int c;
-    char *path;
-
-    c = 1;
-    if (option(s[c]))
+    if (option(s))
         return;
+    char *path;
     path = get_env_val("PWD");
     // printf ("str is ::%s\n", s);
     // printf("v->value is ::%s\n", path);
@@ -68,12 +63,8 @@ void ft_pwd(char **s)
     {
 	    path = getcwd(path, 0);
 	    if (!path)
-        {
-            free(path);
-            return;
-        }
+		    return;
 	    ft_putstr_fd(path, 1);
     }
-    free(path);
 	ft_putstr_fd("\n", 1);
 }

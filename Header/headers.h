@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   headers.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:41:39 by kali              #+#    #+#             */
-/*   Updated: 2024/08/08 11:56:43 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/09 12:23:31 by ajabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,13 @@
 /*colors*/
 # define RED "\033[30;31m"
 # define G "\033[1;32m"
-# define ORG "\033[1;33m"
+# define ORG "\033[0;33m"
 # define PER "\033[97m"
 # define CY "\033[96m"
 # define RES "\033[0m"
 
-// #define PROMPT G "🌟::NeoShell~/💎[" ORG "Prompt" RES G "]🗿$ |~↠$ " RES
-#define PROMPT G "neoshell->$ " RES
+#define PROMPT ORG "neoshell->$ " RES
 /*env list*/
-// typedef struct s_freed
-// {
-//     void            *address;
-//     struct s_freed  *next;
-// } t_freed;
 
 typedef struct s_env
 {
@@ -53,14 +47,13 @@ typedef struct s_env
 /*token type enums*/
 typedef enum s_token_t
 {
-    WRD, // Word cmd file etc ..
+    WRD,
 	INPUT,
 	APPEND,
 	HEREDOC,
 	REDIRECT,
 	L_PARENT,
 	R_PARENT,
-    //STAR,
 	AND,
 	OR,
 	PIPE,
@@ -140,6 +133,8 @@ typedef struct s_shell
     char *tmp;// get_cmd_path
     char *palestine; // get_cmd_path
     t_env *envl;
+    t_env *envl_dup;
+    bool app;
     int flag;
     t_leak *leaks;
     int             fd[2];
@@ -148,7 +143,7 @@ typedef struct s_shell
     int err;
     int count;
     int level;
-    // t_freed *freed;
+    char **argss;
 
 } g_shell;
 
@@ -166,7 +161,7 @@ t_leak      *ft_lstlastv2(t_leak *lst);
 /* <Lexer/lexixal.c> */
 void ft_lexer();
 void    give_token();
-void ft_coutquotes();
+bool ft_coutquotes();
 void ft_err(char *err, int flag);
 // int ft_token_sp(t_token **tokens, char **line);
 /* </Lexer/lexixal.c> */
@@ -225,18 +220,19 @@ void    ft_addback_io_node(t_io **iop, t_io *new);
 /* </Parsing/putils.c> */
 
 /* <Builtins> */
-int bt_cd(char *s);
+int bt_cd(char **s);
 void ft_echo(char *s);
 void ft_env(t_env *env);
-void ft_exit(int ex);
+void ft_exit(char **str);
 int ft_export(char *s);
-void ft_pwd(char *s);
-void ft_unset(char *s);
+void ft_pwd(char **s);
+void ft_unset(char **s);
 void update_env(char *key, char *value);
 void exp_back(t_env *new);
 t_env *exp_new(char *key, char *value);
 void update_env(char *key, char *value);
 char *get_env_val(char *key);
+int count_args(char **s);
 /* </Builtins> */
 
 /* <Executer/ft_executer.c> */
@@ -254,7 +250,7 @@ int ft_in(t_io *io, int flag);
 int ft_out(t_io *io, int flag);
 void ft_init_io(t_node *root);
 int ex_builtins(t_node *root);
-bool is_builtin(t_node *root);
+bool is_builtin();
 int ex_pipes(t_node *root);
 void ex_rpipe(int fd[2], t_node *root);
 void ex_lpipe(int fd[2], t_node *root);
@@ -271,6 +267,11 @@ char *dquote_str(char *str, int *i);
 char *handle_dollar(char *str, int *i);
 bool valid_char(char c);
 char *ft_expand(char *str);
+void sort_env(t_env *env);
+t_env *env_list_dup(t_env *env);
+void print_ex(t_env *env);
+void ft_export_err_msg(char *identifier);
+int skip(char *s);
 /* </Expand> */
 
 /*<signals>*/

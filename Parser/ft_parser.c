@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 16:58:34 by kali              #+#    #+#             */
-/*   Updated: 2024/08/08 14:59:26 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/09 09:56:43 by ajabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_node *ft_scmd()
 {
     t_node *result;
 
+    printf("ft_scmd\n");
     if (neobash.prs_state)
         return (NULL);
     result = ft_newnode(CMD_N);
@@ -151,7 +152,7 @@ t_node *ft_rdp(int p)
             return (left);
         left = create_pair_node(left, right, get_node_t(tmp));
         if (!left)
-            return (NULL); // free here;
+            return (NULL);
     }
     return (left);
 }

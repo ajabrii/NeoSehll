@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:36:18 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/08/08 10:55:52 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/08/08 12:10:07 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_env	*ft_env_lstnew(char *var)
 	t_env	*lst;
 	int		len;
 
-	lst = (t_env*)malloc(sizeof(t_env));
+	lst = (t_env*)ft_malloc(sizeof(t_env));
 	if (!lst)
 		return (NULL);
 	lst->key = ft_malloc(ft_strlenc(var, '='));
@@ -51,6 +51,20 @@ t_env	*ft_env_lstnew(char *var)
 	ft_strcpy(lst->value, var + len + 1, '\0');
 	lst->next = NULL;
 	return (lst);
+}
+
+t_env	*ft_envlst_new(char *key, char *value)
+{
+	t_env	*new;
+
+	new = (t_env*)ft_malloc(sizeof(t_env));
+	if (!new)
+		return (NULL);
+	new->key = ft_strdup(key);
+	if (value)
+		new->value = ft_strdup(value);
+	new->next = NULL;
+	return (new);
 }
 
 t_env	*ft_env_lstlast(t_env *lst)
@@ -102,15 +116,8 @@ void    ft_env(t_env *env)
     tmp = env;
     while (tmp)
     {
-		if (!ft_strcmp(tmp->value, ""))
-		{
-			tmp = tmp->next;
-			// printf("maaaaaat\n");
-		}
-		else
-		{
-        	printf("%s=%s\n", tmp->key, tmp->value);
-        	tmp = tmp->next;
-		}
+        printf("%s=%s\n",tmp->key, tmp->value);
+        tmp = tmp->next;
     }
+	// printf("END HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 }

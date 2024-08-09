@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 10:08:37 by ajabri            #+#    #+#             */
-/*   Updated: 2024/08/08 14:50:20 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/09 12:03:45 by ajabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_reset_stds()
 
 unsigned int ex_cmd(t_node *root)
 {
-    char **args;
+    // char **args;
     char *cmdpath;
     char **my_envp;
     pid_t pid;
@@ -49,6 +49,7 @@ unsigned int ex_cmd(t_node *root)
 
     if (root->args)
     {
+        neobash.argss = get_cmdagrs(root->args);
         if (is_builtin(root))
         {
             ex = ft_io(root, 0);
@@ -63,11 +64,10 @@ unsigned int ex_cmd(t_node *root)
         }
         else
         {
-            args = get_cmdagrs(root->args);
-            cmdpath = get_cmd_path(neobash.paths, args[0]);
-            if (!ft_strncmp(args[0], "./minishell", 12))
+            cmdpath = get_cmd_path(neobash.paths, neobash.argss[0]);
+            if (!ft_strncmp(neobash.argss[0], "./minishell", 12))
             {
-                printf(RED "`%s'\n" RES, args[0]);
+                printf(RED "`%s'\n" RES, neobash.argss[0]);
                 update_env("SHLVL", ft_itoa(++neobash.level));
                 printf("[%s]\n", get_env_val("SHLVL"));
             }
@@ -83,14 +83,14 @@ unsigned int ex_cmd(t_node *root)
                 }
                 if (!cmdpath)
                 {
-                    ft_error("neobash: command not found: $", args[0]);
+                    ft_error("neobash: command not found: $", neobash.argss[0]);
                     ft_free_all();
                     exit(127);
                 }
                 else
                 {
                     my_envp = get_my_envp();
-                    execve(cmdpath, args, my_envp);
+                    execve(cmdpath, neobash.argss, my_envp);
                     perror("execve");
                     ft_free_all();
                     exit(1);

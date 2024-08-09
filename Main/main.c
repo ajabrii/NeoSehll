@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:41:10 by kali              #+#    #+#             */
-/*   Updated: 2024/08/08 15:05:09 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/09 11:02:44 by ajabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ void print_ast(t_node *root) {
 /*88888888888888*/
 void    ft_init_neobash(char **env)
 {
-    // (void)env;
     neobash.envp = env;
     get_env_list(env);
     neobash.prs_state = 0;
@@ -107,41 +106,51 @@ void    ft_init_neobash(char **env)
     neobash.in = dup(0);
 	neobash.out = dup(1);
     neobash.err = dup(2);
-    // neobash.freed = NULL;
     neobash.paths = grep_paths(env);
     neobash.level = ft_atoi(get_env_val("SHLVL"));
-    // neobash.prompt = NULL;
 }
 /*lldld*/
 void    ft_syntax_after()
 {
-    // int flag;
+    int flag;
 
-    // flag = 0;
+    flag = 0;
     if (neobash.prs_state == 1)
     {
         if (!neobash.cur_tok)
         {
-            printf("neobash: syntax error near unexpected token `%s'\n", "newline");
-            // free_tree();
-            return ;
+            ft_error("neobash: syntax error near unexpected token `$'\n", "newline");
+            return;
         }
         if (neobash.cur_tok->next)
         {
-            printf("neobash: syntax error near unexpected token `%s'\n", neobash.cur_tok->value);
+            ft_error("neobash: syntax error near unexpected token `$'\n", neobash.cur_tok->value);
             neobash.prs_state = 0;
-            // flag = 1;
+            flag = 1;
         }
-        // if (!flag)
-        // {
-        //     // printf(RED "[%s]-[%d]--[%d]\n" RES, neobash.cur_tok->value, neobash.cur_tok->type, neobash.flag);
-        //     printf("neobash: syntax error near unexpected token `%s'\n", neobash.cur_tok->value);
-        //     // free_tree();
-        // }
+        if (!flag)
+            ft_error("neobash: syntax error near unexpected token `$'\n", neobash.cur_tok->value);
     }
     return;
 }
 
+bool synyax_before()
+{
+    t_token *tmp;
+
+    tmp = neobash.tokens;
+
+    while (tmp)
+    {
+        if (tmp->type == SYNTAX)
+        {
+            ft_error("neobash: syntax error near unexpected token `$'", tmp->value);
+            return (false);
+        }
+        tmp = tmp->next;
+    }
+    return (true);
+}
 void neoshell()
 {
     while (true)
@@ -150,26 +159,32 @@ void neoshell()
         neobash.line = readline(PROMPT);
         if (neobash.line == NULL)
         {
-            printf("exit\n");
+            ft_error("exit\n", NULL);
             break;
         }
         if (neobash.line)
             add_history(neobash.line);
+        if (!ft_coutquotes())
+        {
+            free(neobash.line);
+            continue;
+        }
         ft_lexer();
         if (!neobash.tokens)
             continue;
         free(neobash.line);
+        if (!synyax_before())
+            continue;
+        // printf("hello\n");
         neobash.tree = ft_parser();
         // print_ast(neobash.tree);
-        // printf(RED "[%s]-[%d]\n" RES, neobash.cur_tok->value, neobash.cur_tok->type);
         if (neobash.prs_state)
         {
+            // printf("prs_state == 1\n");
             ft_syntax_after();
-            // printf("HEre\n");
             neobash.prs_state = 0;
             continue;
         }
-        // neobash.status = execute_ast(neobash.tree);
         execution();
         printf("Execution result: %d\n", neobash.status);
     }
@@ -180,6 +195,5 @@ int main(int ac, char **av, char **env)
     (void)av;
     ft_init_neobash(env);
     neoshell();
-    // ft_free_all();
     return (0);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   syntax.c                                           :+:      :+:    :+:   */
+/*   lextools.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ajabri <ajabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 15:20:20 by ajabri            #+#    #+#             */
-/*   Updated: 2024/06/30 06:25:51 by ajabri           ###   ########.fr       */
+/*   Updated: 2024/08/09 09:33:24 by ajabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void ft_lexical()
     int ntoken = 0;
     int len;
 
-    ft_coutquotes();
     neobash.sub = ft_malloc(sizeof(char *) * (ft_strlen(neobash.line) + 1));
     while (neobash.line[i])
     {
