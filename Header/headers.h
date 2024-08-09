@@ -6,7 +6,7 @@
 /*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:41:39 by kali              #+#    #+#             */
-/*   Updated: 2024/08/08 11:37:48 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/08/09 10:08:51 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,10 +269,11 @@ void ex_lpipe(int fd[2], t_node *root);
 char *normal_str(char *str, int *i);
 char *handle_squotes(char *str, int *i);
 char *handle_dquotes(char *str, int *i);
-char *dquote_str(char *str, int *i);
+char *dquote_str(char *str, int *i, char qoute);
 char *handle_dollar(char *str, int *i);
 bool valid_char(char c);
 char *ft_expand(char *str);
+char *heredoc_exp(char *str);
 /* </Expand> */
 
 /*<signals>*/

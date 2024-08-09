@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ex_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 18:58:23 by kali              #+#    #+#             */
-/*   Updated: 2024/08/06 09:37:55 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/09 10:19:44 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char **get_cmdagrs(char *line)
         return NULL;
     while (line[i])
     {
-        while (line[i] && isspace(line[i])) // don't forget to change this to libft functio ft_isspace !!!
+        while (line[i] && ft_isspace(line[i]))
             i++;
         if (line[i] == '\0')
             break;
@@ -48,7 +48,7 @@ char **get_cmdagrs(char *line)
         else
         {
             start = i;
-            while (line[i] && !isspace(line[i]))
+            while (line[i] && !ft_isspace(line[i]))
                 i++;
             res[nargs] = ft_substr(line, start, i - start);
         }

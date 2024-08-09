@@ -6,7 +6,7 @@
 /*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:35:31 by ytarhoua          #+#    #+#             */
-/*   Updated: 2024/08/08 11:05:22 by ytarhoua         ###   ########.fr       */
+/*   Updated: 2024/08/09 09:48:36 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void ft_unset(char *s)
             i = 0;
             while (var[i])
             {
-                if (!ft_strcmp(var[i], tmp->key))
+                if (!ft_strcmp(var[i], tmp->key) && ft_strcmp(var[i], "_"))
                 {
                     printf("Here tmp->tmp ::%s \n", tmp->key);
                     if (prev)

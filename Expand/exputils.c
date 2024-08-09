@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exputils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: venom <venom@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/18 06:20:30 by ajabri            #+#    #+#             */
-/*   Updated: 2024/07/22 16:38:21 by venom            ###   ########.fr       */
+/*   Created: 2024/08/09 09:55:46 by ytarhoua          #+#    #+#             */
+/*   Updated: 2024/08/09 10:03:26 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,28 @@ char *handle_squotes(char *str, int *i)
 char *handle_dquotes(char *str, int *i)
 {
 	char *res;
+	char qoute;
 
+	qoute = str[*i];
 	res = ft_strdup("\"");
 	(*i)++;
-	while (str[*i] != '\"')
+	while (str[*i] != qoute)
 	{
 		if (str[*i] == '$')
 			res = ft_strjoin(res, handle_dollar(str, i));
 		else
-			res = ft_strjoin(res, dquote_str(str, i));
+			res = ft_strjoin(res, dquote_str(str, i, qoute));
 	}
 	(*i)++;
 	return (ft_strjoin(res, "\""));
 }
 
-char	*dquote_str(char *str, int *i)
+char	*dquote_str(char *str, int *i, char qoute)
 {
 	int	start;
 
 	start = *i;
-	while (str[*i] != '"' && str[*i] != '$')
+	while (str[*i] != qoute && str[*i] != '$')
 		(*i)++;
 	return (ft_substr(str, start, *i - start));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ex_io.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ytarhoua <ytarhoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 09:42:59 by kali              #+#    #+#             */
-/*   Updated: 2024/08/07 20:03:52 by kali             ###   ########.fr       */
+/*   Updated: 2024/08/09 10:06:50 by ytarhoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void ft_init_io(t_node *root)
 
     if (!root)
         return;
-    root->args = ft_expand(root->args);
+    root->args = heredoc_exp(root->args);
 
     io = root->iol;
     while (io)
